@@ -28,16 +28,29 @@ export default function RootLayout({
     <html
       lang="ja"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
         <Header />
-        <main className="flex-1">{children}</main>
-        <footer className="bg-white border-t border-gray-200 py-8 mt-12">
-          <div className="max-w-6xl mx-auto px-4 text-center text-sm text-gray-500">
-            <p>院試DB — 大学院入試 過去問データベース</p>
-            <p className="mt-1">
-              ※ 問題文の著作権は各大学に帰属します。本サイトでは解答・解説のみを掲載しています。
-            </p>
+        <main className="flex-1 pt-16">{children}</main>
+        <footer className="border-t bg-muted/20 py-16">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="flex flex-col items-center gap-4 text-center">
+              <div className="flex items-center gap-2">
+                <div className="flex size-7 items-center justify-center rounded-md bg-primary text-primary-foreground font-bold text-xs">
+                  院
+                </div>
+                <span className="text-sm font-bold tracking-tight">院試DB</span>
+              </div>
+              <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
+                主要大学院の物理学・数学の入試過去問を分野別・年度別に整理。
+                丁寧な解答解説付き。
+              </p>
+              <div className="h-px w-16 bg-border my-2" />
+              <p className="text-[10px] text-muted-foreground/50">
+                ※ 問題文の著作権は各大学に帰属します
+              </p>
+            </div>
           </div>
         </footer>
       </body>

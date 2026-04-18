@@ -2,9 +2,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { problems, getProblemsByField } from "@/data/problems";
 import { universities } from "@/data/universities";
-import { FIELD_LABELS, FIELD_COLORS, Field } from "@/data/types";
+import { FIELD_LABELS, Field } from "@/data/types";
 import { FieldBadge } from "@/components/FieldBadge";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
 const ALL_FIELDS = Object.keys(FIELD_LABELS) as Field[];
@@ -48,111 +53,128 @@ export default async function FieldPage({
   const filteredProblems = isAll ? problems : getProblemsByField(field);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="mx-auto max-w-5xl px-6 py-12">
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-500 mb-6">
-        <Link href="/" className="hover:text-blue-600">
-          ホーム
-        </Link>
-        <span className="mx-2">/</span>
-        <span className="text-gray-800">
-          {isAll ? "分野別一覧" : FIELD_LABELS[field as Field]}
-        </span>
-      </nav>
+      <FadeIn>
+        <nav className="mb-10 flex items-center gap-2 text-xs text-muted-foreground">
+          <Link href="/" className="hover:text-foreground transition-colors">
+            ホーム
+          </Link>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg>
+          <span className="text-foreground font-medium">
+            {isAll ? "分野別一覧" : FIELD_LABELS[field as Field]}
+          </span>
+        </nav>
+      </FadeIn>
 
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">
-        {isAll ? "分野別 問題一覧" : `${FIELD_LABELS[field as Field]}の問題`}
-      </h1>
+      <FadeIn>
+        <div className="mb-12">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-3">
+            Fields
+          </p>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {isAll ? "分野別 問題一覧" : `${FIELD_LABELS[field as Field]}の問題`}
+          </h1>
+          <p className="mt-3 text-muted-foreground">
+            {isAll
+              ? "すべての分野から問題を一覧"
+              : `${FIELD_LABELS[field as Field]}に関する院試過去問`}
+          </p>
+        </div>
+      </FadeIn>
 
       {/* Field Filter */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        <Link
-          href="/fields/all"
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-            isAll
-              ? "bg-gray-800 text-white"
-              : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
-          }`}
-        >
-          すべて ({problems.length})
-        </Link>
-        {ALL_FIELDS.map((f) => {
-          const count = getProblemsByField(f).length;
-          if (count === 0) return null;
-          const isActive = field === f;
-          return (
-            <Link
-              key={f}
-              href={`/fields/${f}`}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                isActive
-                  ? `${FIELD_COLORS[f]} ring-2 ring-offset-1 ring-gray-300`
-                  : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
-              }`}
-            >
-              {FIELD_LABELS[f]} ({count})
-            </Link>
-          );
-        })}
-      </div>
+      <FadeIn delay={0.1}>
+        <div className="mb-12 flex flex-wrap gap-2">
+          <Link
+            href="/fields/all"
+            className={cn(
+              buttonVariants({ variant: isAll ? "default" : "outline", size: "sm" }),
+              "text-xs"
+            )}
+          >
+            すべて ({problems.length})
+          </Link>
+          {ALL_FIELDS.map((f) => {
+            const count = getProblemsByField(f).length;
+            if (count === 0) return null;
+            const isActive = field === f;
+            return (
+              <Link
+                key={f}
+                href={`/fields/${f}`}
+                className={cn(
+                  buttonVariants({ variant: isActive ? "default" : "outline", size: "sm" }),
+                  "text-xs"
+                )}
+              >
+                {FIELD_LABELS[f]} ({count})
+              </Link>
+            );
+          })}
+        </div>
+      </FadeIn>
 
       {/* Problem List */}
-      <div className="space-y-3">
+      <StaggerContainer className="space-y-3" stagger={0.04}>
         {filteredProblems.map((p) => {
           const uni = universities.find((u) => u.slug === p.universitySlug);
           return (
-            <Link
-              key={p.id}
-              href={`/problems/${p.id}`}
-              className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-300 transition-all duration-200"
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
-                    <span className="font-medium">{uni?.shortName}</span>
-                    <span>·</span>
-                    <span>{p.year}年度</span>
-                    <span>·</span>
-                    <span>
-                      {p.subject} 問{p.problemNumber}
-                    </span>
-                    {!p.isFree && (
-                      <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">
-                        &#x1f512;
+            <StaggerItem key={p.id}>
+              <Link href={`/problems/${p.id}`} className="group block">
+                <Card className="transition-all duration-300 hover:shadow-md hover:shadow-primary/5 hover:-translate-y-0.5 hover:ring-2 hover:ring-primary/10">
+                  <CardContent className="flex items-start justify-between py-5">
+                    <div className="flex items-start gap-4 min-w-0">
+                      <span className="hidden sm:flex size-10 items-center justify-center rounded-lg bg-muted text-xs font-bold text-muted-foreground shrink-0 mt-0.5">
+                        {uni?.shortName}
                       </span>
-                    )}
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                    {p.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex flex-col items-end gap-2 ml-4">
-                  <FieldBadge field={p.field} />
-                  <DifficultyBadge difficulty={p.difficulty} />
-                </div>
-              </div>
-            </Link>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 text-[11px] text-muted-foreground mb-1.5">
+                          <span className="sm:hidden font-semibold">{uni?.shortName}</span>
+                          <span>{p.year}年度</span>
+                          <span>·</span>
+                          <span>{p.subject} 問{p.problemNumber}</span>
+                          {!p.isFree && (
+                            <Badge variant="outline" className="text-[9px] text-muted-foreground px-1.5">
+                              PRO
+                            </Badge>
+                          )}
+                        </div>
+                        <h3 className="text-base font-semibold leading-snug group-hover:text-primary transition-colors mb-2">
+                          {p.title}
+                        </h3>
+                        <div className="flex flex-wrap gap-1">
+                          {p.tags.map((tag) => (
+                            <Badge key={tag} variant="secondary" className="text-[10px] font-normal">
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="ml-4 flex flex-col items-end gap-2 shrink-0">
+                      <FieldBadge field={p.field} />
+                      <DifficultyBadge difficulty={p.difficulty} />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerContainer>
 
       {filteredProblems.length === 0 && (
-        <div className="text-center py-16 text-gray-500">
-          <p className="text-lg mb-2">この分野の問題はまだありません</p>
-          <Link href="/" className="text-blue-600 hover:underline">
-            ホームに戻る
-          </Link>
-        </div>
+        <FadeIn>
+          <div className="text-center py-24">
+            <p className="text-lg text-muted-foreground mb-6">
+              この分野の問題はまだありません
+            </p>
+            <Link href="/" className={cn(buttonVariants({ variant: "outline" }))}>
+              ホームに戻る
+            </Link>
+          </div>
+        </FadeIn>
       )}
     </div>
   );

@@ -1,17 +1,16 @@
+import { Badge } from "@/components/ui/badge";
 import { Difficulty, DIFFICULTY_LABELS } from "@/data/types";
 
-const DIFFICULTY_STYLES: Record<Difficulty, string> = {
-  basic: "bg-emerald-100 text-emerald-700",
-  standard: "bg-yellow-100 text-yellow-700",
-  advanced: "bg-red-100 text-red-700",
+const DIFFICULTY_CLASSES: Record<Difficulty, string> = {
+  basic: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20",
+  standard: "bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20",
+  advanced: "bg-red-500/10 text-red-700 dark:text-red-400 border-red-500/20",
 };
 
 export function DifficultyBadge({ difficulty }: { difficulty: Difficulty }) {
   return (
-    <span
-      className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-medium ${DIFFICULTY_STYLES[difficulty]}`}
-    >
+    <Badge variant="outline" className={DIFFICULTY_CLASSES[difficulty]}>
       {DIFFICULTY_LABELS[difficulty]}
-    </span>
+    </Badge>
   );
 }

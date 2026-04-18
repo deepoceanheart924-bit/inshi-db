@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { universities } from "@/data/universities";
 import { problems } from "@/data/problems";
-import { FIELD_LABELS, FIELD_COLORS, Field } from "@/data/types";
+import { FIELD_LABELS, Field } from "@/data/types";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import { FieldBadge } from "@/components/FieldBadge";
+import { DifficultyBadge } from "@/components/DifficultyBadge";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
+import { cn } from "@/lib/utils";
 
 function getFieldCounts(): Record<Field, number> {
   const counts = {} as Record<Field, number>;
@@ -18,166 +25,252 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white py-16">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            院試過去問データベース
-          </h1>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            主要大学院の物理学・数学の入試過去問を
-            <br className="hidden sm:block" />
-            分野別・年度別に整理。丁寧な解答解説付き。
-          </p>
-          <div className="flex justify-center gap-8 text-center">
-            <div>
-              <div className="text-3xl font-bold">{universities.length}</div>
-              <div className="text-blue-200 text-sm">大学</div>
+      {/* Hero */}
+      <section className="relative overflow-hidden py-28 sm:py-36">
+        {/* Animated background orbs */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-[-20%] left-[-10%] h-[500px] w-[500px] rounded-full bg-primary/[0.07] blur-[100px]" />
+          <div className="absolute bottom-[-20%] right-[-10%] h-[400px] w-[400px] rounded-full bg-purple-500/[0.05] blur-[100px]" />
+          <div className="absolute top-[30%] right-[20%] h-[300px] w-[300px] rounded-full bg-cyan-500/[0.04] blur-[80px]" />
+        </div>
+
+        {/* Grid pattern */}
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,black_20%,transparent_100%)] opacity-40" />
+
+        <div className="relative mx-auto max-w-5xl px-6 text-center">
+          <FadeIn>
+            <Badge variant="secondary" className="mb-6 px-4 py-1.5 text-xs tracking-wider uppercase">
+              Physics & Mathematics
+            </Badge>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
+            <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl leading-[1.08]">
+              院試過去問
+              <br />
+              <span className="bg-gradient-to-r from-primary via-purple-500 to-primary bg-clip-text text-transparent">
+                データベース
+              </span>
+            </h1>
+          </FadeIn>
+
+          <FadeIn delay={0.2}>
+            <p className="mx-auto mt-6 max-w-md text-base text-muted-foreground leading-relaxed">
+              主要大学院の入試過去問を分野別・年度別に整理。
+              丁寧な解答解説で、効率的な院試対策を支援します。
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.3}>
+            <div className="mt-10 flex justify-center gap-3">
+              <Link href="/fields/all" className={cn(buttonVariants({ size: "lg" }), "px-8 h-12 text-sm")}>
+                問題を探す
+              </Link>
+              <Link href="#universities" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "px-8 h-12 text-sm")}>
+                大学一覧
+              </Link>
             </div>
-            <div>
-              <div className="text-3xl font-bold">{totalProblems}</div>
-              <div className="text-blue-200 text-sm">問題数</div>
+          </FadeIn>
+
+          {/* Stats */}
+          <FadeIn delay={0.4}>
+            <div className="mx-auto mt-16 flex max-w-xs justify-between">
+              {[
+                { value: universities.length, label: "大学" },
+                { value: totalProblems, label: "問題数" },
+                { value: freeProblems, label: "無料公開" },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="text-4xl font-bold tracking-tighter">{stat.value}</div>
+                  <div className="mt-1 text-[11px] text-muted-foreground uppercase tracking-widest">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
-            <div>
-              <div className="text-3xl font-bold">{freeProblems}</div>
-              <div className="text-blue-200 text-sm">無料公開</div>
-            </div>
-          </div>
+          </FadeIn>
         </div>
       </section>
 
       {/* Universities */}
-      <section className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">大学別で探す</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section id="universities" className="mx-auto max-w-6xl px-6 py-24">
+        <FadeIn>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-3">
+            Universities
+          </p>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">大学別で探す</h2>
+          <p className="mt-3 text-muted-foreground max-w-md">
+            各大学の過去問と解答解説を年度別に整理しています
+          </p>
+        </FadeIn>
+
+        <StaggerContainer className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
           {universities.map((uni) => {
-            const uniProblems = problems.filter(
-              (p) => p.universitySlug === uni.slug
-            );
-            const years = [...new Set(uniProblems.map((p) => p.year))].sort(
-              (a, b) => b - a
-            );
+            const uniProblems = problems.filter((p) => p.universitySlug === uni.slug);
+            const years = [...new Set(uniProblems.map((p) => p.year))].sort((a, b) => b - a);
             const fields = [...new Set(uniProblems.map((p) => p.field))];
 
             return (
-              <Link
-                key={uni.slug}
-                href={`/universities/${uni.slug}`}
-                className="block bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all duration-200"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900">
-                      {uni.name}
-                    </h3>
-                    <p className="text-sm text-gray-500">{uni.department}</p>
-                  </div>
-                  <span className="bg-blue-50 text-blue-700 text-sm font-medium px-2.5 py-1 rounded-lg">
-                    {uniProblems.length}問
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {fields.map((f) => (
-                    <span
-                      key={f}
-                      className={`text-xs px-2 py-0.5 rounded-full ${FIELD_COLORS[f]}`}
-                    >
-                      {FIELD_LABELS[f]}
-                    </span>
-                  ))}
-                </div>
-                <p className="text-xs text-gray-400">
-                  {years.join("・")}年度
-                </p>
-              </Link>
+              <StaggerItem key={uni.slug}>
+                <Link href={`/universities/${uni.slug}`} className="group block">
+                  <Card className="h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 hover:ring-2 hover:ring-primary/15">
+                    <CardContent className="pt-6 pb-5">
+                      <div className="flex items-start justify-between mb-4">
+                        <div>
+                          <h3 className="text-lg font-bold tracking-tight group-hover:text-primary transition-colors">
+                            {uni.name}
+                          </h3>
+                          <p className="mt-0.5 text-xs text-muted-foreground leading-relaxed">
+                            {uni.department}
+                          </p>
+                        </div>
+                        <span className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary text-sm font-bold">
+                          {uniProblems.length}
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 mb-3">
+                        {fields.map((f) => (
+                          <FieldBadge key={f} field={f} />
+                        ))}
+                      </div>
+                      <p className="text-[11px] text-muted-foreground tracking-wide">
+                        {years.join(" / ")}年度
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerContainer>
       </section>
 
       {/* Fields */}
-      <section className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">分野別で探す</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {(Object.entries(FIELD_LABELS) as [Field, string][]).map(
-            ([key, label]) => (
-              <Link
-                key={key}
-                href={`/fields/${key}`}
-                className="block rounded-xl border border-gray-200 p-4 text-center hover:shadow-md transition-all duration-200 bg-white"
-              >
-                <div className="text-2xl font-bold text-gray-800">
-                  {fieldCounts[key] || 0}
-                </div>
-                <div
-                  className={`inline-block mt-1 px-3 py-1 rounded-full text-sm font-medium ${FIELD_COLORS[key]}`}
-                >
-                  {label}
-                </div>
-              </Link>
-            )
-          )}
+      <section className="border-y bg-muted/20">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <FadeIn>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-3">
+              Fields
+            </p>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">分野別で探す</h2>
+            <p className="mt-3 text-muted-foreground max-w-md">
+              得意分野の強化や苦手分野の克服に
+            </p>
+          </FadeIn>
+
+          <StaggerContainer className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4" stagger={0.05}>
+            {(Object.entries(FIELD_LABELS) as [Field, string][]).map(([key, label]) => {
+              const count = fieldCounts[key] || 0;
+              return (
+                <StaggerItem key={key}>
+                  <Link href={`/fields/${key}`} className="group block">
+                    <Card className="text-center transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1">
+                      <CardContent className="py-8">
+                        <div className="text-4xl font-bold tracking-tighter group-hover:text-primary transition-colors">
+                          {count}
+                        </div>
+                        <div className="mt-2">
+                          <FieldBadge field={key} />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </StaggerItem>
+              );
+            })}
+          </StaggerContainer>
         </div>
       </section>
 
       {/* Recent Problems */}
-      <section className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
-          最近追加された問題
-        </h2>
-        <div className="space-y-3">
-          {problems.slice(0, 5).map((p) => {
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <FadeIn>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-3">
+            Recent
+          </p>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">最近追加された問題</h2>
+          <p className="mt-3 text-muted-foreground max-w-md">
+            最新の過去問解説をチェック
+          </p>
+        </FadeIn>
+
+        <StaggerContainer className="mt-12 space-y-3" stagger={0.05}>
+          {problems.slice(0, 6).map((p) => {
             const uni = universities.find((u) => u.slug === p.universitySlug);
             return (
-              <Link
-                key={p.id}
-                href={`/problems/${p.id}`}
-                className="block bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md hover:border-blue-300 transition-all duration-200"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-gray-500 w-12">
-                      {uni?.shortName}
-                    </span>
-                    <span className="text-sm text-gray-400">{p.year}年</span>
-                    <span className="font-medium text-gray-800">{p.title}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={`text-xs px-2 py-0.5 rounded-full ${FIELD_COLORS[p.field]}`}
-                    >
-                      {FIELD_LABELS[p.field]}
-                    </span>
-                    {!p.isFree && (
-                      <span className="text-xs text-gray-400">&#x1f512;</span>
-                    )}
-                  </div>
-                </div>
-              </Link>
+              <StaggerItem key={p.id}>
+                <Link href={`/problems/${p.id}`} className="group block">
+                  <Card className="transition-all duration-300 hover:shadow-md hover:shadow-primary/5 hover:ring-2 hover:ring-primary/10">
+                    <CardContent className="flex items-center justify-between py-4">
+                      <div className="flex items-center gap-4 min-w-0">
+                        <span className="hidden sm:flex size-10 items-center justify-center rounded-lg bg-muted text-xs font-bold text-muted-foreground shrink-0">
+                          {uni?.shortName}
+                        </span>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 text-[11px] text-muted-foreground mb-0.5">
+                            <span className="sm:hidden font-semibold">{uni?.shortName}</span>
+                            <span>{p.year}年度</span>
+                            <span>·</span>
+                            <span>{p.subject} 問{p.problemNumber}</span>
+                          </div>
+                          <h3 className="text-sm font-semibold truncate group-hover:text-primary transition-colors">
+                            {p.title}
+                          </h3>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 ml-4 shrink-0">
+                        <FieldBadge field={p.field} />
+                        <DifficultyBadge difficulty={p.difficulty} />
+                        {!p.isFree && (
+                          <Badge variant="outline" className="text-[10px] text-muted-foreground">
+                            PRO
+                          </Badge>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerContainer>
+
+        <FadeIn delay={0.3} className="mt-8 text-center">
+          <Link
+            href="/fields/all"
+            className={cn(buttonVariants({ variant: "outline" }), "px-8")}
+          >
+            すべての問題を見る
+          </Link>
+        </FadeIn>
       </section>
 
       {/* CTA */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-2xl mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            すべての解説を読む
-          </h2>
-          <p className="text-gray-600 mb-8">
-            無料会員で一部の解説を閲覧できます。
-            <br />
-            有料プラン（月額980円）ですべての解説が読み放題。
-          </p>
-          <div className="flex justify-center gap-4">
-            <span className="bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium cursor-pointer hover:bg-gray-50 transition-colors">
-              無料で始める
-            </span>
-            <span className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium cursor-pointer hover:bg-blue-700 transition-colors">
-              プレミアムプラン
-            </span>
-          </div>
+      <section className="relative overflow-hidden border-t">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-[-40%] left-[20%] h-[400px] w-[400px] rounded-full bg-primary/[0.06] blur-[100px]" />
+          <div className="absolute bottom-[-30%] right-[10%] h-[300px] w-[300px] rounded-full bg-purple-500/[0.04] blur-[80px]" />
+        </div>
+        <div className="mx-auto max-w-lg px-6 py-28 text-center">
+          <FadeIn>
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              すべての解説に
+              <br />
+              アクセスする
+            </h2>
+            <p className="mt-4 text-muted-foreground leading-relaxed">
+              無料会員で一部の解説を閲覧可能。
+              プレミアムプラン（月額980円）で全問題の解説が読み放題。
+            </p>
+            <div className="mt-8 flex justify-center gap-3">
+              <Link href="#" className={cn(buttonVariants({ variant: "outline", size: "lg" }), "px-8 h-12")}>
+                無料で始める
+              </Link>
+              <Link href="#" className={cn(buttonVariants({ size: "lg" }), "px-8 h-12")}>
+                プレミアムプラン
+              </Link>
+            </div>
+          </FadeIn>
         </div>
       </section>
     </div>

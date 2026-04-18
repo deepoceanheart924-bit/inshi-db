@@ -4,7 +4,11 @@ import { universities, getUniversity } from "@/data/universities";
 import { getProblemsByUniversity, getYears } from "@/data/problems";
 import { FieldBadge } from "@/components/FieldBadge";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
-import { FIELD_LABELS, Field } from "@/data/types";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
+import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -36,91 +40,109 @@ export default async function UniversityPage({
 
   const uniProblems = getProblemsByUniversity(slug);
   const years = getYears(slug);
+  const fields = [...new Set(uniProblems.map((p) => p.field))];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="mx-auto max-w-5xl px-6 py-12">
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-500 mb-6">
-        <Link href="/" className="hover:text-blue-600">
-          ホーム
-        </Link>
-        <span className="mx-2">/</span>
-        <span className="text-gray-800">{uni.name}</span>
-      </nav>
+      <FadeIn>
+        <nav className="mb-10 flex items-center gap-2 text-xs text-muted-foreground">
+          <Link href="/" className="hover:text-foreground transition-colors">
+            ホーム
+          </Link>
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg>
+          <span className="text-foreground font-medium">{uni.name}</span>
+        </nav>
+      </FadeIn>
 
-      {/* University Header */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">{uni.name}</h1>
-        <p className="text-gray-500 mb-4">{uni.department}</p>
-        <div className="flex items-center gap-4 text-sm">
-          <span className="text-gray-600">
-            全 {uniProblems.length} 問
-          </span>
-          <a
-            href={uni.officialUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:underline"
-          >
-            公式サイト →
-          </a>
+      {/* Header */}
+      <FadeIn>
+        <div className="mb-16">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-3">
+                University
+              </p>
+              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{uni.name}</h1>
+              <p className="mt-2 text-sm text-muted-foreground">{uni.department}</p>
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {fields.map((f) => (
+                  <FieldBadge key={f} field={f} />
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Badge variant="secondary" className="text-sm px-4 py-1.5">
+                {uniProblems.length} 問
+              </Badge>
+              <a
+                href={uni.officialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+              >
+                公式サイト
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
+              </a>
+            </div>
+          </div>
+          <div className="mt-8 h-px bg-border" />
         </div>
-      </div>
+      </FadeIn>
 
       {/* Problems by Year */}
-      {years.map((year) => {
+      {years.map((year, yi) => {
         const yearProblems = uniProblems
           .filter((p) => p.year === year)
           .sort((a, b) => a.problemNumber - b.problemNumber);
 
         return (
-          <div key={year} className="mb-8">
-            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <span className="bg-blue-600 text-white text-sm px-3 py-1 rounded-lg">
-                {year}年度
-              </span>
-            </h2>
-            <div className="space-y-3">
+          <div key={year} className="mb-16">
+            <FadeIn>
+              <div className="mb-6 flex items-center gap-4">
+                <Badge className="text-sm px-4 py-1.5">{year}年度</Badge>
+                <div className="flex-1 h-px bg-border" />
+              </div>
+            </FadeIn>
+
+            <StaggerContainer className="space-y-3" stagger={0.06}>
               {yearProblems.map((p) => (
-                <Link
-                  key={p.id}
-                  href={`/problems/${p.id}`}
-                  className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md hover:border-blue-300 transition-all duration-200"
-                >
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-sm text-gray-400">
-                          {p.subject} 問{p.problemNumber}
-                        </span>
-                        {!p.isFree && (
-                          <span className="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">
-                            &#x1f512; プレミアム
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                        {p.title}
-                      </h3>
-                      <div className="flex flex-wrap gap-1.5">
-                        {p.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-end gap-2 ml-4">
-                      <FieldBadge field={p.field} />
-                      <DifficultyBadge difficulty={p.difficulty} />
-                    </div>
-                  </div>
-                </Link>
+                <StaggerItem key={p.id}>
+                  <Link href={`/problems/${p.id}`} className="group block">
+                    <Card className="transition-all duration-300 hover:shadow-md hover:shadow-primary/5 hover:-translate-y-0.5 hover:ring-2 hover:ring-primary/10">
+                      <CardContent className="flex items-start justify-between py-5">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-[11px] text-muted-foreground tracking-wide">
+                              {p.subject} 問{p.problemNumber}
+                            </span>
+                            {!p.isFree && (
+                              <Badge variant="outline" className="text-[9px] text-muted-foreground px-1.5">
+                                PRO
+                              </Badge>
+                            )}
+                          </div>
+                          <h3 className="text-base font-semibold leading-snug group-hover:text-primary transition-colors mb-3">
+                            {p.title}
+                          </h3>
+                          <div className="flex flex-wrap gap-1">
+                            {p.tags.map((tag) => (
+                              <Badge key={tag} variant="secondary" className="text-[10px] font-normal">
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="ml-6 flex flex-col items-end gap-2 shrink-0">
+                          <FieldBadge field={p.field} />
+                          <DifficultyBadge difficulty={p.difficulty} />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </div>
         );
       })}
