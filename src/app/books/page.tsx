@@ -7,9 +7,19 @@ import { BOOKS_ENABLED } from "@/lib/features";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "おすすめ参考書 — 院試DB",
+  title: "おすすめ参考書",
   description:
     "物理学・数学の院試対策に役立つ参考書を分野別に厳選。定番から最新まで、用途別のおすすめを初学者向けに解説。",
+  alternates: { canonical: "/books" },
+  openGraph: {
+    title: "おすすめ参考書",
+    description: "物理学・数学の院試対策に役立つ参考書を分野別に厳選。",
+    url: "/books",
+    type: "website",
+    locale: "ja_JP",
+    siteName: "院試DB",
+  },
+  twitter: { card: "summary_large_image", title: "おすすめ参考書", description: "物理学・数学の院試対策参考書。" },
   robots: BOOKS_ENABLED ? undefined : { index: false, follow: false },
 };
 

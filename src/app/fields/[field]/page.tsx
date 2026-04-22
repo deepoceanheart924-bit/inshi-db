@@ -11,6 +11,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
+import { JsonLd, breadcrumbSchema } from "@/components/JsonLd";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
@@ -27,16 +28,27 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { field } = await params;
   if (field === "all") {
+    const title = "分野別問題一覧";
+    const description = "大学院入試の物理学・数学の問題を分野別に整理。力学・電磁気・量子・統計力学・熱力学・光学・相対論・数学。";
     return {
-      title: "分野別問題一覧 — 院試DB",
-      description: "大学院入試の物理学・数学の問題を分野別に整理",
+      title,
+      description,
+      alternates: { canonical: "/fields/all" },
+      openGraph: { title, description, url: "/fields/all", type: "website", locale: "ja_JP", siteName: "院試DB" },
+      twitter: { card: "summary_large_image", title, description },
     };
   }
   const label = FIELD_LABELS[field as Field];
   if (!label) return { title: "Not Found" };
+  const title = `${label}の問題一覧`;
+  const description = `大学院入試の${label}の過去問・解答解説。年度・大学横断で一覧表示。`;
+  const url = `/fields/${field}`;
   return {
-    title: `${label}の問題一覧 — 院試DB`,
-    description: `大学院入試の${label}の過去問・解答解説`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: "website", locale: "ja_JP", siteName: "院試DB" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -56,6 +68,12 @@ export default async function FieldPage({
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-12">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "ホーム", url: "/" },
+          { name: isAll ? "分野別一覧" : FIELD_LABELS[field as Field] },
+        ])}
+      />
       {/* Breadcrumb */}
       <FadeIn>
         <nav className="mb-10 flex items-center gap-2 text-xs text-muted-foreground">

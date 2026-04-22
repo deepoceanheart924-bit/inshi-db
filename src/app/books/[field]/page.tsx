@@ -45,9 +45,15 @@ export async function generateMetadata({
   const { field } = await params;
   if (!VALID_FIELDS.includes(field as BookField)) return { title: "Not Found" };
   const label = BOOK_FIELD_LABELS[field as BookField];
+  const title = `${label}のおすすめ参考書`;
+  const description = `院試対策に役立つ${label}の参考書を厳選して紹介。`;
+  const url = `/books/${field}`;
   return {
-    title: `${label}のおすすめ参考書 — 院試DB`,
-    description: `院試対策に役立つ${label}の参考書を厳選して紹介`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: "website", locale: "ja_JP", siteName: "院試DB" },
+    twitter: { card: "summary_large_image", title, description },
     robots: BOOKS_ENABLED ? undefined : { index: false, follow: false },
   };
 }

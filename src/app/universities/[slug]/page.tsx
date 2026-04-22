@@ -9,6 +9,11 @@ import { buttonVariants } from "@/components/ui/button";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
 import { DotPattern } from "@/components/patterns";
 import { FieldIcon } from "@/components/FieldIcon";
+import {
+  JsonLd,
+  breadcrumbSchema,
+  itemListSchema,
+} from "@/components/JsonLd";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
@@ -24,9 +29,22 @@ export async function generateMetadata({
   const { slug } = await params;
   const uni = getUniversity(slug);
   if (!uni) return { title: "Not Found" };
+  const title = `${uni.name} ${uni.department}`;
+  const description = `${uni.name} ${uni.department}の大学院入試過去問・解答解説。年度別・科目別に整理。`;
+  const url = `/universities/${slug}`;
   return {
-    title: `${uni.name} ${uni.department} — 院試DB`,
-    description: `${uni.name} ${uni.department}の大学院入試過去問・解答解説`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      locale: "ja_JP",
+      siteName: "院試DB",
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -45,6 +63,22 @@ export default async function UniversityPage({
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-12">
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "ホーム", url: "/" },
+          { name: uni.name },
+        ])}
+      />
+      <JsonLd
+        data={itemListSchema({
+          url: `/universities/${slug}`,
+          name: `${uni.name} 年度一覧`,
+          items: years.map((y) => ({
+            url: `/universities/${slug}/${y}`,
+            name: `${uni.name} ${y}年度`,
+          })),
+        })}
+      />
       {/* Breadcrumb */}
       <FadeIn>
         <nav className="mb-10 flex items-center gap-2 text-xs text-muted-foreground">

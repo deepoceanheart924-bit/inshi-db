@@ -8,8 +8,18 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "物理解説 — 院試DB",
-  description: "物理学・数学の基本概念、定理、計算技法、躓きやすいポイントを丁寧に解説",
+  title: "物理解説",
+  description: "物理学・数学の基本概念、定理、計算技法、躓きやすいポイントを丁寧に解説。院試対策と学部物理の橋渡し。",
+  alternates: { canonical: "/topics" },
+  openGraph: {
+    title: "物理解説",
+    description: "物理学・数学の基本概念、定理、計算技法、躓きやすいポイントを丁寧に解説。",
+    url: "/topics",
+    type: "website",
+    locale: "ja_JP",
+    siteName: "院試DB",
+  },
+  twitter: { card: "summary_large_image", title: "物理解説", description: "物理学・数学の基本概念を丁寧に解説。" },
 };
 
 const CATEGORIES: TopicCategory[] = ["concept", "theorem", "technique", "stumbling", "math"];

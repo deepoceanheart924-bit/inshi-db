@@ -18,6 +18,7 @@ import { CrawlingParticles } from "@/components/CrawlingParticles";
 import { getBooksForTopic } from "@/data/books";
 import { RelatedBooks } from "@/components/RelatedBooks";
 import { BOOKS_ENABLED } from "@/lib/features";
+import { JsonLd, articleSchema, breadcrumbSchema } from "@/components/JsonLd";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
@@ -33,9 +34,22 @@ export async function generateMetadata({
   const { id } = await params;
   const topic = getTopic(id);
   if (!topic) return { title: "Not Found" };
+  const title = `${topic.title}`;
+  const description = topic.summary;
+  const url = `/topics/${topic.id}`;
   return {
-    title: `${topic.title} — 院試DB 物理解説`,
-    description: topic.summary,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "article",
+      locale: "ja_JP",
+      siteName: "院試DB",
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -50,6 +64,24 @@ export default async function TopicPage({
 
   return (
     <div className="creative min-h-[80vh] relative" data-toc-root>
+      <JsonLd
+        data={articleSchema({
+          url: `/topics/${topic.id}`,
+          headline: topic.title,
+          description: topic.summary,
+          about:
+            topic.field && topic.field !== "general"
+              ? FIELD_LABELS[topic.field as Field]
+              : undefined,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "ホーム", url: "/" },
+          { name: "物理解説", url: "/topics" },
+          { name: topic.title },
+        ])}
+      />
       <ReadingProgress />
       <FloatingTOC />
       <CrawlingParticles color="var(--cr-ink)" />

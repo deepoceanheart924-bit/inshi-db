@@ -19,6 +19,12 @@ import { getRelatedTopics, CATEGORY_LABELS, CATEGORY_COLORS } from "@/data/topic
 import { getRelatedBooks } from "@/data/books";
 import { RelatedBooks } from "@/components/RelatedBooks";
 import { BOOKS_ENABLED } from "@/lib/features";
+import {
+  JsonLd,
+  articleSchema,
+  breadcrumbSchema,
+} from "@/components/JsonLd";
+import { FIELD_LABELS } from "@/data/types";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
@@ -35,9 +41,26 @@ export async function generateMetadata({
   const problem = getProblem(id);
   if (!problem) return { title: "Not Found" };
   const uni = getUniversity(problem.universitySlug);
+  const title = `${uni?.shortName} ${problem.year}年 ${problem.title}`;
+  const description = `${uni?.name} ${problem.year}年度 ${problem.subject} 問${problem.problemNumber}「${problem.title}」の解答解説。院試DBによるオリジナル解説。`;
+  const url = `/problems/${problem.id}`;
   return {
-    title: `${uni?.shortName} ${problem.year}年 ${problem.title} — 院試DB`,
-    description: `${uni?.name} ${problem.year}年度 ${problem.subject} 問${problem.problemNumber}「${problem.title}」の解答解説`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "article",
+      locale: "ja_JP",
+      siteName: "院試DB",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 
@@ -52,8 +75,29 @@ export default async function ProblemPage({
 
   const uni = getUniversity(problem.universitySlug);
 
+  const canonicalPath = `/problems/${problem.id}`;
+  const articleHeadline = `${uni?.shortName ?? ""} ${problem.year}年 ${problem.title}`;
+  const articleDescription = `${uni?.name ?? ""} ${problem.year}年度 ${problem.subject} 問${problem.problemNumber}「${problem.title}」の解答解説。`;
+
   return (
     <div className="mx-auto max-w-3xl px-6 py-12" data-toc-root>
+      <JsonLd
+        data={articleSchema({
+          url: canonicalPath,
+          headline: articleHeadline,
+          description: articleDescription,
+          keywords: problem.tags,
+          about: FIELD_LABELS[problem.field],
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "ホーム", url: "/" },
+          { name: uni?.name ?? "", url: `/universities/${problem.universitySlug}` },
+          { name: `${problem.year}年度`, url: `/universities/${problem.universitySlug}/${problem.year}` },
+          { name: problem.title },
+        ])}
+      />
       <ReadingProgress />
       <FloatingTOC />
 

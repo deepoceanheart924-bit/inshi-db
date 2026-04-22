@@ -12,6 +12,11 @@ import { FadeIn } from "@/components/animations";
 import { DotPattern } from "@/components/patterns";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  JsonLd,
+  breadcrumbSchema,
+  learningResourceSchema,
+} from "@/components/JsonLd";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
@@ -32,9 +37,26 @@ export async function generateMetadata({
   const uni = getUniversity(uniSlug);
   const subjectName = SUBJECT_FROM_SLUG[subject];
   if (!uni || !subjectName) return { title: "Not Found" };
+  const title = `${uni.name} ${year}年度 ${subjectName} 模擬演習`;
+  const description = `${uni.name} ${uni.department} ${year}年度 ${subjectName} の大学院入試問題を1ページにまとめて模擬演習。各大問の解説はトグルで開閉可能。`;
+  const url = `/exams/${uniSlug}/${year}/${subject}`;
   return {
-    title: `${uni.name} ${year}年度 ${subjectName} — 模擬演習 — 院試DB`,
-    description: `${uni.name} ${uni.department} ${year}年度 ${subjectName} の大学院入試問題を1ページにまとめて模擬演習。各大問の解説はトグルで開閉可能。`,
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "article",
+      locale: "ja_JP",
+      siteName: "院試DB",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 
@@ -55,8 +77,29 @@ export default async function ExamPage({
   // 受験ルール（大学定義の SubjectDef から取得、なければ undefined）
   const subjectDef = getSubject(uniSlug, subject);
 
+  const canonicalPath = `/exams/${uniSlug}/${year}/${subject}`;
+  const examTitle = `${uni.name} ${year}年度 ${subjectName} 模擬演習`;
+  const examDesc = `${uni.name} ${uni.department} ${year}年度 ${subjectName} の入試問題を1ページにまとめて模擬演習。${problems.length}問収録。`;
+
   return (
     <div className="relative min-h-screen">
+      <JsonLd
+        data={learningResourceSchema({
+          url: canonicalPath,
+          name: examTitle,
+          description: examDesc,
+          educationalLevel: "Graduate",
+          teaches: subjectName,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "ホーム", url: "/" },
+          { name: uni.name, url: `/universities/${uniSlug}` },
+          { name: `${year}年度`, url: `/universities/${uniSlug}/${year}` },
+          { name: `${subjectName} 模擬演習` },
+        ])}
+      />
       <DotPattern className="opacity-20" />
 
       <div className="relative mx-auto max-w-4xl px-6 py-12">

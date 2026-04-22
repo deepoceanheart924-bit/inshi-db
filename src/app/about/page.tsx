@@ -8,8 +8,18 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "運営について — 院試DB",
-  description: "院試DBの運営方針・目的・特徴について",
+  title: "運営について",
+  description: "院試DBの運営方針・目的・特徴について。完全無料・著作権に配慮・丁寧な解説を掲げるオープンな過去問データベース。",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "運営について",
+    description: "院試DBの運営方針・目的・特徴について。",
+    url: "/about",
+    type: "website",
+    locale: "ja_JP",
+    siteName: "院試DB",
+  },
+  twitter: { card: "summary_large_image", title: "運営について", description: "院試DBの運営方針・目的・特徴について。" },
 };
 
 const features = [

@@ -1,5 +1,46 @@
 # 院試DB 作業履歴
 
+## 2026-04-22 (続き2) — SEO整備 Phase A（Critical + JSON-LD）
+
+### 背景
+本番公開後の SEO 監査で以下の問題を発見：
+1. タイトル重複: `東大 2025年 ... — 院試DB | 院試DB`（generateMetadata が `— 院試DB` を含み、layout の template `%s | 院試DB` と二重化）
+2. OG/Twitter が動的ページで上書きされず、全ページで同じ homepage メタ
+3. 各動的ページで `alternates.canonical` 未設定
+4. 構造化データ（JSON-LD）がゼロ
+
+### 対応内容
+
+**新規ファイル**:
+- `src/components/JsonLd.tsx` — `<script type="application/ld+json">` を埋め込むサーバーコンポーネントと、`organizationSchema`, `websiteSchema`, `breadcrumbSchema`, `articleSchema`, `learningResourceSchema`, `itemListSchema` ヘルパー
+
+**全動的ページの修正**:
+- `layout.tsx` — Organization + WebSite JSON-LD を body に追加、root metadata に `alternates.canonical: "/"` 追加
+- `problems/[id]/page.tsx` — タイトルから `— 院試DB` 除去、canonical/og/twitter 設定、Article + BreadcrumbList JSON-LD
+- `exams/[uniSlug]/[year]/[subject]/page.tsx` — 同上、LearningResource + BreadcrumbList JSON-LD
+- `universities/[slug]/page.tsx` — 同上、BreadcrumbList + ItemList（年度一覧）JSON-LD
+- `universities/[slug]/[year]/page.tsx` — 同上、BreadcrumbList JSON-LD
+- `fields/[field]/page.tsx` — 同上、BreadcrumbList JSON-LD
+- `topics/[id]/page.tsx` — 同上、Article + BreadcrumbList JSON-LD
+- `topics/page.tsx`, `about/page.tsx`, `contact/page.tsx`, `privacy/page.tsx`, `takedown/page.tsx`, `books/page.tsx`, `books/[field]/page.tsx` — canonical/og/twitter 設定、タイトルから `— 院試DB` 除去
+
+### 動作確認（dev server）
+- `npx tsc --noEmit` エラー0件 ✅
+- 主要7ページでの確認項目:
+  - タイトル: `東大 2025年 ... | 院試DB` のように単一 `院試DB` のみ ✅
+  - `<link rel="canonical">` 各ページ固有URL ✅
+  - `<meta property="og:title">` ページ固有 ✅
+  - `<meta property="og:url">` ページ固有 ✅
+  - `application/ld+json` 各ページで埋め込み確認 ✅
+
+### 次回TODO
+- 動的OG画像（ページごとのシェア画像）— Phase B として別途
+- Google Search Console 登録と sitemap 送信
+- 画像の `alt` テキスト確認
+- Core Web Vitals 計測と最適化
+
+---
+
 ## 2026-04-22 (続き) — 2025年度を全大学×全科目で充足（B案）
 
 ### 目的

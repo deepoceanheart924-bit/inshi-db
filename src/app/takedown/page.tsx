@@ -6,8 +6,18 @@ import { DotPattern } from "@/components/patterns";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "削除依頼・著作権に関するお問い合わせ — 院試DB",
-  description: "院試DBの掲載内容に関する削除依頼・著作権照会の受付窓口",
+  title: "削除依頼・著作権に関するお問い合わせ",
+  description: "院試DBの掲載内容に関する削除依頼・著作権照会の受付窓口。権利者からのご連絡はこちらから。",
+  alternates: { canonical: "/takedown" },
+  openGraph: {
+    title: "削除依頼・著作権に関するお問い合わせ",
+    description: "院試DBの掲載内容に関する削除依頼・著作権照会の受付窓口。",
+    url: "/takedown",
+    type: "website",
+    locale: "ja_JP",
+    siteName: "院試DB",
+  },
+  twitter: { card: "summary_large_image", title: "削除依頼・著作権", description: "権利者からのご連絡窓口。" },
 };
 
 export default function TakedownPage() {

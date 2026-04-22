@@ -3,8 +3,18 @@ import { FadeIn } from "@/components/animations";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "プライバシーポリシー — 院試DB",
-  description: "院試DBのプライバシーポリシー・個人情報の取扱いについて",
+  title: "プライバシーポリシー",
+  description: "院試DBのプライバシーポリシー・個人情報の取扱いについて。",
+  alternates: { canonical: "/privacy" },
+  openGraph: {
+    title: "プライバシーポリシー",
+    description: "院試DBのプライバシーポリシー・個人情報の取扱いについて。",
+    url: "/privacy",
+    type: "website",
+    locale: "ja_JP",
+    siteName: "院試DB",
+  },
+  twitter: { card: "summary_large_image", title: "プライバシーポリシー", description: "院試DBのプライバシーポリシー。" },
 };
 
 export default function PrivacyPage() {

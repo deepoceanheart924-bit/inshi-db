@@ -4,8 +4,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "お問い合わせ — 院試DB",
-  description: "院試DBへのお問い合わせ・ご意見・誤り指摘等の窓口",
+  title: "お問い合わせ",
+  description: "院試DBへのお問い合わせ・ご意見・誤り指摘等の窓口。",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "お問い合わせ",
+    description: "院試DBへのお問い合わせ・ご意見・誤り指摘等の窓口。",
+    url: "/contact",
+    type: "website",
+    locale: "ja_JP",
+    siteName: "院試DB",
+  },
+  twitter: { card: "summary_large_image", title: "お問い合わせ", description: "院試DBへのお問い合わせ窓口。" },
 };
 
 export default function ContactPage() {
