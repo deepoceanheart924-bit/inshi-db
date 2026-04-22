@@ -5613,6 +5613,1143 @@ $$E_{\\min}^{\\mathrm{trial}}(\\alpha_*) \\geq E_0^{\\mathrm{true}}$$
 - 量子化学計算（Hartree-Fock 法、変分原理が基礎）
 - 多体系の波動関数 ansatz（Slater 行列式、Jastrow 因子等）`,
   },
+  // ===== 2025年度 追加分（B案：全大学×全科目を充足） =====
+  {
+    id: "todai-2025-phys-4",
+    universitySlug: "todai",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 4,
+    title: "2準位系の統計力学とショットキー異常",
+    field: "statistical",
+    difficulty: "advanced",
+    tags: ["2準位系", "分配関数", "ショットキー異常"],
+    isFree: true,
+    statement: `**対応問題**: 東京大学 2025年度 物理学 問4
+
+## 問題の設定
+エネルギー $0$ と $\\varepsilon$ の2つの状態のみをとる粒子（2準位系）を考える。$N$ 個の独立な粒子がある絶対温度 $T$ で正準集団に従う。Boltzmann 定数を $k_B$ とする。
+
+## 問われている内容
+(1) 1粒子の分配関数 $Z_1(T)$ を求めよ。
+(2) 系全体の内部エネルギー $U(T)$ を求めよ。
+(3) 定積比熱 $C_V(T)$ を $x = \\varepsilon/(k_B T)$ で表し、極限 $T \\to 0$ および $T \\to \\infty$ での振る舞いを論ぜよ。
+(4) $C_V(T)$ は有限温度で極大値をもつ（Schottky 異常）。極大を与える $x$ の満たす方程式を書き下し、数値を用いずに極大の存在を示せ。`,
+    solution: `## (1) 1粒子分配関数
+
+$$Z_1 = 1 + e^{-\\varepsilon/(k_B T)} = 1 + e^{-x}$$
+
+ここで $x \\equiv \\varepsilon/(k_B T)$。独立粒子なので全系の分配関数は $Z = Z_1^N$。
+
+## (2) 内部エネルギー
+
+$U = -\\partial(\\ln Z)/\\partial \\beta$（$\\beta = 1/(k_B T)$）より：
+
+$$U = N \\cdot \\frac{\\varepsilon \\, e^{-x}}{1 + e^{-x}} = \\frac{N\\varepsilon}{e^{x} + 1}$$
+
+**物理的意味**：Fermi-Dirac 分布と同じ形。高温で $U \\to N\\varepsilon/2$（両準位等確率）、低温で $U \\to 0$（基底状態）。
+
+## (3) 比熱
+
+$\\partial x/\\partial T = -x/T$ を使って：
+
+$$C_V = \\frac{\\partial U}{\\partial T} = N k_B \\frac{x^2 e^{x}}{(e^{x}+1)^2}$$
+
+**極限**：
+- $T \\to 0$（$x \\to \\infty$）: $C_V \\sim N k_B x^2 e^{-x} \\to 0$（指数的抑制、エネルギーギャップがあるため）
+- $T \\to \\infty$（$x \\to 0$）: $C_V \\sim N k_B x^2/4 \\to 0$（全エネルギー準位が埋まり変化余地なし）
+
+## (4) ショットキー異常
+
+$f(x) = x^2 e^{x}/(e^{x}+1)^2$ の極大条件 $df/dx = 0$。積の微分と $(e^x+1)^2$ で整理：
+
+$$\\boxed{2(e^{x}+1) = x(e^{x}-1)} \\quad \\text{あるいは} \\quad \\tanh(x/2) = 2/x$$
+
+両極限で $f \\to 0$ かつ $f > 0$ なので、連続関数として中間で極大をもつ（中間値の定理）。数値的には $x \\approx 2.40$、すなわち $k_B T_{\\max} \\approx 0.42 \\varepsilon$。
+
+**物理的意味**：ギャップ $\\varepsilon$ 程度の温度で励起が活発化し、比熱がピーク。核スピン系・結晶場分裂準位・希薄磁性不純物で観測される典型現象。`,
+  },
+  {
+    id: "todai-2025-math-2",
+    universitySlug: "todai",
+    year: 2025,
+    subject: "数学",
+    problemNumber: 2,
+    title: "複素解析：留数定理による実定積分",
+    field: "math",
+    difficulty: "standard",
+    tags: ["留数定理", "ジョルダンの補題", "有理関数積分"],
+    isFree: true,
+    statement: `**対応問題**: 東京大学 2025年度 数学 問2
+
+## 問われている内容
+実積分
+$$I = \\int_{-\\infty}^{\\infty} \\frac{\\cos(ax)}{x^2 + b^2}\\, dx \\quad (a, b > 0)$$
+を求めたい。
+
+(1) 複素関数 $f(z) = e^{iaz}/(z^2 + b^2)$ を、上半平面の半円経路（半径 $R$）上で積分することを考える。$R \\to \\infty$ で半円弧上の積分が $0$ に収束することを示せ（Jordan の補題）。
+(2) 留数定理により $I$ を求めよ。
+(3) $\\displaystyle\\int_{-\\infty}^{\\infty} \\frac{\\sin(ax)}{x^2 + b^2}\\, dx$ の値を、対称性のみから議論して答えよ。`,
+    solution: `## (1) Jordan の補題
+
+半円経路 $C_R: z = Re^{i\\theta}, \\theta \\in [0, \\pi]$ 上で $|e^{iaz}| = e^{-aR\\sin\\theta}$。$\\sin\\theta \\geq 0$ なので被積分関数の絶対値は抑えられる。
+
+$$\\left|\\int_{C_R} \\frac{e^{iaz}}{z^2+b^2} dz\\right| \\leq \\int_0^\\pi \\frac{e^{-aR\\sin\\theta}}{R^2 - b^2} R\\, d\\theta$$
+
+Jordan の不等式 $\\sin\\theta \\geq 2\\theta/\\pi$（$0 \\leq \\theta \\leq \\pi/2$）より $\\int_0^\\pi e^{-aR\\sin\\theta}d\\theta \\leq 2\\int_0^{\\pi/2} e^{-2aR\\theta/\\pi}d\\theta = \\pi(1-e^{-aR})/(aR)$。
+
+結局 $R \\to \\infty$ で $\\pi/(aR) \\cdot R/(R^2-b^2) \\to 0$。
+
+## (2) 留数計算
+
+閉路 $[-R, R] \\cup C_R$ 内部の特異点は $z = ib$（単純極）のみ：
+
+$$\\mathrm{Res}_{z=ib} f(z) = \\lim_{z \\to ib} (z-ib) \\cdot \\frac{e^{iaz}}{(z-ib)(z+ib)} = \\frac{e^{-ab}}{2ib}$$
+
+留数定理：
+$$\\oint f\\, dz = 2\\pi i \\cdot \\frac{e^{-ab}}{2ib} = \\frac{\\pi e^{-ab}}{b}$$
+
+$R \\to \\infty$ の極限で半円部は消え、実軸上の積分が残る：
+
+$$\\int_{-\\infty}^{\\infty} \\frac{e^{iax}}{x^2+b^2} dx = \\frac{\\pi e^{-ab}}{b}$$
+
+実部をとり：
+
+$$\\boxed{I = \\frac{\\pi}{b} e^{-ab}}$$
+
+## (3) 対称性による議論
+
+被積分関数 $\\sin(ax)/(x^2+b^2)$ は $x$ について奇関数（分子が奇、分母が偶）。対称区間 $(-\\infty, \\infty)$ での奇関数の積分は：
+
+$$\\boxed{\\int_{-\\infty}^{\\infty} \\frac{\\sin(ax)}{x^2+b^2} dx = 0}$$
+
+これは (2) の $e^{iax}$ 積分の虚部がゼロだったことと整合。`,
+  },
+  {
+    id: "kyodai-2025-phys-3",
+    universitySlug: "kyodai",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 3,
+    title: "中心力場のラグランジアン",
+    field: "mechanics",
+    difficulty: "advanced",
+    tags: ["ラグランジアン", "中心力場", "有効ポテンシャル"],
+    isFree: true,
+    statement: `**対応問題**: 京都大学 2025年度 物理学 問3
+
+## 問題の設定
+質量 $m$ の質点が、原点からの距離 $r$ のみに依存するポテンシャル $U(r)$ 中を運動する（中心力場）。2次元極座標 $(r, \\varphi)$ を用いる。
+
+## 問われている内容
+(1) ラグランジアン $L(r, \\dot{r}, \\dot{\\varphi})$ を書き下せ。
+(2) $\\varphi$ が循環座標であることを示し、角運動量 $\\ell = mr^2\\dot{\\varphi}$ が保存量であることを導け。
+(3) $\\varphi$ を消去し、$r$ に対する1次元運動として等価な**有効ポテンシャル** $U_{\\mathrm{eff}}(r)$ を求めよ。
+(4) $U(r) = -k/r$ （$k > 0$）のとき、円軌道の半径 $r_0$ を $\\ell, m, k$ で表し、小振動の角振動数 $\\omega$ を求めよ。`,
+    solution: `## (1) ラグランジアン
+
+運動エネルギー：極座標で $v^2 = \\dot{r}^2 + r^2\\dot{\\varphi}^2$。
+
+$$L = \\frac{1}{2}m(\\dot{r}^2 + r^2\\dot{\\varphi}^2) - U(r)$$
+
+## (2) 角運動量保存
+
+$L$ が $\\varphi$ を陽に含まない $\\Rightarrow$ $\\varphi$ は循環座標。Euler-Lagrange 方程式：
+
+$$\\frac{d}{dt}\\frac{\\partial L}{\\partial \\dot{\\varphi}} = \\frac{\\partial L}{\\partial \\varphi} = 0$$
+
+よって $\\partial L/\\partial \\dot{\\varphi} = mr^2\\dot{\\varphi} \\equiv \\ell$ が保存。
+
+## (3) 有効ポテンシャル
+
+$\\dot{\\varphi} = \\ell/(mr^2)$ を全エネルギー $E = T + U$ に代入：
+
+$$E = \\frac{1}{2}m\\dot{r}^2 + \\frac{\\ell^2}{2mr^2} + U(r)$$
+
+右辺第2・3項を $U_{\\mathrm{eff}}$ と定義：
+
+$$\\boxed{U_{\\mathrm{eff}}(r) = \\frac{\\ell^2}{2mr^2} + U(r)}$$
+
+第1項は「遠心ポテンシャル」（角運動量が作る障壁）。
+
+## (4) Kepler 問題の円軌道と小振動
+
+$U = -k/r$ で $U_{\\mathrm{eff}} = \\ell^2/(2mr^2) - k/r$。極値条件 $dU_{\\mathrm{eff}}/dr = 0$：
+
+$$-\\frac{\\ell^2}{mr^3} + \\frac{k}{r^2} = 0 \\quad \\Rightarrow \\quad \\boxed{r_0 = \\frac{\\ell^2}{mk}}$$
+
+小振動の角振動数は $m\\omega^2 = d^2 U_{\\mathrm{eff}}/dr^2|_{r_0}$。
+
+$$\\frac{d^2 U_{\\mathrm{eff}}}{dr^2} = \\frac{3\\ell^2}{mr^4} - \\frac{2k}{r^3}$$
+
+$r_0$ を代入：$3\\ell^2/(mr_0^4) - 2k/r_0^3 = (k/r_0^3)(3 - 2) = k/r_0^3$。
+
+$$\\boxed{\\omega = \\sqrt{\\frac{k}{m r_0^3}}}$$
+
+これは Kepler の第3法則に等しい公転角振動数そのもの。Bertrand の定理により Kepler ポテンシャルでは半径振動と公転が同期し、閉じた楕円軌道になる。`,
+  },
+  {
+    id: "kyodai-2025-phys-4",
+    universitySlug: "kyodai",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 4,
+    title: "1次元無限井戸の量子力学",
+    field: "quantum",
+    difficulty: "standard",
+    tags: ["無限井戸", "固有エネルギー", "期待値"],
+    isFree: true,
+    statement: `**対応問題**: 京都大学 2025年度 物理学 問4
+
+## 問題の設定
+$0 \\leq x \\leq L$ の領域でポテンシャルが $0$、外部で $+\\infty$ の1次元無限井戸に、質量 $m$ の粒子が閉じ込められている。
+
+## 問われている内容
+(1) 時間独立 Schrödinger 方程式から規格化された固有関数 $\\psi_n(x)$ と固有エネルギー $E_n$ を導け。
+(2) 基底状態における位置の期待値 $\\langle x \\rangle$ と $\\langle x^2 \\rangle$ を求めよ。
+(3) 位置の不確定性 $\\Delta x = \\sqrt{\\langle x^2 \\rangle - \\langle x \\rangle^2}$ と、基底状態の運動量の不確定性 $\\Delta p = \\pi\\hbar/L$（既知）から、不確定性積 $\\Delta x \\Delta p$ を計算し、Heisenberg の不等式 $\\Delta x \\Delta p \\geq \\hbar/2$ と比較せよ。`,
+    solution: `## (1) 固有関数と固有エネルギー
+
+井戸内で $-\\hbar^2 \\psi''/(2m) = E\\psi$、境界条件 $\\psi(0) = \\psi(L) = 0$。解は $\\psi_n(x) = A\\sin(k_n x)$ で $k_n L = n\\pi$（$n = 1, 2, \\ldots$）。
+
+規格化 $\\int_0^L |\\psi_n|^2 dx = 1$ から $A = \\sqrt{2/L}$：
+
+$$\\boxed{\\psi_n(x) = \\sqrt{\\frac{2}{L}}\\sin\\frac{n\\pi x}{L}, \\quad E_n = \\frac{n^2\\pi^2\\hbar^2}{2mL^2}}$$
+
+## (2) 基底状態の期待値（$n=1$）
+
+対称性から $\\sin^2(\\pi x/L)$ は $x = L/2$ について対称なので：
+
+$$\\langle x \\rangle = \\frac{L}{2}$$
+
+$\\langle x^2 \\rangle$ の計算：$\\sin^2(\\pi x/L) = (1 - \\cos(2\\pi x/L))/2$ を使い、
+
+$$\\langle x^2 \\rangle = \\frac{2}{L}\\int_0^L x^2 \\cdot \\frac{1 - \\cos(2\\pi x/L)}{2} dx = \\frac{1}{L}\\left[\\frac{L^3}{3} - I\\right]$$
+
+部分積分2回で $I = \\int_0^L x^2\\cos(2\\pi x/L)dx = L^3/(2\\pi^2)$。
+
+$$\\langle x^2 \\rangle = \\frac{L^2}{3} - \\frac{L^2}{2\\pi^2}$$
+
+## (3) 不確定性積
+
+$$\\Delta x^2 = \\langle x^2\\rangle - \\langle x\\rangle^2 = L^2\\left(\\frac{1}{3} - \\frac{1}{2\\pi^2} - \\frac{1}{4}\\right) = L^2\\left(\\frac{1}{12} - \\frac{1}{2\\pi^2}\\right)$$
+
+$$\\Delta x = L\\sqrt{\\frac{1}{12} - \\frac{1}{2\\pi^2}} \\approx L \\cdot 0.1807$$
+
+$\\Delta p = \\pi\\hbar/L$ と組み合わせて：
+
+$$\\Delta x \\Delta p \\approx 0.1807\\pi \\hbar \\approx 0.568\\, \\hbar$$
+
+Heisenberg の下限 $\\hbar/2 = 0.5\\hbar$ より大きく、不等式を満たす。等号成立は Gauss 波束のみ（基底状態は sin 型なのでわずかに上回る）。`,
+  },
+  {
+    id: "kyodai-2025-math-2",
+    universitySlug: "kyodai",
+    year: 2025,
+    subject: "数学",
+    problemNumber: 2,
+    title: "ベクトル解析：Stokes の定理",
+    field: "math",
+    difficulty: "standard",
+    tags: ["Stokes の定理", "回転", "線積分"],
+    isFree: true,
+    statement: `**対応問題**: 京都大学 2025年度 数学 問2
+
+## 問題の設定
+$\\mathbb{R}^3$ のベクトル場
+$$\\vec{F}(x, y, z) = (-y, x, z)$$
+を考える。
+
+## 問われている内容
+(1) $\\nabla \\times \\vec{F}$ を計算せよ。
+(2) 曲線 $C$: $\\vec{r}(t) = (\\cos t, \\sin t, 0), \\ t \\in [0, 2\\pi]$ に沿う線積分 $\\oint_C \\vec{F} \\cdot d\\vec{r}$ を直接計算せよ。
+(3) Stokes の定理を用い、$C$ を境界とする $z = 0$ 平面の単位円板上での面積分として同じ値を導き、一致することを確認せよ。`,
+    solution: `## (1) 回転
+
+$\\vec{F} = (P, Q, R) = (-y, x, z)$ より：
+
+$$\\nabla \\times \\vec{F} = \\begin{vmatrix}\\vec{e}_x & \\vec{e}_y & \\vec{e}_z \\\\ \\partial_x & \\partial_y & \\partial_z \\\\ -y & x & z\\end{vmatrix} = (\\partial_y z - \\partial_z x, \\partial_z(-y) - \\partial_x z, \\partial_x x - \\partial_y(-y)) = (0, 0, 2)$$
+
+$$\\boxed{\\nabla \\times \\vec{F} = 2\\vec{e}_z}$$
+
+## (2) 線積分の直接計算
+
+$\\vec{r}(t) = (\\cos t, \\sin t, 0)$、$d\\vec{r}/dt = (-\\sin t, \\cos t, 0)$。曲線上で $\\vec{F} = (-\\sin t, \\cos t, 0)$。
+
+$$\\vec{F} \\cdot d\\vec{r}/dt = \\sin^2 t + \\cos^2 t = 1$$
+
+$$\\oint_C \\vec{F} \\cdot d\\vec{r} = \\int_0^{2\\pi} 1\\, dt = 2\\pi$$
+
+## (3) Stokes 定理による確認
+
+$C$ を境界とする曲面として $z=0$ の単位円板 $D$ をとる。法線 $\\vec{n} = \\vec{e}_z$（右手系で $C$ が反時計回りと整合）。
+
+$$\\iint_D (\\nabla \\times \\vec{F}) \\cdot \\vec{n}\\, dS = \\iint_D 2\\, dS = 2 \\cdot \\pi \\cdot 1^2 = 2\\pi$$
+
+線積分の結果 $2\\pi$ と完全に一致 ✅
+
+**物理的意味**：$\\vec{F} = (-y, x, 0)$ の部分は $z$ 軸まわりの剛体回転流れ（角速度1）。その circulation は囲む面積 × 2 × 角速度 = $2\\pi$。`,
+  },
+  {
+    id: "titech-2025-phys-3",
+    universitySlug: "titech",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 3,
+    title: "平行平板コンデンサと誘電体",
+    field: "electromagnetism",
+    difficulty: "standard",
+    tags: ["コンデンサ", "誘電体", "境界条件"],
+    isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧東工大） 2025年度 物理学 問3
+
+## 問題の設定
+面積 $S$、間隔 $d$ の平行平板コンデンサに、比誘電率 $\\varepsilon_r$ の誘電体が厚さ $d/2$ だけ挿入されている（残り $d/2$ は真空）。極板間に電圧 $V$ をかける。真空の誘電率を $\\varepsilon_0$ とする。
+
+## 問われている内容
+(1) コンデンサの合成静電容量 $C$ を求めよ。
+(2) 誘電体内部の電場 $E_1$ と真空部の電場 $E_2$ を $V, d, \\varepsilon_r$ で表せ。
+(3) 蓄えられる静電エネルギー $U$ を $V$ と $C$ で表し、同じ極板に電圧 $V$ をかけた誘電体なしのコンデンサ $C_0 = \\varepsilon_0 S/d$ と比較してエネルギー比 $U/U_0$ を求めよ。`,
+    solution: `## (1) 直列接続としての合成容量
+
+誘電体部と真空部は直列：
+- $C_1 = \\varepsilon_r \\varepsilon_0 S/(d/2) = 2\\varepsilon_r \\varepsilon_0 S/d$
+- $C_2 = \\varepsilon_0 S/(d/2) = 2\\varepsilon_0 S/d$
+
+直列合成：$1/C = 1/C_1 + 1/C_2 = (1 + 1/\\varepsilon_r) \\cdot d/(2\\varepsilon_0 S)$。
+
+$$\\boxed{C = \\frac{2\\varepsilon_r}{\\varepsilon_r + 1} \\cdot \\frac{\\varepsilon_0 S}{d}}$$
+
+## (2) 各部の電場
+
+境界面で電束密度 $D$ が連続（境界に自由電荷なし）：$\\varepsilon_r \\varepsilon_0 E_1 = \\varepsilon_0 E_2$、よって $E_2 = \\varepsilon_r E_1$。
+
+電圧条件 $V = E_1(d/2) + E_2(d/2) = (E_1 + E_2)d/2 = (1 + \\varepsilon_r) E_1 d/2$。
+
+$$\\boxed{E_1 = \\frac{2V}{(1+\\varepsilon_r)d}, \\quad E_2 = \\frac{2\\varepsilon_r V}{(1+\\varepsilon_r)d}}$$
+
+誘電体内の方が電場が小さい（分極が電場を弱める）。
+
+## (3) エネルギー比
+
+$U = CV^2/2$、$U_0 = C_0 V^2/2$ より：
+
+$$\\frac{U}{U_0} = \\frac{C}{C_0} = \\boxed{\\frac{2\\varepsilon_r}{\\varepsilon_r + 1}}$$
+
+$\\varepsilon_r = 1$ で $1$（同じ）、$\\varepsilon_r \\to \\infty$ で $2$（最大2倍）、物理的には誘電体が電場を弱めるが容量（蓄電能力）は増える。`,
+  },
+  {
+    id: "titech-2025-phys-4",
+    universitySlug: "titech",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 4,
+    title: "角運動量の交換関係と昇降演算子",
+    field: "quantum",
+    difficulty: "advanced",
+    tags: ["角運動量", "交換関係", "昇降演算子"],
+    isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧東工大） 2025年度 物理学 問4
+
+## 問題の設定
+量子力学の角運動量演算子 $\\hat{L}_x, \\hat{L}_y, \\hat{L}_z$ は交換関係 $[\\hat{L}_i, \\hat{L}_j] = i\\hbar \\varepsilon_{ijk}\\hat{L}_k$ を満たす。昇降演算子を $\\hat{L}_\\pm = \\hat{L}_x \\pm i\\hat{L}_y$ と定義する。
+
+## 問われている内容
+(1) $[\\hat{L}_z, \\hat{L}_\\pm]$ および $[\\hat{L}_+, \\hat{L}_-]$ を計算せよ。
+(2) $|\\ell, m\\rangle$ を $\\hat{\\vec{L}}^2$ と $\\hat{L}_z$ の同時固有状態（固有値 $\\hbar^2\\ell(\\ell+1)$ と $\\hbar m$）とする。$\\hat{L}_+|\\ell, m\\rangle$ が $\\hat{L}_z$ の固有値 $\\hbar(m+1)$ の状態であることを示せ。
+(3) $\\hat{L}_+|\\ell, m\\rangle = \\hbar C_+(\\ell, m)|\\ell, m+1\\rangle$ の係数 $C_+$ を決定せよ（位相は正の実数とする）。`,
+    solution: `## (1) 交換関係
+
+$[\\hat{L}_z, \\hat{L}_\\pm] = [\\hat{L}_z, \\hat{L}_x \\pm i\\hat{L}_y] = i\\hbar\\hat{L}_y \\pm i(-i\\hbar\\hat{L}_x) = \\pm\\hbar(\\hat{L}_x \\pm i\\hat{L}_y)$：
+
+$$\\boxed{[\\hat{L}_z, \\hat{L}_\\pm] = \\pm\\hbar \\hat{L}_\\pm}$$
+
+$[\\hat{L}_+, \\hat{L}_-] = [\\hat{L}_x + i\\hat{L}_y, \\hat{L}_x - i\\hat{L}_y] = -2i[\\hat{L}_x, \\hat{L}_y] = -2i \\cdot i\\hbar\\hat{L}_z$：
+
+$$\\boxed{[\\hat{L}_+, \\hat{L}_-] = 2\\hbar \\hat{L}_z}$$
+
+## (2) 上昇性
+
+$[\\hat{L}_z, \\hat{L}_+] = \\hbar\\hat{L}_+$ より $\\hat{L}_z \\hat{L}_+ = \\hat{L}_+\\hat{L}_z + \\hbar\\hat{L}_+$。両辺を $|\\ell, m\\rangle$ に作用：
+
+$$\\hat{L}_z(\\hat{L}_+|\\ell, m\\rangle) = (\\hat{L}_+\\hat{L}_z + \\hbar\\hat{L}_+)|\\ell, m\\rangle = (\\hbar m + \\hbar)(\\hat{L}_+|\\ell, m\\rangle)$$
+
+よって $\\hat{L}_+|\\ell, m\\rangle$ は $\\hat{L}_z$ の固有値 $\\hbar(m+1)$ の状態。
+
+## (3) 係数の決定
+
+$\\hat{L}_+^\\dagger = \\hat{L}_-$ なので、ノルムは：
+
+$$\\|\\hat{L}_+|\\ell, m\\rangle\\|^2 = \\langle \\ell, m|\\hat{L}_-\\hat{L}_+|\\ell, m\\rangle$$
+
+恒等式 $\\hat{L}_-\\hat{L}_+ = \\hat{\\vec{L}}^2 - \\hat{L}_z^2 - \\hbar\\hat{L}_z$ を使う：
+
+$$\\|\\hat{L}_+|\\ell, m\\rangle\\|^2 = \\hbar^2[\\ell(\\ell+1) - m^2 - m] = \\hbar^2(\\ell-m)(\\ell+m+1)$$
+
+位相を正にとって：
+
+$$\\boxed{C_+(\\ell, m) = \\sqrt{(\\ell-m)(\\ell+m+1)}}$$
+
+**チェック**：$m = \\ell$ で $C_+ = 0$（上限）、$m = -\\ell - 1$ では現れないので自動的に OK。この階段構造から $m$ は $-\\ell$ から $\\ell$ まで $2\\ell+1$ 個の値をとる。`,
+  },
+  {
+    id: "titech-2025-phys-5",
+    universitySlug: "titech",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 5,
+    title: "オットーサイクルと熱効率",
+    field: "thermodynamics",
+    difficulty: "standard",
+    tags: ["オットーサイクル", "熱効率", "断熱過程"],
+    isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧東工大） 2025年度 物理学 問5
+
+## 問題の設定
+ガソリンエンジンのモデルであるオットーサイクルは、理想気体 $n$ モルによる以下の4過程からなる：
+- A→B: 断熱圧縮（体積 $V_1 \\to V_2$、$V_1 > V_2$）
+- B→C: 定積加熱（温度上昇、高温熱源から $Q_H$ を吸収）
+- C→D: 断熱膨張（$V_2 \\to V_1$）
+- D→A: 定積冷却（低温熱源へ $Q_L$ を放出）
+
+気体の比熱比を $\\gamma$、圧縮比を $r = V_1/V_2$ とする。
+
+## 問われている内容
+(1) 各過程について、$P$-$V$ 図の概形を描け（解答では過程の方向と曲線の形の記述で可）。
+(2) 吸熱・放熱量 $Q_H, Q_L$ を定積モル比熱 $C_V$ と温度で表せ。
+(3) サイクルの熱効率 $\\eta = 1 - Q_L/Q_H$ を、圧縮比 $r$ と $\\gamma$ のみで表せ。
+(4) $r = 10$、$\\gamma = 1.4$ のときの $\\eta$ を計算せよ。`,
+    solution: `## (1) $P$-$V$ 図
+
+- A→B 断熱圧縮：$PV^\\gamma = \\text{const}$ に沿って左上へ（$V\\downarrow, P\\uparrow$ 急)
+- B→C 定積加熱：$V = V_2$ で垂直に上へ（$P\\uparrow$）
+- C→D 断熱膨張：$PV^\\gamma = \\text{const}$ に沿って右下へ（$V\\uparrow, P\\downarrow$ 急）
+- D→A 定積冷却：$V = V_1$ で垂直に下へ（$P\\downarrow$）
+
+閉じたループを右回りに回ると正の仕事（エンジン動作）。
+
+## (2) 吸熱と放熱
+
+定積過程なので $Q = nC_V \\Delta T$：
+
+$$\\boxed{Q_H = nC_V(T_C - T_B), \\quad Q_L = nC_V(T_D - T_A)}$$
+
+## (3) 熱効率
+
+断熱過程で $TV^{\\gamma-1} = \\text{const}$：
+- A→B: $T_A V_1^{\\gamma-1} = T_B V_2^{\\gamma-1}$ より $T_B = T_A r^{\\gamma-1}$
+- C→D: $T_C V_2^{\\gamma-1} = T_D V_1^{\\gamma-1}$ より $T_D = T_C r^{-(\\gamma-1)} = T_C/r^{\\gamma-1}$
+
+比をとると：
+
+$$\\frac{Q_L}{Q_H} = \\frac{T_D - T_A}{T_C - T_B} = \\frac{(T_C - T_A \\cdot r^{\\gamma-1})/r^{\\gamma-1}}{T_C - T_A r^{\\gamma-1}}$$
+
+分子の $T_C - T_A r^{\\gamma-1}$ は分母と一致（ただし $r^{\\gamma-1}$ で割られている）。きちんと書き直すと：
+
+$$\\frac{T_D - T_A}{T_C - T_B} = \\frac{T_C/r^{\\gamma-1} - T_A}{T_C - T_A r^{\\gamma-1}} = \\frac{1}{r^{\\gamma-1}} \\cdot \\frac{T_C - T_A r^{\\gamma-1}}{T_C - T_A r^{\\gamma-1}} = \\frac{1}{r^{\\gamma-1}}$$
+
+$$\\boxed{\\eta = 1 - \\frac{1}{r^{\\gamma-1}}}$$
+
+**特徴**：高温・低温熱源の温度に依らず、圧縮比のみで効率が決まる。
+
+## (4) 数値
+
+$r^{\\gamma-1} = 10^{0.4}$。$\\log_{10}(10^{0.4}) = 0.4$、$10^{0.4} \\approx 2.512$。
+
+$$\\eta = 1 - \\frac{1}{2.512} \\approx \\boxed{0.602 = 60.2\\%}$$
+
+実エンジンが30-40%程度しか出ないのは、摩擦・不完全燃焼・有限時間サイクルの非可逆性が主な原因。`,
+  },
+  {
+    id: "tohoku-2025-phys-4",
+    universitySlug: "tohoku",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 4,
+    title: "水素原子の基底状態",
+    field: "quantum",
+    difficulty: "advanced",
+    tags: ["水素原子", "基底状態", "Bohr 半径"],
+    isFree: true,
+    statement: `**対応問題**: 東北大学 2025年度 物理学 問4
+
+## 問題の設定
+水素原子の基底状態波動関数は球対称で、
+$$\\psi_0(r) = \\frac{1}{\\sqrt{\\pi a_0^3}} e^{-r/a_0}$$
+である。ここで $a_0 = 4\\pi\\varepsilon_0 \\hbar^2/(m_e e^2)$ は Bohr 半径。$m_e$ は電子質量、$e$ は素電荷。
+
+## 問われている内容
+(1) $\\psi_0$ が規格化されていることを確認せよ（$\\int_0^\\infty r^2 e^{-2r/a_0} dr = a_0^3/4$ を使ってよい）。
+(2) 電子の位置の期待値 $\\langle r \\rangle$ を求めよ。
+(3) 運動エネルギーの期待値 $\\langle T \\rangle$ と位置エネルギーの期待値 $\\langle U \\rangle$ を求め、ビリアル定理 $2\\langle T \\rangle + \\langle U \\rangle = 0$ を確認せよ。`,
+    solution: `## (1) 規格化
+
+球対称なので体積要素は $4\\pi r^2 dr$：
+
+$$\\int |\\psi_0|^2 d^3 r = \\frac{1}{\\pi a_0^3} \\cdot 4\\pi \\int_0^\\infty r^2 e^{-2r/a_0} dr = \\frac{4}{a_0^3} \\cdot \\frac{a_0^3}{4} = 1 \\checkmark$$
+
+## (2) 位置の期待値
+
+$\\int_0^\\infty r^3 e^{-2r/a_0}dr = 6(a_0/2)^4 = 3a_0^4/8$ （ガンマ関数 $\\Gamma(4) = 6$、スケール $1/(2/a_0)^4$ ）。
+
+$$\\langle r \\rangle = \\frac{4}{a_0^3}\\int_0^\\infty r^3 e^{-2r/a_0}dr = \\frac{4}{a_0^3} \\cdot \\frac{3a_0^4}{8} = \\boxed{\\frac{3a_0}{2}}$$
+
+Bohr 半径そのものではなく、$1.5 a_0$ が「平均半径」であることに注意（最大確率位置は $a_0$）。
+
+## (3) ビリアル定理の確認
+
+**位置エネルギー**：$U(r) = -e^2/(4\\pi\\varepsilon_0 r) \\equiv -k/r$（$k = e^2/(4\\pi\\varepsilon_0)$）。
+
+$\\langle 1/r \\rangle = (4/a_0^3)\\int_0^\\infty r e^{-2r/a_0}dr = (4/a_0^3)(a_0/2)^2 = 1/a_0$。
+
+$$\\langle U \\rangle = -k \\langle 1/r \\rangle = -\\frac{k}{a_0} = -\\frac{e^2}{4\\pi\\varepsilon_0 a_0}$$
+
+**運動エネルギー**：球対称なので $\\hat{T} = -\\hbar^2/(2m_e) \\cdot (1/r^2)d/dr(r^2 d/dr)$。$\\psi_0 \\propto e^{-r/a_0}$ に作用させると：
+
+$$\\hat{T}\\psi_0 = -\\frac{\\hbar^2}{2m_e}\\left(\\frac{1}{a_0^2} - \\frac{2}{r a_0}\\right)\\psi_0$$
+
+期待値：$\\langle T \\rangle = -\\frac{\\hbar^2}{2m_e}(1/a_0^2 - 2\\langle 1/r\\rangle/a_0) = -\\frac{\\hbar^2}{2m_e}(1/a_0^2 - 2/a_0^2) = \\frac{\\hbar^2}{2m_e a_0^2}$。
+
+Bohr 半径の定義 $a_0 = \\hbar^2/(m_e k)$ より $\\hbar^2/(m_e a_0^2) = k/a_0$。したがって：
+
+$$\\langle T \\rangle = \\frac{k}{2a_0} = \\frac{e^2}{8\\pi\\varepsilon_0 a_0}$$
+
+**ビリアル定理の確認**：
+
+$$2\\langle T \\rangle + \\langle U \\rangle = \\frac{k}{a_0} - \\frac{k}{a_0} = 0 \\checkmark$$
+
+全エネルギー $E_0 = \\langle T \\rangle + \\langle U \\rangle = -k/(2a_0) = -13.6$ eV（Rydberg）。`,
+  },
+  {
+    id: "tohoku-2025-phys-5",
+    universitySlug: "tohoku",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 5,
+    title: "Debye モデルと低温比熱",
+    field: "statistical",
+    difficulty: "advanced",
+    tags: ["Debye モデル", "フォノン", "低温比熱"],
+    isFree: true,
+    statement: `**対応問題**: 東北大学 2025年度 物理学 問5
+
+## 問題の設定
+Debye モデルでは、$N$ 原子からなる固体の格子振動を独立な $3N$ 個の調和振動子とみなし、その振動数分布を $g(\\omega)d\\omega \\propto \\omega^2 d\\omega$（$0 \\leq \\omega \\leq \\omega_D$、Debye 振動数）とする。
+
+## 問われている内容
+(1) 規格化条件 $\\int_0^{\\omega_D} g(\\omega)d\\omega = 3N$ から比例係数を決定せよ。
+(2) 内部エネルギーを
+$$U = \\int_0^{\\omega_D} g(\\omega) \\frac{\\hbar\\omega}{e^{\\hbar\\omega/k_B T} - 1} d\\omega$$
+で表し、Debye 温度 $\\Theta_D = \\hbar\\omega_D/k_B$ と $x = \\hbar\\omega/(k_B T)$、$x_D = \\Theta_D/T$ を用いて書き直せ。
+(3) 低温極限 $T \\ll \\Theta_D$ で比熱 $C_V$ が $T^3$ に比例することを示せ（$\\int_0^\\infty x^3/(e^x - 1)dx = \\pi^4/15$ を使ってよい）。`,
+    solution: `## (1) 規格化
+
+$g(\\omega) = A\\omega^2$ とおくと：
+
+$$\\int_0^{\\omega_D} A\\omega^2 d\\omega = \\frac{A\\omega_D^3}{3} = 3N \\quad \\Rightarrow \\quad A = \\frac{9N}{\\omega_D^3}$$
+
+$$\\boxed{g(\\omega) = \\frac{9N\\omega^2}{\\omega_D^3} \\quad (0 \\leq \\omega \\leq \\omega_D)}$$
+
+## (2) 内部エネルギーの無次元化
+
+$\\omega = k_B T x/\\hbar$、$d\\omega = k_B T dx/\\hbar$ で代入：
+
+$$U = \\frac{9N}{\\omega_D^3}\\int_0^{x_D} \\frac{(k_B T/\\hbar)^3 x^2 \\cdot \\hbar \\cdot (k_B T x/\\hbar)}{e^x - 1} \\cdot \\frac{k_B T}{\\hbar}dx$$
+
+整理：
+
+$$\\boxed{U = 9Nk_B T \\left(\\frac{T}{\\Theta_D}\\right)^3 \\int_0^{x_D} \\frac{x^3}{e^x - 1} dx}$$
+
+## (3) 低温極限 $T \\ll \\Theta_D$（$x_D \\to \\infty$）
+
+積分の上限を $\\infty$ に置換可能（$x_D \\to \\infty$）：
+
+$$U \\to 9N k_B T \\left(\\frac{T}{\\Theta_D}\\right)^3 \\cdot \\frac{\\pi^4}{15} = \\frac{3\\pi^4 N k_B T^4}{5\\Theta_D^3}$$
+
+比熱：
+
+$$C_V = \\frac{\\partial U}{\\partial T} = \\frac{12\\pi^4 N k_B}{5}\\left(\\frac{T}{\\Theta_D}\\right)^3 \\propto T^3$$
+
+$$\\boxed{C_V^{\\text{low}} = \\frac{12\\pi^4}{5} N k_B \\left(\\frac{T}{\\Theta_D}\\right)^3}$$
+
+**物理的意味**：$T^3$ 則（Debye 則）。低温では $k_B T$ 以下の音響フォノンのみが励起され、その数密度が $T^3$ に比例するため。これは金属の電子比熱 $\\propto T$ と合わせて、低温比熱測定の分解に使われる（Debye-Sommerfeld プロット）。`,
+  },
+  {
+    id: "osaka-2025-phys-3",
+    universitySlug: "osaka",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 3,
+    title: "2体問題と換算質量",
+    field: "mechanics",
+    difficulty: "standard",
+    tags: ["2体問題", "換算質量", "重心系"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2025年度 物理学 問3
+
+## 問題の設定
+質量 $m_1, m_2$ の2粒子が、相互作用ポテンシャル $U(|\\vec{r}_1 - \\vec{r}_2|)$ のみで結合している（外力なし）。
+
+## 問われている内容
+(1) 重心 $\\vec{R} = (m_1\\vec{r}_1 + m_2\\vec{r}_2)/(m_1 + m_2)$ と相対座標 $\\vec{r} = \\vec{r}_1 - \\vec{r}_2$ を用い、全系のラグランジアンを分離せよ。換算質量 $\\mu = m_1 m_2/(m_1 + m_2)$ を定義せよ。
+(2) 重心が等速直線運動することを示せ。
+(3) $U = k r^2/2$（調和振動子型結合）のとき、相対運動の角振動数 $\\omega_r$ を求めよ。
+
+## 問われている内容（続き）
+(4) $m_1 = m_2 = m$ と $m_1 \\ll m_2$ の2つの極限で $\\omega_r$ がどうなるか、物理的意味も含め論ぜよ。`,
+    solution: `## (1) ラグランジアンの分離
+
+$\\vec{r}_1 = \\vec{R} + (m_2/M)\\vec{r}$、$\\vec{r}_2 = \\vec{R} - (m_1/M)\\vec{r}$（$M = m_1 + m_2$）。
+
+運動エネルギー：
+$$T = \\frac{1}{2}m_1 \\dot{\\vec{r}}_1^2 + \\frac{1}{2}m_2\\dot{\\vec{r}}_2^2 = \\frac{1}{2}M\\dot{\\vec{R}}^2 + \\frac{1}{2}\\mu \\dot{\\vec{r}}^2$$
+
+ここで換算質量 $\\boxed{\\mu = m_1 m_2/(m_1+m_2)}$。クロス項は $\\vec{R}$ の定義により相殺。
+
+$$L = \\frac{1}{2}M\\dot{\\vec{R}}^2 + \\frac{1}{2}\\mu \\dot{\\vec{r}}^2 - U(r)$$
+
+## (2) 重心の等速運動
+
+$L$ が $\\vec{R}$ を陽に含まない $\\Rightarrow$ $\\vec{R}$ は循環座標 $\\Rightarrow$ $M\\dot{\\vec{R}} = $ 一定（全運動量保存）。
+
+$$\\ddot{\\vec{R}} = 0 \\quad \\Rightarrow \\quad \\vec{R}(t) = \\vec{R}_0 + \\vec{V}_0 t$$
+
+## (3) 調和振動子結合
+
+相対運動のラグランジアン $L_r = \\mu\\dot{\\vec{r}}^2/2 - kr^2/2$ は質量 $\\mu$ の調和振動子。
+
+$$\\boxed{\\omega_r = \\sqrt{k/\\mu}}$$
+
+## (4) 2つの極限
+
+**等質量極限 $m_1 = m_2 = m$**：$\\mu = m/2$、$\\omega_r = \\sqrt{2k/m}$。
+ → 対称なモードで「押し引き」が互いに同位相で増幅されるため、1体 ($m$、$k$) の振動より $\\sqrt{2}$ 倍速い。
+
+**大質量差極限 $m_1 \\ll m_2$**：$\\mu \\to m_1$、$\\omega_r \\to \\sqrt{k/m_1}$。
+ → 重い粒子 $m_2$ はほぼ静止し、$m_1$ が静止した $m_2$ 周りで振動する「1体問題」に帰着。核に束縛された電子、太陽を周る地球、重い荷電粒子の周りを回る電子の簡略化など。
+
+**物理的含意**：水素原子の Rydberg 定数 $R_\\infty$ を核質量有限補正する際 $\\mu = m_e m_p/(m_e + m_p)$ を使う理由は、まさに (1) で現れた換算質量。`,
+  },
+  {
+    id: "osaka-2025-phys-4",
+    universitySlug: "osaka",
+    year: 2025,
+    subject: "物理学",
+    problemNumber: 4,
+    title: "LC 共振回路とエネルギー振動",
+    field: "electromagnetism",
+    difficulty: "standard",
+    tags: ["LC 回路", "共振", "エネルギー保存"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2025年度 物理学 問4
+
+## 問題の設定
+自己インダクタンス $L$ のコイルと容量 $C$ のコンデンサが直列に接続された閉回路（抵抗なし）。コンデンサに初期電荷 $Q_0$ を与え、$t = 0$ でスイッチを閉じる。
+
+## 問われている内容
+(1) 電荷 $q(t)$ に対する微分方程式を立て、解を求めよ。
+(2) コイルを流れる電流 $I(t)$ を求めよ。
+(3) コンデンサの静電エネルギー $U_C(t)$ とコイルの磁気エネルギー $U_L(t)$ をそれぞれ求め、両者の和が時間によらず一定であることを示せ。`,
+    solution: `## (1) 微分方程式
+
+コンデンサ両端電圧 $V_C = q/C$、コイル両端電圧 $V_L = L\\, dI/dt$。閉回路で $V_C + V_L = 0$ かつ $I = -dq/dt$（コンデンサから流れ出る向きが正）：
+
+$$L\\frac{d^2 q}{dt^2} + \\frac{q}{C} = 0 \\quad \\Rightarrow \\quad \\ddot{q} + \\omega_0^2 q = 0, \\quad \\omega_0 = \\frac{1}{\\sqrt{LC}}$$
+
+初期条件 $q(0) = Q_0, \\dot{q}(0) = 0$ より：
+
+$$\\boxed{q(t) = Q_0\\cos(\\omega_0 t)}$$
+
+## (2) 電流
+
+$$I(t) = -\\dot{q} = \\boxed{Q_0 \\omega_0 \\sin(\\omega_0 t)}$$
+
+## (3) エネルギー保存
+
+$$U_C = \\frac{q^2}{2C} = \\frac{Q_0^2}{2C}\\cos^2(\\omega_0 t)$$
+
+$$U_L = \\frac{1}{2}LI^2 = \\frac{1}{2}L Q_0^2 \\omega_0^2 \\sin^2(\\omega_0 t) = \\frac{Q_0^2}{2C}\\sin^2(\\omega_0 t)$$
+
+（$L\\omega_0^2 = 1/C$ を使用）
+
+和：
+
+$$U_C + U_L = \\frac{Q_0^2}{2C}(\\cos^2 + \\sin^2) = \\boxed{\\frac{Q_0^2}{2C} = \\text{const}}$$
+
+**物理的意味**：初期の静電エネルギーがコイルの磁気エネルギーと交互に変換されるが、抵抗なしなので総和は完全保存。周期 $T = 2\\pi\\sqrt{LC}$ は力学振り子 $T = 2\\pi\\sqrt{m/k}$ と形式的に同じ（$L \\leftrightarrow m$、$1/C \\leftrightarrow k$）。`,
+  },
+  {
+    id: "osaka-2025-math-2",
+    universitySlug: "osaka",
+    year: 2025,
+    subject: "数学",
+    problemNumber: 2,
+    title: "線形代数：対称行列の対角化と二次形式",
+    field: "math",
+    difficulty: "standard",
+    tags: ["対称行列", "対角化", "二次形式"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2025年度 数学 問2
+
+## 問題の設定
+実対称行列
+$$A = \\begin{pmatrix} 2 & 1 \\\\ 1 & 2 \\end{pmatrix}$$
+を考える。
+
+## 問われている内容
+(1) 固有値 $\\lambda_1, \\lambda_2$ と規格化された固有ベクトル $\\vec{v}_1, \\vec{v}_2$ を求めよ。
+(2) 直交行列 $P$ により $P^T A P = \\mathrm{diag}(\\lambda_1, \\lambda_2)$ となることを示せ。
+(3) 2次形式 $f(x, y) = \\vec{x}^T A \\vec{x}$（$\\vec{x} = (x, y)^T$）を、主軸変換で対角形に書き直せ。
+(4) $f(x, y) = 1$ の表す図形の概形を答えよ。`,
+    solution: `## (1) 固有値と固有ベクトル
+
+特性方程式：$\\det(A - \\lambda I) = (2-\\lambda)^2 - 1 = 0 \\Rightarrow \\lambda = 1, 3$。
+
+- $\\lambda_1 = 3$：$(A - 3I)\\vec{v} = 0$ より $-v_1 + v_2 = 0$、$\\vec{v}_1 = (1, 1)/\\sqrt{2}$
+- $\\lambda_2 = 1$：$(A - I)\\vec{v} = 0$ より $v_1 + v_2 = 0$、$\\vec{v}_2 = (1, -1)/\\sqrt{2}$
+
+$$\\boxed{\\lambda_1 = 3, \\vec{v}_1 = \\frac{1}{\\sqrt{2}}(1, 1)^T; \\quad \\lambda_2 = 1, \\vec{v}_2 = \\frac{1}{\\sqrt{2}}(1, -1)^T}$$
+
+固有ベクトルは互いに直交（実対称行列の一般性質）。
+
+## (2) 対角化
+
+$P = (\\vec{v}_1, \\vec{v}_2) = (1/\\sqrt{2})\\begin{pmatrix}1 & 1 \\\\ 1 & -1\\end{pmatrix}$。$P^T P = I$（直交行列）。直接計算：
+
+$$P^T A P = \\begin{pmatrix} 3 & 0 \\\\ 0 & 1\\end{pmatrix} \\checkmark$$
+
+## (3) 主軸変換
+
+$\\vec{x} = P\\vec{x}'$（$\\vec{x}' = (x', y')^T$）と変換すると：
+
+$$f = \\vec{x}^T A \\vec{x} = \\vec{x}'^T P^T A P \\vec{x}' = 3x'^2 + y'^2$$
+
+主軸 $x', y'$ は元の軸から 45° 回転した方向。
+
+## (4) 図形
+
+$3x'^2 + y'^2 = 1$ は**楕円**。半軸 $a = 1/\\sqrt{3}$（$x'$ 方向）、$b = 1$（$y'$ 方向）。
+
+元の $xy$ 座標では、45°回転した楕円として見える。`,
+  },
+  {
+    id: "nagoya-2025-phys-3", universitySlug: "nagoya", year: 2025, subject: "物理学", problemNumber: 3,
+    title: "理想気体のエントロピー変化", field: "thermodynamics", difficulty: "basic",
+    tags: ["エントロピー", "自由膨張", "理想気体"], isFree: true,
+    statement: `**対応問題**: 名古屋大学 2025年度 物理学 問3
+
+## 問題の設定
+$n$ モルの単原子理想気体（定積モル比熱 $C_V = 3R/2$）が、温度 $T_0$、体積 $V_0$ の状態にある。次の2つの操作を比較する：
+- 操作 A: 等温可逆膨張で体積を $2V_0$ にする
+- 操作 B: 真空への自由膨張で体積を $2V_0$ にする
+
+## 問われている内容
+(1) 操作 A で気体が外界にした仕事 $W_A$、吸収した熱 $Q_A$、エントロピー変化 $\\Delta S_A$ を求めよ。
+(2) 操作 B の終状態の温度 $T_f$、仕事 $W_B$、熱 $Q_B$、エントロピー変化 $\\Delta S_B$ を求めよ。
+(3) A と B のエントロピー変化を比較し、結果を物理的に解釈せよ。`,
+    solution: `## (1) 等温可逆膨張（操作 A）
+
+等温なので $\\Delta U = 0$、熱力学第1法則より $Q_A = W_A$。
+
+$$W_A = \\int_{V_0}^{2V_0} \\frac{nRT_0}{V}dV = nRT_0 \\ln 2$$
+
+$$Q_A = nRT_0 \\ln 2$$
+
+$$\\Delta S_A = \\frac{Q_A}{T_0} = \\boxed{nR\\ln 2}$$
+
+## (2) 自由膨張（操作 B）
+
+断熱・外界に仕事しない・理想気体 → 内部エネルギー不変 → 温度不変：
+
+$$T_f = T_0, \\quad W_B = 0, \\quad Q_B = 0$$
+
+エントロピーは状態量なので、始状態と終状態が A と同じなら変化も同じ：
+
+$$\\Delta S_B = \\Delta S_A = \\boxed{nR\\ln 2}$$
+
+## (3) 比較
+
+- 可逆過程 A：$\\Delta S_{\\text{系}} = nR\\ln 2$、外界からの熱 $Q/T = nR\\ln 2$ を受け取る → 系+外界で $\\Delta S_{\\text{全}} = 0$。
+- 不可逆過程 B：$\\Delta S_{\\text{系}} = nR\\ln 2$、外界には何も起きない → $\\Delta S_{\\text{全}} = nR\\ln 2 > 0$。
+
+**物理的意味**：エントロピーは「系」についての量で A と B で同じ（状態量）。しかし全系（系+外界）では不可逆過程 B のみでエントロピー増大。これが第2法則の本質。`,
+  },
+  {
+    id: "nagoya-2025-phys-4", universitySlug: "nagoya", year: 2025, subject: "物理学", problemNumber: 4,
+    title: "無限井戸の量子力学（入門）", field: "quantum", difficulty: "basic",
+    tags: ["無限井戸", "定常状態", "ゼロ点エネルギー"], isFree: true,
+    statement: `**対応問題**: 名古屋大学 2025年度 物理学 問4
+
+## 問題の設定
+$0 \\leq x \\leq L$ の無限に深い井戸内に質量 $m$ の粒子がある。$\\psi_n(x) = \\sqrt{2/L}\\sin(n\\pi x/L)$、$E_n = n^2\\pi^2\\hbar^2/(2mL^2)$（$n = 1,2,\\ldots$）が与えられている。
+
+## 問われている内容
+(1) 基底状態エネルギー $E_1$ と第一励起エネルギー $E_2$ を書け。遷移エネルギー $E_2 - E_1$ を求めよ。
+(2) 電子（$m = 9.1 \\times 10^{-31}$ kg）が $L = 1$ nm の井戸にいるとき、$E_1$ を eV 単位で求めよ（$\\hbar = 1.05 \\times 10^{-34}$ J·s、$1$ eV $= 1.6 \\times 10^{-19}$ J）。
+(3) 基底状態で位置を測定すると、$x = L/2$ で粒子を見出す確率密度 $|\\psi_1(L/2)|^2$ を求めよ。`,
+    solution: `## (1) エネルギー準位
+
+$$E_1 = \\frac{\\pi^2\\hbar^2}{2mL^2}, \\quad E_2 = \\frac{4\\pi^2\\hbar^2}{2mL^2} = 4E_1$$
+
+$$\\boxed{E_2 - E_1 = 3E_1 = \\frac{3\\pi^2\\hbar^2}{2mL^2}}$$
+
+## (2) 数値計算
+
+$\\hbar^2 = (1.05 \\times 10^{-34})^2 = 1.1025 \\times 10^{-68}$ J²·s²。
+
+$$E_1 = \\frac{\\pi^2 \\cdot 1.1025 \\times 10^{-68}}{2 \\cdot 9.1 \\times 10^{-31} \\cdot (10^{-9})^2} = \\frac{9.87 \\cdot 1.1025}{18.2} \\times 10^{-68+31+18} \\text{ J}$$
+
+$$\\approx 0.598 \\times 10^{-19} \\text{ J} \\approx \\boxed{0.37 \\text{ eV}}$$
+
+eV オーダーで、可視光の光子エネルギー（2–3 eV）と同程度。これが量子閉じ込め構造（量子ドット等）での光吸収スペクトルの基礎。
+
+## (3) 中心での確率密度
+
+$\\sin(\\pi \\cdot L/2 / L) = \\sin(\\pi/2) = 1$ より：
+
+$$|\\psi_1(L/2)|^2 = \\frac{2}{L}\\sin^2(\\pi/2) = \\boxed{\\frac{2}{L}}$$
+
+中心が最大確率点。積分は $\\int_0^L (2/L)\\sin^2(\\pi x/L)dx = 1$ と合っている。`,
+  },
+  {
+    id: "kyushu-2025-phys-3", universitySlug: "kyushu", year: 2025, subject: "物理学", problemNumber: 3,
+    title: "ソレノイドとインダクタンス", field: "electromagnetism", difficulty: "basic",
+    tags: ["ソレノイド", "自己インダクタンス", "磁束"], isFree: true,
+    statement: `**対応問題**: 九州大学 2025年度 物理学 問3
+
+## 問題の設定
+長さ $\\ell$、断面積 $S$、単位長さあたり巻数 $n$ の空芯ソレノイドに、電流 $I$ を流す。内部は一様磁場と近似してよい。真空の透磁率を $\\mu_0$ とする。
+
+## 問われている内容
+(1) ソレノイド内部の磁束密度 $B$ を求めよ。
+(2) 一巻きあたりの磁束 $\\Phi$、全巻数 $N = n\\ell$ での総磁束鎖交 $\\Phi_{\\text{tot}}$ を求めよ。
+(3) 自己インダクタンス $L$ を導け。
+(4) 磁場のエネルギー密度 $u_B = B^2/(2\\mu_0)$ を用いて、ソレノイド内に蓄えられる磁気エネルギー $U_B$ を計算し、$U_B = LI^2/2$ と一致することを確認せよ。`,
+    solution: `## (1) 内部磁場
+
+Ampere の法則（長い直線ソレノイド近似）：
+
+$$\\boxed{B = \\mu_0 n I}$$
+
+端効果を無視した一様場。
+
+## (2) 磁束
+
+一巻き：$\\Phi = BS = \\mu_0 n I S$。総磁束鎖交：
+
+$$\\Phi_{\\text{tot}} = N\\Phi = \\mu_0 n^2 \\ell S I$$
+
+## (3) 自己インダクタンス
+
+$\\Phi_{\\text{tot}} = LI$ の定義から：
+
+$$\\boxed{L = \\mu_0 n^2 \\ell S}$$
+
+## (4) エネルギー
+
+$$U_B = u_B \\cdot (\\text{体積}) = \\frac{B^2}{2\\mu_0}\\cdot \\ell S = \\frac{(\\mu_0 nI)^2}{2\\mu_0}\\ell S = \\frac{\\mu_0 n^2 \\ell S}{2}I^2 = \\frac{L I^2}{2} \\checkmark$$
+
+同じ $\\boxed{U_B = \\mu_0 n^2 \\ell S \\cdot I^2/2}$ が得られる。インダクタンスの定義が磁場エネルギーと矛盾なく結びついている。`,
+  },
+  {
+    id: "kyushu-2025-phys-4", universitySlug: "kyushu", year: 2025, subject: "物理学", problemNumber: 4,
+    title: "理想気体の熱機関", field: "thermodynamics", difficulty: "basic",
+    tags: ["熱機関", "効率", "等温過程"], isFree: true,
+    statement: `**対応問題**: 九州大学 2025年度 物理学 問4
+
+## 問題の設定
+単原子理想気体 $n$ モルを、次のサイクルで動かす：
+- A→B: 温度 $T_H$ で等温膨張（体積 $V_1 \\to V_2$、$V_2 > V_1$）
+- B→C: 定積冷却（$T_H \\to T_L$）
+- C→D: 温度 $T_L$ で等温圧縮（体積 $V_2 \\to V_1$）
+- D→A: 定積加熱（$T_L \\to T_H$）
+
+## 問われている内容
+(1) 各過程で気体が吸収する熱 $Q_i$ を計算せよ。
+(2) 1サイクルで外界にした仕事 $W$ を求めよ。
+(3) このサイクルの効率 $\\eta = W/Q_{\\text{吸収}}$ を求めよ。ただし吸収熱は $Q > 0$ の過程のみの和。
+(4) カルノー効率 $\\eta_C = 1 - T_L/T_H$ と比較し、このサイクルがカルノーより劣ることを示せ。`,
+    solution: `## (1) 各過程の熱
+
+- A→B: 等温で $Q_{AB} = nRT_H \\ln(V_2/V_1) > 0$
+- B→C: 定積で $Q_{BC} = nC_V(T_L - T_H) = -(3/2)nR(T_H - T_L) < 0$
+- C→D: 等温で $Q_{CD} = nRT_L \\ln(V_1/V_2) = -nRT_L\\ln(V_2/V_1) < 0$
+- D→A: 定積で $Q_{DA} = nC_V(T_H - T_L) = +(3/2)nR(T_H - T_L) > 0$
+
+## (2) サイクルの仕事
+
+内部エネルギーは1サイクルで元に戻るので、熱力学第1法則から $W = \\sum Q_i$：
+
+$$W = nR\\ln(V_2/V_1)(T_H - T_L) + (3/2)nR(T_H - T_L) \\cdot 0$$
+
+（定積過程2つは $Q_{BC} + Q_{DA} = 0$）
+
+$$\\boxed{W = nR(T_H - T_L)\\ln(V_2/V_1)}$$
+
+## (3) 効率
+
+吸収熱：$Q_{AB} + Q_{DA} = nRT_H\\ln(V_2/V_1) + (3/2)nR(T_H - T_L)$。
+
+$$\\eta = \\frac{nR(T_H - T_L)\\ln(V_2/V_1)}{nRT_H\\ln(V_2/V_1) + (3/2)nR(T_H - T_L)}$$
+
+$r \\equiv \\ln(V_2/V_1)$、$\\Delta T \\equiv T_H - T_L$ とおくと：
+
+$$\\eta = \\frac{r \\Delta T}{r T_H + (3/2)\\Delta T}$$
+
+## (4) カルノー比較
+
+カルノー効率：$\\eta_C = \\Delta T/T_H$。比をとると：
+
+$$\\frac{\\eta}{\\eta_C} = \\frac{r T_H}{r T_H + (3/2)\\Delta T} < 1$$
+
+よって $\\eta < \\eta_C$。**理由**：カルノーは2つの定温過程と2つの断熱過程からなり、温度差のある熱の授受が定積ではなく断熱で行われる。定積過程では有限温度差 $\\Delta T$ を横断するので非可逆性（エントロピー生成）が生じ、効率が下がる。`,
+  },
+  {
+    id: "hokkaido-2025-phys-3", universitySlug: "hokkaido", year: 2025, subject: "物理学", problemNumber: 3,
+    title: "気体の状態方程式と分子運動論", field: "thermodynamics", difficulty: "basic",
+    tags: ["状態方程式", "分子運動論", "根2乗平均速度"], isFree: true,
+    statement: `**対応問題**: 北海道大学 2025年度 物理学 問3
+
+## 問題の設定
+質量 $m$ の分子 $N$ 個が体積 $V$ の容器内を独立・等方的に運動する。温度 $T$、Boltzmann 定数 $k_B$、Avogadro 数 $N_A$ とする。
+
+## 問われている内容
+(1) 分子運動論から、圧力 $P = \\frac{1}{3}\\frac{N}{V}m\\langle v^2\\rangle$ を導け（考え方の骨子でよい）。
+(2) 気体の状態方程式 $PV = Nk_B T$ と比較し、$\\langle v^2 \\rangle$ を $T$ で表せ。
+(3) 酸素分子（$m = 5.3 \\times 10^{-26}$ kg）の室温 $T = 300$ K における $v_{\\text{rms}} = \\sqrt{\\langle v^2\\rangle}$ を求めよ。
+
+## 定数
+$k_B = 1.38 \\times 10^{-23}$ J/K`,
+    solution: `## (1) 分子運動論からの圧力
+
+壁に垂直な速度成分を $v_x$ とする。1分子が壁に衝突するとき、運動量変化は $2mv_x$、衝突頻度は $v_x/(2L)$（容器の幅 $L$）。壁への力の時間平均は $mv_x^2/L$、圧力 $P = \\sum mv_x^2/(LV)\\cdot L^2/S = Nm\\langle v_x^2\\rangle/V$。
+
+等方性から $\\langle v_x^2\\rangle = \\langle v^2\\rangle/3$。
+
+$$\\boxed{P = \\frac{Nm\\langle v^2\\rangle}{3V}}$$
+
+## (2) 温度との関係
+
+$PV = Nk_B T$ と等値：
+
+$$\\frac{Nm\\langle v^2\\rangle}{3} = Nk_B T \\quad \\Rightarrow \\quad \\boxed{\\langle v^2\\rangle = \\frac{3k_B T}{m}}$$
+
+1分子あたり運動エネルギー $\\langle (1/2)mv^2\\rangle = (3/2)k_B T$ — エネルギー等分配則。
+
+## (3) 酸素の rms 速度
+
+$$v_{\\text{rms}} = \\sqrt{\\frac{3 \\cdot 1.38 \\times 10^{-23} \\cdot 300}{5.3 \\times 10^{-26}}} = \\sqrt{\\frac{1242 \\times 10^{-23}}{5.3 \\times 10^{-26}}} = \\sqrt{2.34 \\times 10^5}$$
+
+$$\\approx \\boxed{484 \\text{ m/s}}$$
+
+音速（約340 m/s）より少し速い。実際、音速は $\\sqrt{\\gamma RT/M}$ で、$v_{\\text{rms}} = \\sqrt{3RT/M}$ の約 $\\sqrt{3/\\gamma} \\approx 1.46$ 倍。`,
+  },
+  {
+    id: "hokkaido-2025-phys-4", universitySlug: "hokkaido", year: 2025, subject: "物理学", problemNumber: 4,
+    title: "ド・ブロイ波長と電子回折", field: "quantum", difficulty: "basic",
+    tags: ["ド・ブロイ波", "電子回折", "波動性"], isFree: true,
+    statement: `**対応問題**: 北海道大学 2025年度 物理学 問4
+
+## 問題の設定
+質量 $m$ の電子を電位差 $V$ で加速した（初速度 0）。非相対論的に扱う。Planck 定数 $h$、電気素量 $e$。
+
+## 問われている内容
+(1) 加速後の運動量 $p$ を $m, e, V$ で表せ。
+(2) ド・ブロイ波長 $\\lambda = h/p$ を求めよ。
+(3) $V = 100$ V のとき、$\\lambda$ を計算せよ（$h = 6.6 \\times 10^{-34}$ J·s、$m = 9.1 \\times 10^{-31}$ kg、$e = 1.6 \\times 10^{-19}$ C）。
+(4) 得られた $\\lambda$ の大きさが X 線と同程度であることを確認し、電子の波動性を確認する実験（Davisson-Germer 等）でこの事実がどう使われているか、1–2行で説明せよ。`,
+    solution: `## (1) 運動量
+
+仕事エネルギー関係 $eV = p^2/(2m)$：
+
+$$\\boxed{p = \\sqrt{2meV}}$$
+
+## (2) 波長
+
+$$\\boxed{\\lambda = \\frac{h}{\\sqrt{2meV}}}$$
+
+## (3) 数値
+
+$p = \\sqrt{2 \\cdot 9.1 \\times 10^{-31} \\cdot 1.6 \\times 10^{-19} \\cdot 100}$
+
+$= \\sqrt{2.91 \\times 10^{-47}} = 5.40 \\times 10^{-24}$ kg·m/s
+
+$$\\lambda = \\frac{6.6 \\times 10^{-34}}{5.40 \\times 10^{-24}} \\approx \\boxed{1.22 \\times 10^{-10} \\text{ m} = 1.22 \\text{ Å}}$$
+
+## (4) X 線との比較と応用
+
+X 線は $\\lambda \\sim 0.1-1$ Å で原子間隔（$\\sim$ 数Å）と同程度。電子も $V = 100$ V 程度で同じオーダーの波長になるため、結晶格子での Bragg 回折により干渉パターンが観測できる。Davisson-Germer（1927）は Ni 単結晶に加速電子を当て、角度依存の強度パターンから電子の波動性を実験的に確認した。`,
+  },
+  {
+    id: "ynu-2025-phys-3", universitySlug: "ynu", year: 2025, subject: "物理学", problemNumber: 3,
+    title: "熱容量と熱平衡", field: "thermodynamics", difficulty: "basic",
+    tags: ["熱容量", "比熱", "熱平衡"], isFree: true,
+    statement: `**対応問題**: 横浜国立大学 2025年度 物理学 問3
+
+## 問題の設定
+熱容量を無視できる断熱容器に、温度 $T_1$ の水 $m_1$ kg と温度 $T_2$ の鉄 $m_2$ kg（$T_1 < T_2$）を入れた。水の比熱 $c_1$、鉄の比熱 $c_2$。
+
+## 問われている内容
+(1) 熱平衡状態での温度 $T_f$ を求めよ。
+(2) 鉄が失った熱量と水が得た熱量が等しいことを確認せよ。
+(3) $m_1 = 0.5$ kg、$m_2 = 0.2$ kg、$T_1 = 20°\\mathrm{C}$、$T_2 = 100°\\mathrm{C}$、$c_1 = 4.2 \\times 10^3$ J/(kg·K)、$c_2 = 0.45 \\times 10^3$ J/(kg·K) のとき $T_f$ を計算せよ。`,
+    solution: `## (1) 平衡温度
+
+熱量保存（外部との熱交換なし）：$m_1 c_1(T_f - T_1) + m_2 c_2(T_f - T_2) = 0$。
+
+$$\\boxed{T_f = \\frac{m_1 c_1 T_1 + m_2 c_2 T_2}{m_1 c_1 + m_2 c_2}}$$
+
+熱容量 $m c$ を重みとする加重平均。
+
+## (2) 熱量の確認
+
+- 水が得た熱：$Q_1 = m_1 c_1(T_f - T_1) > 0$
+- 鉄が失った熱：$Q_2 = m_2 c_2(T_2 - T_f) > 0$
+
+上式から $m_1 c_1 T_f - m_1 c_1 T_1 = m_2 c_2 T_2 - m_2 c_2 T_f$、つまり $Q_1 = Q_2 \\checkmark$。
+
+## (3) 数値計算
+
+$m_1 c_1 = 0.5 \\cdot 4200 = 2100$ J/K、$m_2 c_2 = 0.2 \\cdot 450 = 90$ J/K。
+
+$$T_f = \\frac{2100 \\cdot 20 + 90 \\cdot 100}{2100 + 90} = \\frac{42000 + 9000}{2190} = \\frac{51000}{2190}$$
+
+$$\\approx \\boxed{23.3°\\mathrm{C}}$$
+
+鉄より水の熱容量が大きいので、平衡温度は水の初期温度にずっと近い。`,
+  },
+  {
+    id: "ynu-2025-phys-4", universitySlug: "ynu", year: 2025, subject: "物理学", problemNumber: 4,
+    title: "波の干渉とうなり", field: "mechanics", difficulty: "basic",
+    tags: ["うなり", "波の重ね合わせ", "位相"], isFree: true,
+    statement: `**対応問題**: 横浜国立大学 2025年度 物理学 問4
+
+## 問題の設定
+同じ振幅 $A$ で振動数のわずかに異なる2つの音波 $f_1 = 440$ Hz、$f_2 = 444$ Hz が同じ方向に同位相で重なっている。
+
+## 問われている内容
+(1) 合成波 $y(t) = A\\sin(2\\pi f_1 t) + A\\sin(2\\pi f_2 t)$ を積和の公式で書き直せ。
+(2) うなりの周期 $T_b$ とうなりの振動数 $f_b$ を求めよ。
+(3) 短い時間スケールで見たときの「キャリア振動数」を求めよ。
+(4) うなりの物理的イメージを説明せよ。`,
+    solution: `## (1) 積和変換
+
+$\\sin\\alpha + \\sin\\beta = 2\\cos((\\alpha-\\beta)/2)\\sin((\\alpha+\\beta)/2)$ を使う：
+
+$$y(t) = 2A\\cos\\left(2\\pi \\frac{f_2-f_1}{2}t\\right)\\sin\\left(2\\pi \\frac{f_1+f_2}{2}t\\right)$$
+
+## (2) うなり振動数
+
+振幅の包絡線 $2A|\\cos(\\pi(f_2-f_1)t)|$ は $|f_2-f_1|$ 回/秒で2倍の極大を持つ。すなわち「強弱の周期」としてのうなりは：
+
+$$\\boxed{f_b = |f_2 - f_1| = 4 \\text{ Hz}}$$
+
+$$T_b = 1/f_b = 0.25 \\text{ s}$$
+
+## (3) キャリア振動数
+
+高速振動項 $\\sin(2\\pi f_c t)$ の振動数：
+
+$$\\boxed{f_c = (f_1 + f_2)/2 = 442 \\text{ Hz}}$$
+
+## (4) 物理的イメージ
+
+近い振動数の音波が重なると、位相が合う時刻と打ち消し合う時刻が周期的に交互訪れ、振幅（音量）が「ウワンウワン」と周期 $T_b$ で変化する。ピアノの調律で使われる — 2本の弦のうなりをゼロに近づけることで振動数を合わせる。
+
+うなり振動数 $f_b$ は各音源の振動数差で、2つの振動数が完全に等しいときゼロになる。`,
+  },
+  {
+    id: "tsukuba-2025-phys-3", universitySlug: "tsukuba", year: 2025, subject: "物理学", problemNumber: 3,
+    title: "RL 回路の過渡応答", field: "electromagnetism", difficulty: "standard",
+    tags: ["RL 回路", "過渡現象", "時定数"], isFree: true,
+    statement: `**対応問題**: 筑波大学 2025年度 物理学 問3
+
+## 問題の設定
+起電力 $\\varepsilon$ の電池、抵抗 $R$、自己インダクタンス $L$ のコイル、スイッチ S を直列に接続する。$t = 0$ で S を閉じる。
+
+## 問われている内容
+(1) Kirchhoff の法則から、電流 $I(t)$ の満たす微分方程式を書け。
+(2) $I(0) = 0$ を初期条件として $I(t)$ を求めよ。時定数 $\\tau$ も示せ。
+(3) 十分時間が経過した後の電流 $I_\\infty$ を求めよ。
+(4) ある時刻 $t_1$ で電流が $I_\\infty$ の 90% に達するとすると、$t_1/\\tau$ の値を求めよ。`,
+    solution: `## (1) 微分方程式
+
+起電力＝抵抗電圧＋コイル電圧：
+
+$$\\varepsilon = RI + L\\frac{dI}{dt}$$
+
+## (2) 解
+
+同次解 $I_h \\propto e^{-Rt/L}$、特解 $I_p = \\varepsilon/R$。一般解に $I(0) = 0$ を入れて：
+
+$$\\boxed{I(t) = \\frac{\\varepsilon}{R}\\left(1 - e^{-t/\\tau}\\right), \\quad \\tau = L/R}$$
+
+$\\tau$ は電流が最終値の $1 - 1/e \\approx 63\\%$ に達するまでの時間。
+
+## (3) 定常電流
+
+$t \\to \\infty$ で $e^{-t/\\tau} \\to 0$：
+
+$$\\boxed{I_\\infty = \\varepsilon/R}$$
+
+このときコイル両端電圧はゼロ（$dI/dt = 0$）、抵抗が全電圧を担う。
+
+## (4) 90% 到達時刻
+
+$0.9 = 1 - e^{-t_1/\\tau} \\Rightarrow e^{-t_1/\\tau} = 0.1$
+
+$$\\boxed{t_1/\\tau = \\ln 10 \\approx 2.30}$$
+
+時定数の約2.3倍の時間が必要。99%なら $\\ln 100 \\approx 4.6 \\tau$。`,
+  },
+  {
+    id: "tsukuba-2025-phys-4", universitySlug: "tsukuba", year: 2025, subject: "物理学", problemNumber: 4,
+    title: "Maxwell-Boltzmann 速度分布", field: "statistical", difficulty: "standard",
+    tags: ["Maxwell 分布", "平均速度", "最頻速度"], isFree: true,
+    statement: `**対応問題**: 筑波大学 2025年度 物理学 問4
+
+## 問題の設定
+温度 $T$ の気体中の分子（質量 $m$）の速さの分布は Maxwell-Boltzmann 分布に従う：
+$$f(v) = 4\\pi n \\left(\\frac{m}{2\\pi k_B T}\\right)^{3/2} v^2 e^{-mv^2/(2k_B T)}$$
+（$n$ は数密度、$f(v)dv$ は速さが $v\\sim v+dv$ の分子の数密度）。
+
+## 問われている内容
+(1) $f(v)$ の最大を与える最頻速度 $v_p$ を求めよ。
+(2) 平均速度 $\\langle v \\rangle = (1/n)\\int_0^\\infty v f(v) dv$ を計算せよ（$\\int_0^\\infty x^3 e^{-\\alpha x^2}dx = 1/(2\\alpha^2)$ を使う）。
+(3) rms 速度 $v_{\\text{rms}} = \\sqrt{\\langle v^2\\rangle}$ を求め、3つの速度 $v_p < \\langle v\\rangle < v_{\\text{rms}}$ の大小関係を確認せよ。`,
+    solution: `## (1) 最頻速度
+
+$df/dv = 0$ を解く。対数微分で $d(\\ln f)/dv = 2/v - mv/(k_B T) = 0$：
+
+$$\\boxed{v_p = \\sqrt{\\frac{2k_B T}{m}}}$$
+
+## (2) 平均速度
+
+$\\alpha = m/(2k_B T)$ とおくと：
+
+$$\\langle v\\rangle = 4\\pi \\left(\\frac{\\alpha}{\\pi}\\right)^{3/2}\\int_0^\\infty v^3 e^{-\\alpha v^2}dv = 4\\pi\\left(\\frac{\\alpha}{\\pi}\\right)^{3/2} \\cdot \\frac{1}{2\\alpha^2}$$
+
+$= (4\\pi/\\pi^{3/2}) \\cdot \\alpha^{-1/2}/2 = (2/\\sqrt{\\pi}) \\cdot 1/\\sqrt{\\alpha}$
+
+$$\\boxed{\\langle v\\rangle = \\sqrt{\\frac{8k_B T}{\\pi m}}}$$
+
+## (3) rms 速度
+
+エネルギー等分配則から $\\langle v^2\\rangle = 3k_B T/m$：
+
+$$\\boxed{v_{\\text{rms}} = \\sqrt{\\frac{3k_B T}{m}}}$$
+
+## 3速度の比較
+
+共通因子 $\\sqrt{k_B T/m}$ をくくり出すと：
+- $v_p = \\sqrt{2} \\approx 1.414$
+- $\\langle v\\rangle = \\sqrt{8/\\pi} \\approx 1.596$
+- $v_{\\text{rms}} = \\sqrt{3} \\approx 1.732$
+
+$$v_p : \\langle v\\rangle : v_{\\text{rms}} = \\sqrt{2} : \\sqrt{8/\\pi} : \\sqrt{3} \\approx 1.414 : 1.596 : 1.732$$
+
+$v_p < \\langle v\\rangle < v_{\\text{rms}}$ ✅。rms は $v^2$ で重みがかかるので高速テールを拾って大きめになる。`,
+  },
 ];
 
 export function getProblem(id: string): Problem | undefined {

@@ -1,5 +1,46 @@
 # 院試DB 作業履歴
 
+## 2026-04-22 (続き) — 2025年度を全大学×全科目で充足（B案）
+
+### 目的
+前段で模擬演習型が完成したが、各試験ページの問題数が `totalQuestions` に満たない状態だった。
+「現状の年度の範囲で良いので、すべての大問と科目を充足」したいというユーザー要望を受け、B案（1年度を全大学横断で完遂）を採用。まず 2025 年度から着手。
+
+### 追加内容（+23問）
+| 大学 | 科目 | 追加分 | テーマ |
+|---|---|---|---|
+| todai | phys | phys-4 | 2準位系・Schottky 異常 |
+| todai | math | math-2 | 留数定理による実積分 |
+| kyodai | phys | phys-3,4 | 中心力場ラグランジアン・無限井戸 |
+| kyodai | math | math-2 | Stokes の定理 |
+| titech | phys | phys-3,4,5 | 誘電体コンデンサ・角運動量交換関係・オットーサイクル |
+| tohoku | phys | phys-4,5 | 水素原子基底状態・Debye モデル |
+| osaka | phys | phys-3,4 | 2体問題換算質量・LC 共振 |
+| osaka | math | math-2 | 対称行列対角化と二次形式 |
+| nagoya | phys | phys-3,4 | エントロピー・無限井戸入門 |
+| kyushu | phys | phys-3,4 | ソレノイド・熱機関効率 |
+| hokkaido | phys | phys-3,4 | 分子運動論・ド・ブロイ波長 |
+| ynu | phys | phys-3,4 | 熱容量・うなり |
+| tsukuba | phys | phys-3,4 | RL 過渡応答・Maxwell 分布 |
+
+### 伴う変更
+- `universities.ts`: todai/kyodai/osaka の math に `rule`（totalQuestions=2, requiredCount=1, 90 min）を追加
+- ynu-2025-phys-4 の `field` を暫定的に "mechanics" に（"waves" 型がまだ無いため。必要なら後続で追加）
+
+### 動作確認
+- `npx tsc --noEmit` エラー0件 ✅
+- 2025年度 全10大学 phys 試験ページ HTTP 200 ✅
+- todai/kyodai/osaka の math 試験ページ HTTP 200 ✅
+- 試験ページの大問数が `totalQuestions` と一致：phys 4問（または 5問 for titech/tohoku）、math 2問 ✅
+- スポットチェック: 新規追加問題の個別ページ（/problems/[id]）全て HTTP 200 ✅
+
+### 次回TODO
+- 2024 年度を同じ要領で充足（B案の第2ラウンド）
+- 以降 2023 → 2022 → 2021 と進める
+- `Field` 型に "waves" を追加するか、ynu-2025-phys-4 を別表現にするか検討
+
+---
+
 ## 2026-04-22 — 模擬演習ページを「最下部1ボタン式」に統一、科目構成をデータ化
 
 ### 背景

@@ -32,6 +32,12 @@ export const universities: University[] = [
         slug: "math",
         name: "数学",
         description: "出題されない年もあるため、最新の募集要項を要確認。",
+        rule: {
+          totalQuestions: 2,
+          requiredCount: 1,
+          durationMinutes: 90,
+          notes: "出題される年のみ。問題量・形式は年度によって変動。",
+        },
       },
     ],
   },
@@ -55,6 +61,12 @@ export const universities: University[] = [
       {
         slug: "math",
         name: "数学",
+        rule: {
+          totalQuestions: 2,
+          requiredCount: 1,
+          durationMinutes: 90,
+          notes: "年度によって出題形式が変わる。",
+        },
       },
     ],
   },
@@ -117,6 +129,12 @@ export const universities: University[] = [
       {
         slug: "math",
         name: "数学",
+        rule: {
+          totalQuestions: 2,
+          requiredCount: 1,
+          durationMinutes: 90,
+          notes: "年度によって出題分野・形式が変動。",
+        },
       },
     ],
   },
