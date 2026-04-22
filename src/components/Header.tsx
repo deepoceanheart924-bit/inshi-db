@@ -3,8 +3,36 @@
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeSelector } from "@/components/ThemeSelector";
 import { cn } from "@/lib/utils";
+import { BOOKS_ENABLED } from "@/lib/features";
 import { useEffect, useState } from "react";
+
+function SearchHint() {
+  const [mod, setMod] = useState("⌘");
+  useEffect(() => {
+    const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/i.test(navigator.platform);
+    setMod(isMac ? "⌘" : "Ctrl");
+  }, []);
+  const trigger = () => {
+    const e = new KeyboardEvent("keydown", { key: "k", metaKey: true, ctrlKey: true });
+    document.dispatchEvent(e);
+  };
+  return (
+    <button
+      onClick={trigger}
+      className="hidden sm:flex items-center gap-2 h-7 px-2.5 rounded-md border text-xs text-muted-foreground hover:bg-muted transition-colors"
+      aria-label="Open search"
+    >
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+      </svg>
+      <span className="hidden md:inline">検索</span>
+      <kbd className="text-[10px] bg-muted border rounded px-1 py-0.5">{mod}K</kbd>
+    </button>
+  );
+}
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -50,13 +78,23 @@ export function Header() {
           >
             分野別
           </Link>
-          <ThemeToggle />
           <Link
-            href="#"
-            className={cn(buttonVariants({ size: "sm" }), "text-xs ml-1")}
+            href="/topics"
+            className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-xs")}
           >
-            Premium
+            解説
           </Link>
+          {BOOKS_ENABLED && (
+            <Link
+              href="/books"
+              className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-xs")}
+            >
+              参考書
+            </Link>
+          )}
+          <SearchHint />
+          <ThemeSelector />
+          <ThemeToggle />
         </nav>
       </div>
     </header>

@@ -54,6 +54,67 @@ body {
     "Noto Sans JP", sans-serif;
 }
 
+.font-serif-jp {
+  font-family: var(--font-serif-jp), "Noto Serif JP", "Yu Mincho", "YuMincho",
+    "Hiragino Mincho ProN", serif;
+}
+
+/* ---- Editorial (glamping-style) palette scoped to /books ---- */
+.editorial {
+  --bg-cream: oklch(0.97 0.012 85);
+  --bg-cream-deep: oklch(0.93 0.02 80);
+  --ink-warm: oklch(0.25 0.025 40);
+  --ink-warm-muted: oklch(0.45 0.02 40);
+  --accent-clay: oklch(0.55 0.1 40);
+  --rule-line: oklch(0.85 0.02 75);
+}
+
+.dark .editorial {
+  --bg-cream: oklch(0.16 0.015 40);
+  --bg-cream-deep: oklch(0.2 0.02 40);
+  --ink-warm: oklch(0.92 0.01 80);
+  --ink-warm-muted: oklch(0.7 0.015 75);
+  --accent-clay: oklch(0.7 0.1 50);
+  --rule-line: oklch(0.3 0.02 50);
+}
+
+/* ---- Creative (antscr-style) palette scoped to /topics ---- */
+.creative {
+  --cr-bg: oklch(0.975 0.006 90);
+  --cr-bg-alt: oklch(0.955 0.008 90);
+  --cr-ink: oklch(0.14 0.02 260);
+  --cr-ink-muted: oklch(0.45 0.01 260);
+  --cr-accent: oklch(0.6 0.22 30);
+  --cr-accent-2: oklch(0.55 0.22 250);
+  --cr-accent-3: oklch(0.7 0.2 100);
+  --cr-rule: oklch(0.88 0.01 90);
+  background-color: var(--cr-bg);
+  /* Very subtle dots — almost invisible grain, just hinting at a grid */
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    oklch(0.84 0.01 90 / 0.6) 0.6px,
+    transparent 0
+  );
+  background-size: 40px 40px;
+  background-position: 0 0;
+}
+
+.dark .creative {
+  --cr-bg: oklch(0.13 0.01 260);
+  --cr-bg-alt: oklch(0.17 0.015 260);
+  --cr-ink: oklch(0.95 0.005 90);
+  --cr-ink-muted: oklch(0.65 0.01 90);
+  --cr-accent: oklch(0.72 0.2 30);
+  --cr-accent-2: oklch(0.7 0.2 250);
+  --cr-accent-3: oklch(0.78 0.2 100);
+  --cr-rule: oklch(0.28 0.01 260);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    oklch(0.23 0.01 260 / 0.7) 0.6px,
+    transparent 0
+  );
+}
+
 /* KaTeX overrides */
 .math-content .katex-display {
   margin: 1em 0;
@@ -69,6 +130,18 @@ body {
 .math-content h3 {
   border-bottom: 1px solid var(--border);
   padding-bottom: 0.5rem;
+}
+
+.glossary-term {
+  text-decoration: underline dotted;
+  text-decoration-color: color-mix(in oklch, var(--primary) 60%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  cursor: help;
+  transition: color 0.15s;
+}
+.glossary-term:hover {
+  color: var(--primary);
 }
 
 :root {
@@ -150,4 +223,59 @@ body {
   html {
     @apply font-sans;
   }
+}
+
+/* Aceternity / Magic UI animations */
+@keyframes border-beam {
+  100% {
+    offset-distance: 100%;
+  }
+}
+.animate-border-beam {
+  animation: border-beam var(--duration) infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: 250% 0; }
+  100% { background-position: -250% 0; }
+}
+.animate-shimmer {
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes shimmer-slide {
+  to { transform: translate(calc(100cqw - 100%), 0); }
+}
+.animate-shimmer-slide {
+  animation: shimmer-slide var(--speed) ease-in-out infinite alternate;
+}
+
+@keyframes spin-around {
+  0% { transform: translateZ(0) rotate(0); }
+  15%, 35% { transform: translateZ(0) rotate(90deg); }
+  65%, 85% { transform: translateZ(0) rotate(270deg); }
+  100% { transform: translateZ(0) rotate(360deg); }
+}
+.animate-spin-around {
+  animation: spin-around calc(var(--speed) * 2) infinite;
+}
+
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.animate-marquee-reverse {
+  animation: marquee-reverse 45s linear infinite;
 }

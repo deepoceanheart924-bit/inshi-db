@@ -5,6 +5,8 @@ import { universities } from "@/data/universities";
 import { FIELD_LABELS, Field } from "@/data/types";
 import { FieldBadge } from "@/components/FieldBadge";
 import { DifficultyBadge } from "@/components/DifficultyBadge";
+import { FieldIcon } from "@/components/FieldIcon";
+import { DotPattern } from "@/components/patterns";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -68,18 +70,28 @@ export default async function FieldPage({
       </FadeIn>
 
       <FadeIn>
-        <div className="mb-12">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-3">
-            Fields
-          </p>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {isAll ? "分野別 問題一覧" : `${FIELD_LABELS[field as Field]}の問題`}
-          </h1>
-          <p className="mt-3 text-muted-foreground">
-            {isAll
-              ? "すべての分野から問題を一覧"
-              : `${FIELD_LABELS[field as Field]}に関する院試過去問`}
-          </p>
+        <div className="relative mb-12 rounded-2xl border bg-card/50 p-8 overflow-hidden">
+          <DotPattern className="text-foreground/60" size={20} opacity={0.1} />
+          <div className="relative flex items-center gap-6">
+            {!isAll && (
+              <div className="flex size-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary ring-1 ring-primary/10 shrink-0">
+                <FieldIcon field={field as Field} className="size-10" />
+              </div>
+            )}
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-2">
+                Fields
+              </p>
+              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                {isAll ? "分野別 問題一覧" : `${FIELD_LABELS[field as Field]}の問題`}
+              </h1>
+              <p className="mt-2 text-muted-foreground text-sm">
+                {isAll
+                  ? "すべての分野から問題を一覧"
+                  : `${FIELD_LABELS[field as Field]}に関する院試過去問`}
+              </p>
+            </div>
+          </div>
         </div>
       </FadeIn>
 
@@ -134,11 +146,6 @@ export default async function FieldPage({
                           <span>{p.year}年度</span>
                           <span>·</span>
                           <span>{p.subject} 問{p.problemNumber}</span>
-                          {!p.isFree && (
-                            <Badge variant="outline" className="text-[9px] text-muted-foreground px-1.5">
-                              PRO
-                            </Badge>
-                          )}
                         </div>
                         <h3 className="text-base font-semibold leading-snug group-hover:text-primary transition-colors mb-2">
                           {p.title}

@@ -3,11 +3,12 @@ import { notFound } from "next/navigation";
 import { universities, getUniversity } from "@/data/universities";
 import { getProblemsByUniversity, getYears } from "@/data/problems";
 import { FieldBadge } from "@/components/FieldBadge";
-import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations";
+import { DotPattern } from "@/components/patterns";
+import { FieldIcon } from "@/components/FieldIcon";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
@@ -57,8 +58,17 @@ export default async function UniversityPage({
 
       {/* Header */}
       <FadeIn>
-        <div className="mb-16">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div className="relative mb-16 rounded-2xl border bg-card/50 p-8 overflow-hidden">
+          <DotPattern className="text-foreground/60" size={20} opacity={0.08} />
+          {/* Decorative field icons */}
+          <div className="absolute top-4 right-4 flex gap-2 opacity-30">
+            {fields.slice(0, 3).map((f) => (
+              <div key={f} className="size-8 text-primary">
+                <FieldIcon field={f} className="size-full" />
+              </div>
+            ))}
+          </div>
+          <div className="relative flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-3">
                 University
@@ -86,66 +96,92 @@ export default async function UniversityPage({
               </a>
             </div>
           </div>
-          <div className="mt-8 h-px bg-border" />
         </div>
       </FadeIn>
 
-      {/* Problems by Year */}
-      {years.map((year, yi) => {
-        const yearProblems = uniProblems
-          .filter((p) => p.year === year)
-          .sort((a, b) => a.problemNumber - b.problemNumber);
+      {/* Year selection */}
+      <FadeIn>
+        <div className="flex items-center gap-3 mb-8">
+          <svg width="20" height="2" className="text-primary">
+            <line x1="0" y1="1" x2="20" y2="1" stroke="currentColor" strokeWidth="2" />
+          </svg>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+            Select Year
+          </p>
+        </div>
+        <h2 className="text-2xl font-bold tracking-tight mb-8">年度を選ぶ</h2>
+      </FadeIn>
 
-        return (
-          <div key={year} className="mb-16">
-            <FadeIn>
-              <div className="mb-6 flex items-center gap-4">
-                <Badge className="text-sm px-4 py-1.5">{year}年度</Badge>
-                <div className="flex-1 h-px bg-border" />
-              </div>
-            </FadeIn>
+      <StaggerContainer className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
+        {years.map((year) => {
+          const yearProblems = uniProblems.filter((p) => p.year === year);
+          const yearFields = [...new Set(yearProblems.map((p) => p.field))];
+          const subjects = [...new Set(yearProblems.map((p) => p.subject))];
 
-            <StaggerContainer className="space-y-3" stagger={0.06}>
-              {yearProblems.map((p) => (
-                <StaggerItem key={p.id}>
-                  <Link href={`/problems/${p.id}`} className="group block">
-                    <Card className="transition-all duration-300 hover:shadow-md hover:shadow-primary/5 hover:-translate-y-0.5 hover:ring-2 hover:ring-primary/10">
-                      <CardContent className="flex items-start justify-between py-5">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="text-[11px] text-muted-foreground tracking-wide">
-                              {p.subject} 問{p.problemNumber}
-                            </span>
-                            {!p.isFree && (
-                              <Badge variant="outline" className="text-[9px] text-muted-foreground px-1.5">
-                                PRO
-                              </Badge>
-                            )}
-                          </div>
-                          <h3 className="text-base font-semibold leading-snug group-hover:text-primary transition-colors mb-3">
-                            {p.title}
-                          </h3>
-                          <div className="flex flex-wrap gap-1">
-                            {p.tags.map((tag) => (
-                              <Badge key={tag} variant="secondary" className="text-[10px] font-normal">
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                        <div className="ml-6 flex flex-col items-end gap-2 shrink-0">
-                          <FieldBadge field={p.field} />
-                          <DifficultyBadge difficulty={p.difficulty} />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
+          return (
+            <StaggerItem key={year}>
+              <Link href={`/universities/${slug}/${year}`} className="group block">
+                <Card className="relative h-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 hover:ring-2 hover:ring-primary/15">
+                  {/* Corner decoration */}
+                  <div className="absolute top-0 right-0 size-28 -z-0 opacity-30 group-hover:opacity-60 transition-opacity">
+                    <svg viewBox="0 0 100 100" className="text-primary/30" fill="currentColor">
+                      <polygon points="100,0 100,100 0,0" />
+                    </svg>
+                  </div>
+
+                  <CardContent className="relative pt-6 pb-5">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-1">
+                          Year
+                        </p>
+                        <h3 className="text-3xl font-bold tracking-tighter group-hover:text-primary transition-colors">
+                          {year}
+                          <span className="text-sm ml-1 text-muted-foreground font-normal">年度</span>
+                        </h3>
+                      </div>
+                      <div className="flex size-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary font-bold ring-1 ring-primary/10">
+                        {yearProblems.length}
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {yearFields.map((f) => (
+                        <FieldBadge key={f} field={f} />
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-2 border-t">
+                      <p className="text-[11px] text-muted-foreground">
+                        {subjects.join(" / ")}
+                      </p>
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all"
+                      >
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </StaggerItem>
+          );
+        })}
+      </StaggerContainer>
+
+      {years.length === 0 && (
+        <FadeIn>
+          <div className="text-center py-16 text-muted-foreground">
+            <p>この大学の問題はまだ登録されていません</p>
           </div>
-        );
-      })}
+        </FadeIn>
+      )}
     </div>
   );
 }
