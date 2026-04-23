@@ -75,6 +75,22 @@ export default function HomePage() {
               </p>
             </FadeIn>
 
+            <FadeIn delay={0.2}>
+              <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 backdrop-blur-sm px-3 py-1">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
+                  <span className="relative inline-flex size-2 rounded-full bg-primary" />
+                </span>
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-primary">
+                  Updating
+                </span>
+                <span className="h-3 w-px bg-primary/30" />
+                <span className="text-[11px] font-medium text-foreground/80">
+                  今後随時情報更新予定
+                </span>
+              </div>
+            </FadeIn>
+
             <FadeIn delay={0.25}>
               <div className="mt-10 flex flex-wrap gap-3">
                 <ShimmerButton href="/fields/all" className="px-10 h-12">

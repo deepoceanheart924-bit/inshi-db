@@ -14,6 +14,9 @@ import {
   breadcrumbSchema,
   itemListSchema,
 } from "@/components/JsonLd";
+import { Particles } from "@/components/ui/particles";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { BlurFade } from "@/components/ui/blur-fade";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 
@@ -62,7 +65,7 @@ export default async function UniversityPage({
   const fields = [...new Set(uniProblems.map((p) => p.field))];
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-12">
+    <div className="relative mx-auto max-w-5xl px-6 py-12">
       <JsonLd
         data={breadcrumbSchema([
           { name: "ホーム", url: "/" },
@@ -79,6 +82,7 @@ export default async function UniversityPage({
           })),
         })}
       />
+      <Particles className="text-primary/30" quantity={26} staticity={70} />
       {/* Breadcrumb */}
       <FadeIn>
         <nav className="mb-10 flex items-center gap-2 text-xs text-muted-foreground">
@@ -107,7 +111,14 @@ export default async function UniversityPage({
               <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-primary mb-3">
                 University
               </p>
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{uni.name}</h1>
+              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                <TextGenerateEffect
+                  words={uni.name}
+                  splitBy="char"
+                  stagger={0.025}
+                  duration={0.4}
+                />
+              </h1>
               <p className="mt-2 text-sm text-muted-foreground">{uni.department}</p>
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {fields.map((f) => (

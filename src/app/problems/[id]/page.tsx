@@ -24,6 +24,8 @@ import {
   articleSchema,
   breadcrumbSchema,
 } from "@/components/JsonLd";
+import { Particles } from "@/components/ui/particles";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { FIELD_LABELS } from "@/data/types";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
@@ -80,7 +82,7 @@ export default async function ProblemPage({
   const articleDescription = `${uni?.name ?? ""} ${problem.year}年度 ${problem.subject} 問${problem.problemNumber}「${problem.title}」の解答解説。`;
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-12" data-toc-root>
+    <div className="relative mx-auto max-w-3xl px-6 py-12" data-toc-root>
       <JsonLd
         data={articleSchema({
           url: canonicalPath,
@@ -98,6 +100,7 @@ export default async function ProblemPage({
           { name: problem.title },
         ])}
       />
+      <Particles className="text-primary/30" quantity={22} staticity={80} />
       <ReadingProgress />
       <FloatingTOC />
 
@@ -137,7 +140,12 @@ export default async function ProblemPage({
                 <span>{problem.subject} 問{problem.problemNumber}</span>
               </div>
               <h1 className="text-2xl font-bold tracking-tight sm:text-3xl mb-5 leading-tight">
-                {problem.title}
+                <TextGenerateEffect
+                  words={problem.title}
+                  splitBy="char"
+                  stagger={0.018}
+                  duration={0.35}
+                />
               </h1>
               <div className="flex flex-wrap items-center gap-2 mb-4">
                 <FieldBadge field={problem.field} />

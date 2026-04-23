@@ -1,5 +1,26 @@
 # 院試DB 作業履歴
 
+## 2026-04-23 — LP「今後随時情報更新予定」バッジ追加
+
+### 背景
+コンテンツ拡充中であることをユーザーに明示するための告知要素。
+ユーザー要望で現行本番デザインへ即時反映。
+
+### 変更内容
+- [src/app/page.tsx](src/app/page.tsx): ヒーロー説明文直下（CTAボタンの上）にpill形式のバッジを追加
+  - `animate-ping` + primary色の発光ドット
+  - `Updating` (英・モノスペース) + 縦線 + 「今後随時情報更新予定」(日)
+  - 既存の緑pill（Open Exam Database）と同じ `rounded-full border backdrop-blur-sm px-3 py-1` スタイルで統一
+  - FadeIn delay={0.2}（説明文→バッジ→CTA の順で立ち上がる）
+
+### メモ
+- 進行中の Editorial リファクタ（未コミット）は `git stash` で退避済。
+  スタッシュ名: `WIP: Editorial overhaul + update-badge (for later pop)`
+  pop 時は page.tsx/WORKLOG.md でコンフリクト発生する可能性あり。
+  Editorial版復帰時はそちらにも同等のバッジを移植する必要がある（§ 01冒頭付近を想定）。
+
+---
+
 ## 2026-04-22 (続き3) — UI/UX Pro MAX Phase B（view transitions + Aceternity/Magic UI 拡充）
 
 ### 背景

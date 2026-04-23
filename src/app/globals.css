@@ -47,6 +47,8 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --color-accent-editorial: var(--accent-editorial);
+  --color-rule-editorial: var(--rule-editorial);
 }
 
 body {
@@ -177,6 +179,9 @@ body {
   --sidebar-accent-foreground: oklch(0.25 0.015 260);
   --sidebar-border: oklch(0.91 0.01 260);
   --sidebar-ring: oklch(0.55 0.18 260);
+  /* LP editorial: clay/rust accent + warm rule line (scientific journal direction) */
+  --accent-editorial: oklch(0.55 0.12 40);
+  --rule-editorial: oklch(0.82 0.015 60);
 }
 
 .dark {
@@ -211,6 +216,8 @@ body {
   --sidebar-accent-foreground: oklch(0.95 0.005 260);
   --sidebar-border: oklch(0.28 0.02 260);
   --sidebar-ring: oklch(0.55 0.18 260);
+  --accent-editorial: oklch(0.72 0.15 45);
+  --rule-editorial: oklch(0.3 0.02 50);
 }
 
 @layer base {
