@@ -279,3 +279,90 @@ body {
 .animate-marquee-reverse {
   animation: marquee-reverse 45s linear infinite;
 }
+
+/* ============================================================
+ * View Transitions
+ *   - nav-forward: 「次のページへ」(thumbnail → detail)
+ *   - nav-back:    「前のページへ戻る」
+ *   - site-header: ヘッダーを固定して画面全体のアンカーに
+ *   - prefers-reduced-motion: 動きを止める
+ * ============================================================ */
+
+:root {
+  --vt-duration-exit: 160ms;
+  --vt-duration-enter: 220ms;
+}
+
+/* 方向性ナビゲーション: forward = 新しい方へ進む（左へスライド） */
+::view-transition-old(.nav-forward) {
+  --vt-slide-offset: -60px;
+  animation:
+    var(--vt-duration-exit) ease-in both vt-fade reverse,
+    380ms ease-in-out both vt-slide reverse;
+}
+::view-transition-new(.nav-forward) {
+  --vt-slide-offset: 60px;
+  animation:
+    var(--vt-duration-enter) ease-out var(--vt-duration-exit) both vt-fade,
+    380ms ease-in-out both vt-slide;
+}
+
+/* 方向性ナビゲーション: back = 戻る（右へスライド） */
+::view-transition-old(.nav-back) {
+  --vt-slide-offset: 60px;
+  animation:
+    var(--vt-duration-exit) ease-in both vt-fade reverse,
+    380ms ease-in-out both vt-slide reverse;
+}
+::view-transition-new(.nav-back) {
+  --vt-slide-offset: -60px;
+  animation:
+    var(--vt-duration-enter) ease-out var(--vt-duration-exit) both vt-fade,
+    380ms ease-in-out both vt-slide;
+}
+
+@keyframes vt-fade {
+  from { filter: blur(3px); opacity: 0; }
+  to   { filter: blur(0);   opacity: 1; }
+}
+@keyframes vt-slide {
+  from { translate: var(--vt-slide-offset); }
+  to   { translate: 0; }
+}
+
+/* ヘッダーを固定アンカー化（動かさない） */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+
+/* 共有要素（problem/exam thumbnail → detail の morph）のソフト化 */
+::view-transition-group(.morph) {
+  animation-duration: 380ms;
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vt-via-blur;
+}
+@keyframes vt-via-blur {
+  30% { filter: blur(3px); }
+}
+
+/* ルート全体のデフォルト遷移（全ページ遷移で発火）: ソフトなクロスフェード+微ブラー */
+::view-transition-old(root) {
+  animation: var(--vt-duration-exit) ease-in both vt-fade reverse;
+}
+::view-transition-new(root) {
+  animation: var(--vt-duration-enter) ease-out var(--vt-duration-exit) both vt-fade;
+}
+
+/* Reduced motion ユーザへの配慮 */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

@@ -1,5 +1,37 @@
 # 院試DB 作業履歴
 
+## 2026-04-22 (続き3) — UI/UX Pro MAX Phase B（view transitions + Aceternity/Magic UI 拡充）
+
+### 背景
+ユーザー希望「framer motion + UI UX Pro MAX skill」受け、`experimental.viewTransition` 有効化と
+Aceternity UI/Magic UI 系の追加コンポーネント群でベース UX を底上げ。
+
+### 変更内容
+
+**Next.js 16 View Transitions**:
+- `next.config.ts`: `experimental.viewTransition: true`
+- `src/app/globals.css`: `.nav-forward`/`.nav-back`/`root`/`site-header` 向けのキーフレーム群、`vt-fade`/`vt-slide`、`prefers-reduced-motion` ガード
+- `src/components/Header.tsx`: `viewTransitionName: "site-header"` を `<header>` に付与（ページ遷移中もヘッダー固定）
+
+**新規 UI コンポーネント**:
+- Aceternity 系: `meteors.tsx`, `hover-border-gradient.tsx`, `card-hover-effect.tsx`, `sparkles.tsx`, `text-generate-effect.tsx`
+- Magic UI 系: `grid-pattern.tsx`, `particles.tsx`, `marquee.tsx`, `blur-fade.tsx`
+
+**適用**:
+- `src/components/ExamView.tsx`: 各大問を `<BlurFade delay={idx * 0.06}>` で包む、「解答を見る」ボタンに `<Sparkles>` 装飾
+- `src/app/exams/.../page.tsx`: 背景に `<Particles>`、試験タイトルを `<TextGenerateEffect>` で字単位ブラー解除アニメ
+
+### 動作確認
+- `next build` 成功（317ページ静的生成、tsc OK、9.9s）
+- dev server (`next dev` + Turbopack) は `viewTransition` 実験フラグ有効化後、初回コンパイルが遅いが本番ビルドは通る
+
+### 次回TODO
+- 主要動線（Home→University→Year→Exam）の Link に `transitionTypes={["nav-forward"]}` を仕込み、方向性のあるスライド遷移に
+- 戻る動線（breadcrumb, back link）に `nav-back`
+- 問題画像や共有要素の `name` prop で morph（Step 1 パターン）
+
+---
+
 ## 2026-04-22 (続き2) — SEO整備 Phase A（Critical + JSON-LD）
 
 ### 背景

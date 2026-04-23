@@ -9,6 +9,8 @@ import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Sparkles } from "@/components/ui/sparkles";
+import { BlurFade } from "@/components/ui/blur-fade";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -31,8 +33,8 @@ export function ExamView({ problems }: Props) {
       {/* ===== 問題セクション ===== */}
       <div className="space-y-12">
         {problems.map((p, idx) => (
+          <BlurFade key={p.id} delay={idx * 0.06}>
           <section
-            key={p.id}
             id={`problem-${p.problemNumber}`}
             className="scroll-mt-20"
           >
@@ -72,6 +74,7 @@ export function ExamView({ problems }: Props) {
               <div className="mt-12 border-t border-dashed" />
             )}
           </section>
+          </BlurFade>
         ))}
       </div>
 
@@ -82,9 +85,11 @@ export function ExamView({ problems }: Props) {
             <p className="text-sm text-muted-foreground">
               すべての大問を解き終えたら、解答を確認しましょう。
             </p>
-            <Button size="lg" onClick={handleShow} className="px-10">
-              解答を見る
-            </Button>
+            <Sparkles count={10} className="text-primary/70">
+              <Button size="lg" onClick={handleShow} className="px-10">
+                解答を見る
+              </Button>
+            </Sparkles>
           </div>
         ) : (
           <div className="flex justify-center">

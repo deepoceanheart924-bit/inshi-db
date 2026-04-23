@@ -12,6 +12,8 @@ import { FadeIn } from "@/components/animations";
 import { DotPattern } from "@/components/patterns";
 import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Particles } from "@/components/ui/particles";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import {
   JsonLd,
   breadcrumbSchema,
@@ -101,6 +103,7 @@ export default async function ExamPage({
         ])}
       />
       <DotPattern className="opacity-20" />
+      <Particles className="text-primary/40" quantity={30} staticity={70} />
 
       <div className="relative mx-auto max-w-4xl px-6 py-12">
         {/* Breadcrumb */}
@@ -164,7 +167,12 @@ export default async function ExamPage({
               Practice Mode
             </Badge>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">
-              {uni.name} {year}年度 {subjectName}
+              <TextGenerateEffect
+                words={`${uni.name} ${year}年度 ${subjectName}`}
+                splitBy="char"
+                stagger={0.015}
+                duration={0.35}
+              />
             </h1>
             <p className="text-sm text-muted-foreground">
               {uni.department}
