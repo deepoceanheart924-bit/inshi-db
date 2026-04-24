@@ -1,5 +1,44 @@
 # 院試DB 作業履歴
 
+## 2026-04-23 — サイト正式名を「物理数学大学院試験過去問データベース」に変更
+
+### 背景
+化学・工学へ手を広げるかの相談を受けて、「物理・数学特化」ポジションを強化する方針で合意。SEO・ブランディング面で物理数学専門であることを前面に出す。
+
+### 変更内容
+- [src/app/layout.tsx](src/app/layout.tsx): metadata を全面刷新
+  - `title.default`: 「院試DB — 大学院入試 過去問データベース」→「物理数学大学院試験過去問データベース（院試DB）」
+  - `title.template`: `%s | 院試DB` は維持（タブタイトルの視認性のため）
+  - `description`: 物理・数学を明示、「途中計算まで丁寧」を前面に
+  - `keywords`: 「物理学」「東大院試」「京大院試」「東工大院試」「物理数学大学院試験過去問データベース」を追加
+  - `openGraph.siteName`: 「院試DB」→「物理数学大学院試験過去問データベース」
+- [src/components/JsonLd.tsx](src/components/JsonLd.tsx):
+  - `SITE_NAME` を正式名へ、`SITE_SHORT_NAME = "院試DB"` を追加
+  - `organizationSchema` / `websiteSchema` に `alternateName: 院試DB` を追加（SEO で両名前を関連付け）
+- [src/app/opengraph-image.tsx](src/app/opengraph-image.tsx):
+  - メインタイトル「院試過去問データベース」→「物理数学 大学院試験 過去問データベース」
+  - 文字サイズ調整（100 → 88）
+  - サブタイトル：「主要大学院の物理学・数学を、途中計算まで丁寧に無料公開」
+- [src/components/Header.tsx](src/components/Header.tsx):
+  - ロゴは「院試DB」を維持（ブランド認知のため）
+  - サブタイトル「Graduate Exam Database」→「Physics & Math Exam DB」
+
+### 設計判断
+- **正式名と短縮名の使い分け**:
+  - 正式名（物理数学大学院試験過去問データベース）: SEO メタデータ、OG 画像、JSON-LD スキーマで前面
+  - 短縮名（院試DB）: ロゴ、タブタイトル、footer 著作権表記など視認性重視の場所
+- **keywords 強化**: 「大学名 + 院試」（東大院試 等）は実ユーザー検索クエリに近い
+- **alternateName の追加**: Google 等の検索エンジンが「物理数学大学院試験過去問データベース」と「院試DB」を同一サイトとして認識
+
+### 動作確認
+- `npx tsc --noEmit` エラー0件 ✅
+
+### 次回TODO
+- デプロイ後、Search Console でクロール再要求（新しいタイトル・説明の反映促進）
+- 将来的に `<h1>` 等の本文も物理数学専門であることを強調するコピーライティング強化を検討
+
+---
+
 ## 2026-04-23 — 2021年度を全大学×全科目で充足（+33問、累計217問、B案完了）
 
 ### 背景

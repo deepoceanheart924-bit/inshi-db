@@ -1,5 +1,6 @@
 export const SITE_URL = "https://inshi-db.vercel.app";
-export const SITE_NAME = "院試DB";
+export const SITE_NAME = "物理数学大学院試験過去問データベース";
+export const SITE_SHORT_NAME = "院試DB";
 
 type JsonLdData = Record<string, unknown> | Array<Record<string, unknown>>;
 
@@ -21,10 +22,11 @@ export function organizationSchema() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: SITE_NAME,
+    alternateName: SITE_SHORT_NAME,
     url: SITE_URL,
     logo: `${SITE_URL}/icon.png`,
     description:
-      "大学院入試（院試）の過去問を、丁寧な解答解説とともに整理する物理学・数学中心のオープンデータベース。",
+      "物理学と数学の大学院入試（院試）過去問を、丁寧な解答解説とともに整理するオープンデータベース。東大・京大・東工大など主要大学院を網羅。",
     inLanguage: "ja",
   };
 }
@@ -34,6 +36,7 @@ export function websiteSchema() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: SITE_NAME,
+    alternateName: SITE_SHORT_NAME,
     url: SITE_URL,
     inLanguage: "ja",
     publisher: {
