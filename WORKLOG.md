@@ -1,5 +1,52 @@
 # 院試DB 作業履歴
 
+## 2026-04-23 — 2021年度を全大学×全科目で充足（+33問、累計217問、B案完了）
+
+### 背景
+B案（1年度を全大学横断で完遂）の**最終ラウンド**。2021年度を全13試験セットで `ExamRule.totalQuestions` 充足。2025-2021 の全5年度すべてで模擬演習型が利用可能に。
+
+### 追加内容（+33問）
+
+| 大学 | 科目 | 追加 | 代表テーマ |
+|---|---|---|---|
+| todai | phys | phys-2,3,4 | Dirac方程式/Liouville定理/揺動散逸 |
+| todai | math | math-1,2 | 共形写像/Hilbert空間射影 |
+| kyodai | phys | phys-2,3,4 | 弾性体Hooke/白色矮星Chandrasekhar/BCS超伝導 |
+| kyodai | math | math-1,2 | Wronskian/Dirac bra-ket |
+| titech | phys | phys-2,3,4,5 | Lagrange乗数/電磁テンソル/Born近似/Landau相転移 |
+| tohoku | phys | phys-2,3,4,5 | 空気抵抗落下/双極子放射/相関関数/Meissner効果 |
+| osaka | phys | phys-2,3,4 | 輻射圧/量子散乱/Landauer原理 |
+| osaka | math | math-1,2 | Laplace変換/Lie群 |
+| nagoya | phys | phys-3,4 | Ohm則/Stefan-Boltzmann |
+| kyushu | phys | phys-3,4 | 音波定常波/二重スリット干渉 |
+| hokkaido | phys | phys-3,4 | 熱力学第一法則/磁場中の電流力 |
+| ynu | phys | phys-3,4 | 斜面摩擦/物質三態潜熱 |
+| tsukuba | phys | phys-3,4 | てこトルク/凸レンズ結像 |
+
+### 設計方針
+- 2022/2023/2024/2025 および既存2021とのテーマ重複回避（4年度 × 13試験 の大規模重複チェック）
+- 試験内field多様性、難易度配分を一貫
+- 基礎概念（力学・電磁・量子・統計・熱・光・相対論・数学）を全年度でバランス配置
+
+### 動作確認
+- `npx tsc --noEmit` エラー0件 ✅
+- 13試験セット全て `ExamRule.totalQuestions` 充足 ✅
+- 問題総数: 184 → 217問（+33）
+- **全5年度（2021-2025）が模擬演習型で完全利用可能** 🎉
+
+### B案完了後の状態
+- 総問題数: 217問
+- 5年度 × 13試験セット = 65試験エンドポイントすべてが `totalQuestions` 充足
+- `/exams/[uni]/[year]/[subject]` で全年度の模擬演習が可能
+
+### 次回以降のTODO
+- 2020年度以前の充足（必要に応じて）
+- Phase 1: `Problem.subject` → `subjectSlug` 移行
+- Phase 2: `Exam` エンティティ独立化（タイマー機能等）
+- Phase 3: 大学ごとの科目構成を実形式に詳細化
+
+---
+
 ## 2026-04-23 — 2022年度を全大学×全科目で充足（+33問、累計184問）
 
 ### 背景
