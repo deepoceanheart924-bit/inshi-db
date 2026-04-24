@@ -1,7 +1,9 @@
 import Script from "next/script";
 
+const DEFAULT_GA_ID = "G-6L8DP9VG0K";
+
 export function Analytics() {
-  const gaId = process.env.NEXT_PUBLIC_GA_ID;
+  const gaId = process.env.NEXT_PUBLIC_GA_ID || DEFAULT_GA_ID;
   if (!gaId) return null;
 
   return (
