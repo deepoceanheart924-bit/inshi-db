@@ -61,7 +61,7 @@ export function Header() {
           <div className="flex flex-col">
             <span className="text-sm font-bold leading-none tracking-tight">院試DB</span>
             <span className="text-[10px] text-muted-foreground leading-none mt-0.5 hidden sm:block">
-              Physics &amp; Math Exam DB
+              Graduate Exam Database
             </span>
           </div>
         </Link>

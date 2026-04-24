@@ -31,39 +31,25 @@ const notoSerifJp = Noto_Serif_JP({
 export const metadata: Metadata = {
   metadataBase: new URL("https://inshi-db.vercel.app"),
   title: {
-    default: "物理数学大学院試験過去問データベース（院試DB）",
+    default: "院試DB — 大学院入試 過去問データベース",
     template: "%s | 院試DB",
   },
   description:
-    "東大・京大・東工大など主要大学院の物理学・数学の入試過去問を分野別・年度別に整理。途中計算まで丁寧に書いた解答解説を、完全無料で公開しています。",
-  keywords: [
-    "院試",
-    "大学院入試",
-    "過去問",
-    "物理",
-    "物理学",
-    "数学",
-    "東大院試",
-    "京大院試",
-    "東工大院試",
-    "解答解説",
-    "物理数学大学院試験過去問データベース",
-  ],
+    "東大・京大・東工大など主要大学院の物理学・数学の入試過去問を分野別・年度別に整理。丁寧な解答解説付き、完全無料で公開。",
+  keywords: ["院試", "大学院入試", "過去問", "物理", "数学", "東大", "京大", "東工大", "解答解説"],
   alternates: { canonical: "/" },
   openGraph: {
-    title: "物理数学大学院試験過去問データベース（院試DB）",
-    description:
-      "物理学・数学の大学院入試を、もっとオープンに。無料で読める解答解説。主要大学院の過去問を分野別・年度別に整理。",
+    title: "院試DB — 大学院入試 過去問データベース",
+    description: "物理学・数学の院試対策を、もっとオープンに。無料で読める解答解説。",
     url: "https://inshi-db.vercel.app",
-    siteName: "物理数学大学院試験過去問データベース",
+    siteName: "院試DB",
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "物理数学大学院試験過去問データベース（院試DB）",
-    description:
-      "物理学・数学の大学院入試を、もっとオープンに。無料で読める解答解説。主要大学院の過去問を分野別・年度別に整理。",
+    title: "院試DB — 大学院入試 過去問データベース",
+    description: "物理学・数学の院試対策を、もっとオープンに。無料で読める解答解説。",
   },
   robots: {
     index: true,

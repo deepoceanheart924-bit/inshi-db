@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "物理数学大学院試験過去問データベース（院試DB）";
+export const alt = "院試DB — 大学院入試 過去問データベース";
 
 export default async function OGImage() {
   return new ImageResponse(
@@ -85,7 +85,7 @@ export default async function OGImage() {
         {/* Main title */}
         <div
           style={{
-            fontSize: 88,
+            fontSize: 100,
             fontWeight: 800,
             textAlign: "center",
             lineHeight: 1.1,
@@ -94,7 +94,7 @@ export default async function OGImage() {
             flexDirection: "column",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "center" }}>物理数学 大学院試験</div>
+          <div style={{ display: "flex", justifyContent: "center" }}>院試過去問</div>
           <div
             style={{
               display: "flex",
@@ -104,21 +104,21 @@ export default async function OGImage() {
               color: "transparent",
             }}
           >
-            過去問データベース
+            データベース
           </div>
         </div>
 
         {/* Subtitle */}
         <div
           style={{
-            fontSize: 26,
+            fontSize: 28,
             marginTop: 40,
             color: "rgba(255,255,255,0.7)",
             letterSpacing: "0.02em",
             display: "flex",
           }}
         >
-          主要大学院の物理学・数学を、途中計算まで丁寧に無料公開
+          物理学・数学の院試対策を、もっとオープンに
         </div>
 
         {/* URL */}
