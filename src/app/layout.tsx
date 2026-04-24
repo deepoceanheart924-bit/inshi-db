@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Serif_JP } from "next/font/google";
 import Link from "next/link";
 import { Header } from "@/components/Header";
-import { Analytics } from "@/components/Analytics";
+import { Analytics as GoogleAnalytics } from "@/components/Analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { CommandPalette } from "@/components/CommandPalette";
 import { GlossaryProvider } from "@/components/GlossaryProvider";
@@ -72,7 +74,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
-        <Analytics />
+        <GoogleAnalytics />
+        <VercelAnalytics />
+        <SpeedInsights />
         <GrainOverlay />
         <CommandPalette />
         <GlossaryProvider />
