@@ -1,5 +1,48 @@
 # 院試DB 作業履歴
 
+## 2026-04-23 — 2024年度を全大学×全科目で充足（+33問、累計120問）
+
+### 背景
+2025年度で採用した B案（1年度を全大学横断で完遂）を 2024年度にも適用し、
+「今後随時情報更新予定」バッジ告知と整合するコンテンツ拡充。
+
+### 追加内容（+33問）
+
+| 大学 | 科目 | 追加 | 代表テーマ |
+|---|---|---|---|
+| todai | phys | phys-2,3,4 | 電磁誘導/スピン磁気共鳴/正準集団と自由エネルギー |
+| todai | math | math-1,2 | ベクトル解析Gauss定理/2階線形非同次ODE |
+| kyodai | phys | phys-2,3,4 | 主慣性モーメント/ベクトルポテンシャル/理想気体エントロピー |
+| kyodai | math | math-1,2 | 行列ランクと連立/Legendre多項式と直交性 |
+| titech | phys | phys-2,3,4,5 | 剛体振り子大振動/ラプラス境界値/He原子/エントロピー |
+| tohoku | phys | phys-2,3,4,5 | 鏡像法/有限井戸/BEC/単スリット回折 |
+| osaka | phys | phys-2,3,4 | 渦電流/コヒーレント状態/Ising平均場 |
+| osaka | math | math-1,2 | 留数計算三角積分/変分法EL方程式 |
+| nagoya | phys | phys-3,4 | Biot-Savart/理想気体状態方程式 |
+| kyushu | phys | phys-3,4 | 減衰振動Q値/スネル則 |
+| hokkaido | phys | phys-3,4 | 単振り子/ガウスの法則 |
+| ynu | phys | phys-3,4 | 黒体放射/ドップラー効果 |
+| tsukuba | phys | phys-3,4 | 電気双極子/熱容量混合 |
+
+### 設計方針
+- 既存2024/2025との**テーマ被り回避**（例: 2025 titech 連成振動と被らないよう TITECH 2024 は剛体振り子大振動を採用）
+- 各試験内での**field多様性**確保（物理4-5問で mech/EM/quantum/thermo/stat をバランス配置）
+- 難易度配分：旧帝大系は advanced/standard 混成、後発5大学は basic 中心（既存慣例踏襲）
+- solution style: 2025年度+23問セットの compact inline 形式を踏襲（~40-70 lines/問題）
+
+### 動作確認
+- `npx tsc --noEmit` エラー0件 ✅
+- ID カウント確認：13試験セット全て `ExamRule.totalQuestions` 充足 ✅
+  - todai phys=4/math=2, kyodai phys=4/math=2, titech phys=5, tohoku phys=5
+  - osaka phys=4/math=2, nagoya=4, kyushu=4, hokkaido=4, ynu=4, tsukuba=4
+- 問題総数: 87 → 120問（+33）
+
+### 次回TODO
+- 2023年度・2022年度・2021年度も同じ要領で充足（B案の後続ラウンド）
+- Phase 1: `Problem.subject` 文字列 → `subjectSlug` 参照へ移行
+
+---
+
 ## 2026-04-23 — LP「今後随時情報更新予定」バッジ追加
 
 ### 背景

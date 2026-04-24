@@ -6750,6 +6750,1313 @@ $$v_p : \\langle v\\rangle : v_{\\text{rms}} = \\sqrt{2} : \\sqrt{8/\\pi} : \\sq
 
 $v_p < \\langle v\\rangle < v_{\\text{rms}}$ ✅。rms は $v^2$ で重みがかかるので高速テールを拾って大きめになる。`,
   },
+
+  // ===== 2024年度 拡充セット（全大学×全科目充足）=====
+
+  // ---- TODAI 2024 (+5) ----
+  { id: "todai-2024-phys-2", universitySlug: "todai", year: 2024, subject: "物理学", problemNumber: 2,
+    title: "電磁誘導と自己インダクタンス", field: "electromagnetism", difficulty: "standard",
+    tags: ["電磁誘導", "自己インダクタンス", "Faraday の法則"], isFree: true,
+    statement: `**対応問題**: 東京大学 2024年度 物理学 問2
+
+## 問題の設定
+断面積 $S$、単位長さあたりの巻数 $n$、長さ $\\ell$ の長いソレノイドに、時間変化する電流 $I(t) = I_0 \\cos(\\omega t)$ を流す。真空の透磁率を $\\mu_0$ とし、ソレノイド内部は一様磁場、外部はゼロとみなす。
+
+## 問われている内容
+(1) ソレノイド内部の磁束密度 $B(t)$ を求めよ。
+(2) このソレノイドの自己インダクタンス $L$ を求めよ。
+(3) ソレノイドにたくわえられる磁気エネルギーの時間平均 $\\langle U \\rangle$ を求めよ。
+(4) ソレノイド内部の軸と垂直に置かれた半径 $r < \\sqrt{S/\\pi}$ の小さな円環に誘起される起電力を求めよ。`,
+    solution: `## (1) 磁束密度
+Ampère の法則より、長いソレノイド内部は $B = \\mu_0 n I$：
+$$\\boxed{B(t) = \\mu_0 n I_0 \\cos(\\omega t)}$$
+
+## (2) 自己インダクタンス
+1 ターンあたりの磁束 $\\Phi = B S = \\mu_0 n I S$。総巻数 $N = n\\ell$ なので全磁束鎖交 $N\\Phi = \\mu_0 n^2 S \\ell \\cdot I$。$N\\Phi = L I$ より：
+$$\\boxed{L = \\mu_0 n^2 S \\ell}$$
+
+## (3) 磁気エネルギー（時間平均）
+$U = \\tfrac{1}{2} L I^2$ に代入し、$\\langle \\cos^2(\\omega t)\\rangle = 1/2$ を用いると：
+$$\\boxed{\\langle U \\rangle = \\frac{1}{4} L I_0^2 = \\frac{1}{4}\\mu_0 n^2 S \\ell \\, I_0^2}$$
+
+## (4) 小円環に誘起される起電力
+円環を貫く磁束は $\\Phi_{\\text{ring}} = B \\cdot \\pi r^2$。Faraday の法則 $\\mathcal{E} = -d\\Phi_{\\text{ring}}/dt$：
+$$\\boxed{\\mathcal{E}(t) = \\mu_0 n \\pi r^2 I_0 \\omega \\sin(\\omega t)}$$
+
+**物理的意味**：変圧器の原理。1次側コイル（ソレノイド）の磁束変化が2次側コイル（小円環）に起電力を誘起。起電力は断面積 $\\pi r^2$ と周波数 $\\omega$ に比例する。` },
+
+  { id: "todai-2024-phys-3", universitySlug: "todai", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "スピン1/2と磁気共鳴", field: "quantum", difficulty: "advanced",
+    tags: ["Pauli 行列", "Larmor 歳差", "磁気共鳴"], isFree: true,
+    statement: `**対応問題**: 東京大学 2024年度 物理学 問3
+
+## 問題の設定
+一様磁場 $\\vec{B}_0 = B_0 \\hat{z}$ 中にあるスピン 1/2 粒子（磁気回転比 $\\gamma$）を考える。ハミルトニアンは $\\hat{H}_0 = -\\gamma B_0 \\hat{S}_z$。ここで $\\hat{S}_i = (\\hbar/2)\\sigma_i$（Pauli 行列）。
+
+## 問われている内容
+(1) $\\hat{H}_0$ の固有値と固有状態（$\\sigma_z$ 基底）を書け。
+(2) 初期状態 $|\\psi(0)\\rangle = |+x\\rangle$（$\\sigma_x$ の $+1$ 固有状態）のとき、時刻 $t$ での状態 $|\\psi(t)\\rangle$ を求めよ。
+(3) 期待値 $\\langle \\hat{S}_x(t)\\rangle, \\langle \\hat{S}_y(t)\\rangle$ を計算せよ（Larmor 歳差）。
+(4) 追加で $xy$ 平面内で回転する磁場 $\\vec{B}_1(t) = B_1(\\cos\\omega t, \\sin\\omega t, 0)$（$B_1 \\ll B_0$）を加えたとき、$\\omega = \\gamma B_0$ の条件（共鳴条件）で何が起きるか、定性的に説明せよ。`,
+    solution: `## (1) $H_0$ の対角化
+$\\hat{H}_0 = -\\gamma B_0 (\\hbar/2)\\sigma_z$。固有値は $\\sigma_z$ の $\\pm 1$ から：
+- $|+z\\rangle$: $E_+ = -\\hbar\\gamma B_0/2$
+- $|-z\\rangle$: $E_- = +\\hbar\\gamma B_0/2$
+
+$\\omega_0 \\equiv \\gamma B_0$ を Larmor 角周波数と呼ぶ。
+
+## (2) 時間発展
+$|+x\\rangle = (|+z\\rangle + |-z\\rangle)/\\sqrt{2}$。時間発展 $|\\psi(t)\\rangle = e^{-i\\hat{H}_0 t/\\hbar}|\\psi(0)\\rangle$：
+$$|\\psi(t)\\rangle = \\frac{1}{\\sqrt{2}}\\left(e^{i\\omega_0 t/2}|+z\\rangle + e^{-i\\omega_0 t/2}|-z\\rangle\\right)$$
+
+## (3) 期待値（Larmor 歳差）
+$\\sigma_x, \\sigma_y$ を $|\\pm z\\rangle$ 基底で展開して計算：
+$$\\langle \\hat{S}_x\\rangle = \\frac{\\hbar}{2}\\cos(\\omega_0 t), \\quad \\langle \\hat{S}_y\\rangle = -\\frac{\\hbar}{2}\\sin(\\omega_0 t)$$
+
+**物理的意味**：スピン期待値ベクトルは $xy$ 平面内で角速度 $\\omega_0$ で歳差運動（Larmor 歳差）。古典的な磁気モーメントの Bloch 方程式と一致。
+
+## (4) 共鳴条件
+回転系（$\\hat{z}$ まわりに角速度 $\\omega$ で回転）に移ると、$\\omega = \\omega_0$ のとき $\\hat{H}_0$ の寄与が消え、回転磁場 $B_1$ による項だけが残る。これにより微小な $B_1$ でもスピンを反転させる振動（Rabi 振動、角周波数 $\\gamma B_1$）が起こる。$\\omega \\ne \\omega_0$ では離調により反転確率が抑制される。
+
+**応用**：NMR（核磁気共鳴）、MRI の原理。共鳴周波数 $\\omega_0 = \\gamma B_0$ から磁気回転比 $\\gamma$（核種固有）を特定し化学的環境を読み取る。` },
+
+  { id: "todai-2024-phys-4", universitySlug: "todai", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "正準集団と Helmholtz 自由エネルギー", field: "statistical", difficulty: "advanced",
+    tags: ["分配関数", "Helmholtz 自由エネルギー", "比熱", "理想気体"],
+    isFree: true,
+    statement: `**対応問題**: 東京大学 2024年度 物理学 問4
+
+## 問題の設定
+温度 $T$、体積 $V$ で平衡にある古典理想気体（粒子数 $N$、質量 $m$、内部自由度なし）を正準集団で扱う。Boltzmann 定数 $k_B$、Planck 定数 $h$ とし $\\beta = 1/(k_B T)$。
+
+## 問われている内容
+(1) 1 粒子分配関数 $Z_1(T, V)$ を計算し、熱的ド・ブロイ波長 $\\lambda_T = h/\\sqrt{2\\pi m k_B T}$ で表せ。
+(2) 同種粒子の区別不可能性を取り入れた全系分配関数 $Z_N$ を書け。
+(3) Helmholtz 自由エネルギー $F = -k_B T \\ln Z_N$ を導き、Stirling 近似を用いて示せ。
+(4) $F$ から圧力 $P = -(\\partial F/\\partial V)_T$ を導き、状態方程式を確認せよ。`,
+    solution: `## (1) 1 粒子分配関数
+$$Z_1 = \\frac{1}{h^3}\\int d^3 p \\, d^3 q \\, e^{-\\beta p^2/(2m)} = \\frac{V}{h^3}\\left(\\frac{2\\pi m}{\\beta}\\right)^{3/2} = \\frac{V}{\\lambda_T^3}$$
+
+## (2) 全系分配関数
+区別不可能性の補正 $1/N!$ を入れて：
+$$Z_N = \\frac{Z_1^N}{N!} = \\frac{1}{N!}\\left(\\frac{V}{\\lambda_T^3}\\right)^N$$
+
+## (3) Helmholtz 自由エネルギー
+Stirling 近似 $\\ln N! \\approx N\\ln N - N$ より：
+$$F = -k_B T \\ln Z_N = -N k_B T \\left[\\ln\\left(\\frac{V}{N\\lambda_T^3}\\right) + 1\\right]$$
+
+これが古典理想気体の Helmholtz 自由エネルギー（Sackur-Tetrode 型）。
+
+## (4) 状態方程式
+$$P = -\\left(\\frac{\\partial F}{\\partial V}\\right)_{T,N} = \\frac{N k_B T}{V}$$
+
+$$\\boxed{PV = N k_B T}$$
+
+**物理的意味**：区別不可能性補正 $1/N!$ が無ければ Gibbs パラドックス（混合エントロピーが理想気体と混合で破綻）。正準集団から統計力学的に状態方程式を導出できることを確認。また $1/N!$ は古典極限 $\\lambda_T \\ll (V/N)^{1/3}$ で妥当（量子統計補正が小さい領域）。` },
+
+  { id: "todai-2024-math-1", universitySlug: "todai", year: 2024, subject: "数学", problemNumber: 1,
+    title: "ベクトル解析：発散・回転と Gauss の定理", field: "math", difficulty: "standard",
+    tags: ["Gauss の定理", "発散", "回転", "ベクトル場"], isFree: true,
+    statement: `**対応問題**: 東京大学 2024年度 数学 問1
+
+## 問われている内容
+3 次元空間上のベクトル場 $\\vec{F}(\\vec{r}) = (xy, yz, zx)$ を考える。
+(1) $\\nabla \\cdot \\vec{F}$ と $\\nabla \\times \\vec{F}$ をそれぞれ計算せよ。
+(2) 単位立方体 $V = \\{0 \\le x, y, z \\le 1\\}$ について、体積積分 $\\int_V (\\nabla\\cdot\\vec{F})\\, dV$ を求めよ。
+(3) (2) の結果を Gauss の発散定理で確認するため、立方体の境界面 $\\partial V$ を通る面積分 $\\oint_{\\partial V} \\vec{F}\\cdot d\\vec{S}$ を直接計算せよ。`,
+    solution: `## (1) 発散と回転
+**発散**：$\\nabla\\cdot\\vec{F} = \\partial_x(xy) + \\partial_y(yz) + \\partial_z(zx) = y + z + x = x + y + z$
+
+**回転**：$(\\nabla\\times\\vec{F})_i = \\epsilon_{ijk}\\partial_j F_k$ から：
+- $(\\nabla\\times\\vec{F})_x = \\partial_y(zx) - \\partial_z(yz) = 0 - y = -y$
+- $(\\nabla\\times\\vec{F})_y = \\partial_z(xy) - \\partial_x(zx) = 0 - z = -z$
+- $(\\nabla\\times\\vec{F})_z = \\partial_x(yz) - \\partial_y(xy) = 0 - x = -x$
+
+$$\\boxed{\\nabla\\cdot\\vec{F} = x+y+z, \\quad \\nabla\\times\\vec{F} = (-y, -z, -x)}$$
+
+## (2) 体積積分
+$$\\int_V (x+y+z)\\, dV = \\int_0^1\\!\\!\\int_0^1\\!\\!\\int_0^1 (x+y+z)\\, dx\\, dy\\, dz$$
+
+対称性から各項の寄与は等しい：$\\int_0^1 x\\, dx \\cdot 1 \\cdot 1 = 1/2$、他も同じ。
+
+$$\\boxed{\\int_V (\\nabla\\cdot\\vec{F})\\, dV = 3 \\cdot \\frac{1}{2} = \\frac{3}{2}}$$
+
+## (3) 面積分（直接計算）
+立方体の 6 面を調べる。外向き法線 $\\hat{n}$ と $\\vec{F}$ の内積を積分：
+
+| 面 | 座標 | $\\hat{n}$ | $\\vec{F}\\cdot\\hat{n}$ | 積分値 |
+|---|---|---|---|---|
+| $x=1$ | $0\\le y,z\\le 1$ | $\\hat{x}$ | $xy\\|_{x=1} = y$ | $\\int y\\, dy\\, dz = 1/2$ |
+| $x=0$ | " | $-\\hat{x}$ | $-xy\\|_{x=0} = 0$ | 0 |
+| $y=1$ | $0\\le x,z\\le 1$ | $\\hat{y}$ | $yz\\|_{y=1} = z$ | $1/2$ |
+| $y=0$ | " | $-\\hat{y}$ | 0 | 0 |
+| $z=1$ | $0\\le x,y\\le 1$ | $\\hat{z}$ | $zx\\|_{z=1} = x$ | $1/2$ |
+| $z=0$ | " | $-\\hat{z}$ | 0 | 0 |
+
+合計：$\\frac{3}{2}$
+
+$$\\boxed{\\oint_{\\partial V}\\vec{F}\\cdot d\\vec{S} = \\frac{3}{2}}$$
+
+$(2)$ と一致し、Gauss の発散定理 $\\int_V \\nabla\\cdot\\vec{F}\\, dV = \\oint_{\\partial V}\\vec{F}\\cdot d\\vec{S}$ が検証された。` },
+
+  { id: "todai-2024-math-2", universitySlug: "todai", year: 2024, subject: "数学", problemNumber: 2,
+    title: "2 階線形非同次常微分方程式", field: "math", difficulty: "standard",
+    tags: ["常微分方程式", "定数変化法", "特殊解"], isFree: true,
+    statement: `**対応問題**: 東京大学 2024年度 数学 問2
+
+## 問われている内容
+次の 2 階線形非同次常微分方程式を考える：
+$$y''(x) - 3 y'(x) + 2 y(x) = e^{3x}, \\qquad y(0) = 0, \\quad y'(0) = 0$$
+(1) 斉次解（$y'' - 3y' + 2y = 0$ の一般解）を求めよ。
+(2) 非同次方程式の特殊解を未定係数法で求めよ。
+(3) 初期条件を満たす解を書け。`,
+    solution: `## (1) 斉次解
+特性方程式 $r^2 - 3r + 2 = 0 \\Rightarrow (r-1)(r-2) = 0$ より $r = 1, 2$。
+$$y_h(x) = C_1 e^{x} + C_2 e^{2x}$$
+
+## (2) 特殊解（未定係数法）
+右辺が $e^{3x}$、$r=3$ は斉次解に含まれないので特殊解を $y_p = A e^{3x}$ と仮定。代入：
+$$9 A e^{3x} - 3 \\cdot 3 A e^{3x} + 2 A e^{3x} = (9 - 9 + 2) A e^{3x} = 2 A e^{3x} = e^{3x}$$
+
+$A = 1/2$。
+$$y_p(x) = \\frac{1}{2} e^{3x}$$
+
+## (3) 一般解と初期条件
+$$y(x) = C_1 e^{x} + C_2 e^{2x} + \\tfrac{1}{2}e^{3x}$$
+
+$y(0) = 0$: $C_1 + C_2 + 1/2 = 0$
+$y'(0) = 0$: $C_1 + 2 C_2 + 3/2 = 0$
+
+差を取って $C_2 = -1$。代入して $C_1 = 1/2$。
+
+$$\\boxed{y(x) = \\frac{1}{2}e^{x} - e^{2x} + \\frac{1}{2}e^{3x}}$$
+
+**検算**：$y(0) = 1/2 - 1 + 1/2 = 0$ ✅、$y'(0) = 1/2 - 2 + 3/2 = 0$ ✅。
+
+**物理的意味**：強制減衰系や駆動振動の基本形。$r = 3$ が特性根と縮退する場合（共鳴）は $y_p = A x e^{3x}$ と因子 $x$ を追加する必要がある（本問では非縮退）。` },
+
+  // ---- KYODAI 2024 (+5) ----
+  { id: "kyodai-2024-phys-2", universitySlug: "kyodai", year: 2024, subject: "物理学", problemNumber: 2,
+    title: "剛体の主慣性モーメントと回転", field: "mechanics", difficulty: "standard",
+    tags: ["慣性テンソル", "主軸", "対角化"], isFree: true,
+    statement: `**対応問題**: 京都大学 2024年度 物理学 問2
+
+## 問題の設定
+一様密度 $\\rho$、質量 $M$、辺の長さ $a, b, c$ の直方体（辺が座標軸に平行）を重心を原点として置く。
+
+## 問われている内容
+(1) 重心まわりの慣性テンソル $I_{ij}$ の対角成分 $I_{xx}, I_{yy}, I_{zz}$ を求めよ。非対角成分がゼロとなる理由を簡潔に述べよ。
+(2) 角運動量 $\\vec{L} = I\\vec{\\omega}$ と角速度 $\\vec{\\omega}$ の関係を述べ、$\\vec{\\omega} \\parallel \\hat{z}$ のときの回転エネルギーを書け。
+(3) $a = b \\ne c$ のとき、$\\vec{\\omega}$ が $xz$ 平面内で $\\hat{z}$ から角度 $\\theta$ 傾いた方向を向いているとすると、$\\vec{L}$ と $\\vec{\\omega}$ の成す角を論ぜよ。`,
+    solution: `## (1) 慣性テンソル対角成分
+直方体の慣性モーメント：
+$$I_{xx} = \\int \\rho(y^2 + z^2)\\, dV = \\frac{M}{12}(b^2 + c^2)$$
+
+同様に：
+$$\\boxed{I_{xx} = \\tfrac{M}{12}(b^2+c^2), \\; I_{yy} = \\tfrac{M}{12}(a^2+c^2), \\; I_{zz} = \\tfrac{M}{12}(a^2+b^2)}$$
+
+**非対角成分がゼロ**：$I_{xy} = -\\int \\rho xy\\, dV$。被積分関数 $xy$ は $x \\to -x$ で符号反転、積分域は対称なので結果はゼロ。すなわち直方体の辺方向は既に主軸と一致。
+
+## (2) 回転エネルギー
+$\\vec{L} = I\\vec{\\omega}$（テンソル積）。$\\vec{\\omega} = \\omega \\hat{z}$ のとき主軸方向なので：
+$$\\vec{L} = I_{zz} \\omega \\hat{z}, \\quad T_{\\text{rot}} = \\tfrac{1}{2}\\vec{\\omega}\\cdot\\vec{L} = \\tfrac{1}{2}I_{zz}\\omega^2$$
+
+## (3) $a = b \\ne c$ の場合
+$I_{xx} = I_{yy} \\equiv I_\\perp$、$I_{zz} \\equiv I_\\parallel$、$I_\\perp \\ne I_\\parallel$。
+
+$\\vec{\\omega} = \\omega(\\sin\\theta, 0, \\cos\\theta)$ に対し：
+$$\\vec{L} = (I_\\perp \\omega\\sin\\theta, 0, I_\\parallel \\omega\\cos\\theta)$$
+
+$I_\\perp \\ne I_\\parallel$ だと $\\vec{L}$ と $\\vec{\\omega}$ は**平行にならない**。$\\vec{L}$ が $\\hat{z}$ となす角 $\\phi$ は：
+$$\\tan\\phi = \\frac{I_\\perp}{I_\\parallel}\\tan\\theta \\ne \\tan\\theta$$
+
+**物理的意味**：主軸以外の方向に回転する非球対称剛体では $\\vec{L}$ と $\\vec{\\omega}$ が傾く。外力なしでは $\\vec{L}$ が保存されるので、$\\vec{\\omega}$ は $\\vec{L}$ のまわりを歳差運動（Euler 方程式による自由歳差、地球の Chandler 摂動の原型）。` },
+
+  { id: "kyodai-2024-phys-3", universitySlug: "kyodai", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "ベクトルポテンシャルと磁場", field: "electromagnetism", difficulty: "standard",
+    tags: ["ベクトルポテンシャル", "ゲージ変換", "Aharonov-Bohm"],
+    isFree: true,
+    statement: `**対応問題**: 京都大学 2024年度 物理学 問3
+
+## 問題の設定
+真空中のベクトルポテンシャル $\\vec{A}(\\vec{r})$ から磁場 $\\vec{B} = \\nabla\\times\\vec{A}$ を計算する。半径 $R$、無限に長いソレノイド（$z$ 軸方向、内部磁場 $\\vec{B} = B_0 \\hat{z}$、外部 $\\vec{B} = 0$）を考える。円筒座標 $(r, \\phi, z)$ を用いる。
+
+## 問われている内容
+(1) 内部 ($r < R$) および外部 ($r > R$) の $\\vec{A}$ を、$\\phi$ 成分のみをもつ形で求めよ（対称性とゲージ選択を明示）。
+(2) 外部でも $\\vec{A} \\ne 0$ だが $\\vec{B} = 0$。これは矛盾ではないことを述べよ。
+(3) ゲージ変換 $\\vec{A} \\to \\vec{A}' = \\vec{A} + \\nabla\\chi$ で $\\vec{B}$ が不変であることを示せ。
+(4) Aharonov-Bohm 効果の物理的意味を、(2) と関連付けて簡潔に述べよ。`,
+    solution: `## (1) ベクトルポテンシャル
+**対称性**：軸対称 $\\Rightarrow A_\\phi(r)$ のみ、$r, z$ に依存。
+
+**Stokes の定理**：$\\oint \\vec{A}\\cdot d\\vec{l} = \\int \\vec{B}\\cdot d\\vec{S}$。半径 $r$ の円周で計算：
+$$2\\pi r \\cdot A_\\phi(r) = \\begin{cases} B_0 \\pi r^2 & (r < R) \\\\ B_0 \\pi R^2 & (r > R) \\end{cases}$$
+
+$$\\boxed{A_\\phi(r) = \\begin{cases} B_0 r/2 & (r < R) \\\\ B_0 R^2/(2r) & (r > R) \\end{cases}}$$
+
+## (2) 外部で $\\vec{A} \\ne 0, \\vec{B} = 0$
+$\\vec{B} = \\nabla\\times\\vec{A}$。$\\vec{A}$ が回転（ゼロでない）をもたなければ $\\vec{B} = 0$。外部 $A_\\phi = B_0 R^2/(2r)$ は $\\propto 1/r$ なので、円柱座標の回転公式：
+$$(\\nabla\\times\\vec{A})_z = \\frac{1}{r}\\frac{\\partial(r A_\\phi)}{\\partial r} = \\frac{1}{r}\\cdot \\partial_r(B_0 R^2/2) = 0$$
+
+すなわち $\\vec{A} \\ne 0$ でも $\\nabla\\times\\vec{A} = 0$ は共存可能。物理量（磁場）は $\\vec{A}$ 自体ではなく回転で決まる。
+
+## (3) ゲージ不変性
+$$\\nabla\\times\\vec{A}' = \\nabla\\times\\vec{A} + \\nabla\\times(\\nabla\\chi) = \\vec{B} + 0 = \\vec{B}$$
+
+（勾配の回転は恒等的にゼロ）。物理的には $\\vec{B}$ は観測量なので $\\chi$ によらない。
+
+## (4) Aharonov-Bohm 効果
+古典的には $\\vec{B} = 0$ の領域では荷電粒子に力が働かない。しかし量子的には粒子の位相にベクトルポテンシャルが作用：
+$$\\psi \\to \\psi \\exp\\left(\\frac{iq}{\\hbar}\\int\\vec{A}\\cdot d\\vec{l}\\right)$$
+
+ソレノイドの周りを回る経路差で位相差が生じ、干渉縞がシフトする。**$\\vec{A}$ はゲージ任意性を持つが、閉経路線積分 $\\oint\\vec{A}\\cdot d\\vec{l} = \\Phi$（磁束）はゲージ不変で観測可能量**。これが Aharonov-Bohm 効果。1986 年に外村らによって実験的に確認。` },
+
+  { id: "kyodai-2024-phys-4", universitySlug: "kyodai", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "理想気体のエントロピーと可逆過程", field: "thermodynamics", difficulty: "standard",
+    tags: ["エントロピー", "可逆断熱", "自由膨張"], isFree: true,
+    statement: `**対応問題**: 京都大学 2024年度 物理学 問4
+
+## 問題の設定
+単原子分子の古典理想気体 $n$ モル（定積比熱 $C_V = (3/2)nR$、気体定数 $R$）を考える。
+
+## 問われている内容
+(1) 理想気体の内部エネルギー $U$ を温度 $T$ で表し、状態方程式から $(\\partial U/\\partial V)_T = 0$ を示せ。
+(2) 微小可逆過程で $dS = (dU + P\\,dV)/T$ を用い、$S$ を $T, V, n$ の関数として積分形で求めよ（積分定数を $S_0$）。
+(3) 可逆断熱変化で $TV^{\\gamma - 1}$ が一定（$\\gamma = 5/3$）であることを (2) から導け。
+(4) 断熱自由膨張で体積が $V_1 \\to V_2 = 2V_1$ に膨張するときのエントロピー変化 $\\Delta S$ を計算し、第二法則との整合を確認せよ。`,
+    solution: `## (1) 内部エネルギー
+単原子理想気体：$U = (3/2)n R T$。等温過程で $U$ は $V$ に依らないので：
+$$\\left(\\frac{\\partial U}{\\partial V}\\right)_T = 0$$
+
+（これは理想気体の定義的性質：粒子間相互作用がゼロ）
+
+## (2) エントロピーの積分形
+$dS = (dU + P\\,dV)/T$、$dU = C_V\\,dT$、$P = nRT/V$ より：
+$$dS = \\frac{C_V}{T}dT + \\frac{nR}{V}dV$$
+
+積分して：
+$$\\boxed{S(T, V) = n\\left[\\tfrac{3}{2}R\\ln T + R\\ln V\\right] + S_0}$$
+
+## (3) 可逆断熱変化
+可逆断熱では $dS = 0$。(2) から：
+$$\\tfrac{3}{2}R\\,d\\ln T + R\\, d\\ln V = 0 \\Rightarrow \\tfrac{3}{2}\\ln T + \\ln V = \\text{const}$$
+
+$$\\ln(T^{3/2} V) = \\text{const} \\Rightarrow T V^{2/3} = \\text{const}$$
+
+$\\gamma - 1 = 2/3$ より（$\\gamma = 5/3$）：
+$$\\boxed{T V^{\\gamma - 1} = \\text{const}}$$
+
+## (4) 断熱自由膨張
+自由膨張：容器外に仕事せず $W = 0$、熱交換なし $Q = 0 \\Rightarrow \\Delta U = 0 \\Rightarrow T$ 不変。
+
+エントロピー変化は (2) より：
+$$\\Delta S = nR \\ln\\frac{V_2}{V_1} = nR \\ln 2 > 0$$
+
+**第二法則との整合**：断熱閉鎖系で $\\Delta S > 0$ → 不可逆過程。自由膨張は逆向きには自発的に進まない（気体が自ら片側に集まる確率は天文学的に小さい）。状態量として $S$ は経路によらないが、可逆過程 vs 不可逆過程で計算方法が異なることに注意（可逆の計算でも同じ端点なら同じ値）。` },
+
+  { id: "kyodai-2024-math-1", universitySlug: "kyodai", year: 2024, subject: "数学", problemNumber: 1,
+    title: "線形代数：行列のランクと連立方程式", field: "math", difficulty: "standard",
+    tags: ["行列のランク", "連立一次方程式", "Rouché-Capelli"],
+    isFree: true,
+    statement: `**対応問題**: 京都大学 2024年度 数学 問1
+
+## 問われている内容
+行列 $A = \\begin{pmatrix} 1 & 2 & 1 \\\\ 2 & a & 3 \\\\ 1 & 1 & 1 \\end{pmatrix}$ および定数ベクトル $\\vec{b} = (1, b, 1)^T$ を考える。
+
+(1) $\\det A$ を $a$ の関数として求めよ。
+(2) $\\text{rank}(A)$ が $a$ の値によってどう変わるかを論ぜよ。
+(3) 連立方程式 $A\\vec{x} = \\vec{b}$ が解を持つ条件を、$a, b$ に関する条件として述べよ。`,
+    solution: `## (1) 行列式
+第 3 列について余因子展開（ $+1, +3, +1$ の係数）：
+$$\\det A = 1\\begin{vmatrix} 2 & a \\\\ 1 & 1\\end{vmatrix} - 3\\begin{vmatrix} 1 & 2 \\\\ 1 & 1 \\end{vmatrix} + 1\\begin{vmatrix} 1 & 2 \\\\ 2 & a\\end{vmatrix}$$
+$$= 1(2 - a) - 3(1 - 2) + 1(a - 4) = 2 - a + 3 + a - 4 = 1$$
+
+$$\\boxed{\\det A = 1}$$
+
+定数！ $a$ に依らない。
+
+## (2) ランク
+$\\det A = 1 \\ne 0$（$a$ 値によらず）、つまり $A$ は常に正則：
+$$\\boxed{\\text{rank}(A) = 3 \\quad \\forall a}$$
+
+## (3) 解を持つ条件
+$A$ が正則なので拡大係数行列も常にランク 3。Rouché-Capelli の定理から**任意の $a, b$ に対して一意解が存在**：
+$$\\vec{x} = A^{-1}\\vec{b}$$
+
+$a, b$ に関する追加条件は不要（常に可解）。
+
+**補足**：もし行列式が $a$ に依存して $a = a^*$ で $\\det = 0$ となる設定なら、ランクの低下を調べて補正条件が必要。本問は $\\det = 1$ 一定なので常に解ける典型例。
+
+**物理的意味**：3 元 3 式の線形系が正則係数行列をもつとき、**存在と一意性が同値**。これは線形代数の基本定理で、物理では連立運動方程式の解析（正規モード分解、線形応答）で頻用。` },
+
+  { id: "kyodai-2024-math-2", universitySlug: "kyodai", year: 2024, subject: "数学", problemNumber: 2,
+    title: "Legendre 多項式と直交性", field: "math", difficulty: "advanced",
+    tags: ["Legendre 多項式", "直交関数系", "Rodrigues の公式"],
+    isFree: true,
+    statement: `**対応問題**: 京都大学 2024年度 数学 問2
+
+## 問われている内容
+Legendre 多項式 $P_n(x)$ を Rodrigues の公式
+$$P_n(x) = \\frac{1}{2^n n!}\\frac{d^n}{dx^n}(x^2 - 1)^n$$
+で定義する。
+
+(1) $P_0, P_1, P_2, P_3$ を具体的に求めよ。
+(2) 直交性 $\\int_{-1}^{1} P_m(x) P_n(x)\\, dx = \\frac{2}{2n+1}\\delta_{mn}$ を $m < n$ の場合について、部分積分で示せ。
+(3) 関数 $f(x) = x^2$ を Legendre 多項式で展開せよ。`,
+    solution: `## (1) 具体的計算
+- $P_0 = 1$
+- $P_1 = \\tfrac{1}{2}\\frac{d}{dx}(x^2 - 1) = x$
+- $P_2 = \\tfrac{1}{8}\\frac{d^2}{dx^2}(x^2-1)^2 = \\tfrac{1}{8}\\frac{d^2}{dx^2}(x^4 - 2x^2 + 1) = \\tfrac{1}{8}(12x^2 - 4) = \\tfrac{1}{2}(3x^2 - 1)$
+- $P_3 = \\tfrac{1}{48}\\frac{d^3}{dx^3}(x^2-1)^3 = \\tfrac{1}{2}(5x^3 - 3x)$
+
+$$\\boxed{P_0 = 1,\\; P_1 = x,\\; P_2 = \\tfrac{1}{2}(3x^2 - 1),\\; P_3 = \\tfrac{1}{2}(5x^3 - 3x)}$$
+
+## (2) 直交性（$m < n$）
+$P_m$ は $m$ 次多項式、$P_n = (1/2^n n!) D^n(x^2-1)^n$（$D = d/dx$）。部分積分を $n$ 回行うと、$D^n$ が $P_m$ に移り、$D^n P_m = 0$（$m < n$、高次微分消失）。表面項は $(x^2 - 1)^n$ とその導関数が $x = \\pm 1$ で消えるので全て落ちる：
+$$\\int_{-1}^1 P_m P_n\\, dx = \\frac{(-1)^n}{2^n n!}\\int_{-1}^1 (x^2-1)^n D^n P_m\\, dx = 0$$
+
+## (3) $f(x) = x^2$ の展開
+$x^2$ は $P_0$ と $P_2$ の線形結合で書ける。$P_2 = (3x^2 - 1)/2$ から $x^2 = (2 P_2 + 1)/3 = (1/3)P_0 + (2/3)P_2$：
+$$\\boxed{x^2 = \\tfrac{1}{3}P_0(x) + \\tfrac{2}{3}P_2(x)}$$
+
+係数確認（内積計算）：$c_n = (2n+1)/2 \\int_{-1}^1 x^2 P_n\\, dx$。
+- $c_0 = (1/2)\\int x^2 dx = 1/3$ ✅
+- $c_2 = (5/2)\\int x^2 \\cdot (3x^2-1)/2\\, dx = (5/4)\\int (3x^4 - x^2)dx = (5/4)(6/5 - 2/3) = 2/3$ ✅
+
+**物理的意味**：Legendre 多項式は球面調和関数 $Y_\\ell^0 \\propto P_\\ell(\\cos\\theta)$ の角度部分で、軸対称な重力ポテンシャル、量子力学の角運動量 $\\ell$ 固有状態、多重極展開などで中心的役割。直交性は Fourier 展開と同じく、関数空間での "座標系" を提供する。` },
+
+  // ---- TITECH 2024 (+4) ----
+  { id: "titech-2024-phys-2", universitySlug: "titech", year: 2024, subject: "物理学", problemNumber: 2,
+    title: "剛体振り子と大振動の周期", field: "mechanics", difficulty: "standard",
+    tags: ["剛体振り子", "楕円積分", "大振動"], isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧 東工大）2024年度 物理学 問2
+
+## 問題の設定
+支点から重心まで距離 $\\ell$、支点まわりの慣性モーメント $I$、質量 $M$ の剛体振り子を、鉛直下方から角度 $\\theta_0$ 傾けて静かに放す。重力加速度 $g$。
+
+## 問われている内容
+(1) この振り子の運動方程式を $\\theta$ で書け。
+(2) 微小振動近似（$\\theta \\ll 1$）における周期 $T_0$ を求めよ。
+(3) エネルギー保存則から $\\dot\\theta$ を $\\theta$ の関数として表せ。
+(4) 大振動周期 $T(\\theta_0)$ を、$\\sin(\\theta/2) = \\sin(\\theta_0/2)\\sin u$ の置換を使って楕円積分の形で書け。$\\theta_0 \\to 0$ で $T_0$ に一致することを確認せよ。`,
+    solution: `## (1) 運動方程式
+支点まわりの回転運動方程式。重力のトルクは $-Mg\\ell\\sin\\theta$：
+$$\\boxed{I\\ddot\\theta = -Mg\\ell\\sin\\theta}$$
+
+## (2) 微小振動
+$\\sin\\theta \\approx \\theta$：
+$$I\\ddot\\theta \\approx -Mg\\ell\\theta \\Rightarrow \\omega_0^2 = \\frac{Mg\\ell}{I}$$
+$$\\boxed{T_0 = 2\\pi\\sqrt{\\frac{I}{Mg\\ell}}}$$
+
+## (3) エネルギー保存
+全エネルギー：$E = (1/2)I\\dot\\theta^2 + Mg\\ell(1 - \\cos\\theta)$。$\\theta = \\theta_0, \\dot\\theta = 0$ で $E = Mg\\ell(1-\\cos\\theta_0)$：
+$$\\dot\\theta^2 = \\frac{2Mg\\ell}{I}(\\cos\\theta - \\cos\\theta_0)$$
+
+$\\cos\\theta = 1 - 2\\sin^2(\\theta/2)$ を使うと：
+$$\\boxed{\\dot\\theta = \\omega_0 \\cdot 2\\sqrt{\\sin^2(\\theta_0/2) - \\sin^2(\\theta/2)}}$$
+
+## (4) 大振動周期
+周期の 1/4 は $\\theta = 0 \\to \\theta_0$ の時間：
+$$T/4 = \\int_0^{\\theta_0}\\frac{d\\theta}{\\dot\\theta} = \\frac{1}{2\\omega_0}\\int_0^{\\theta_0}\\frac{d\\theta}{\\sqrt{\\sin^2(\\theta_0/2) - \\sin^2(\\theta/2)}}$$
+
+$k \\equiv \\sin(\\theta_0/2)$、$\\sin(\\theta/2) = k\\sin u$（$d\\theta = 2k\\cos u\\, du/\\cos(\\theta/2)$）の置換で：
+$$\\boxed{T(\\theta_0) = \\frac{4}{\\omega_0}\\int_0^{\\pi/2}\\frac{du}{\\sqrt{1 - k^2\\sin^2 u}} = \\frac{4}{\\omega_0} K(k)}$$
+
+（$K$ は第一種完全楕円積分）
+
+**極限**：$\\theta_0 \\to 0 \\Rightarrow k \\to 0, K \\to \\pi/2$、$T \\to 2\\pi/\\omega_0 = T_0$ ✅。
+
+**補正**：$k$ の Taylor 展開から $T \\approx T_0(1 + \\theta_0^2/16 + \\cdots)$。大振幅では周期は長くなる（振幅依存）。これは非線形振動の典型。` },
+
+  { id: "titech-2024-phys-3", universitySlug: "titech", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "ラプラス方程式と静電境界値問題", field: "electromagnetism", difficulty: "advanced",
+    tags: ["ラプラス方程式", "境界値問題", "変数分離"], isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧 東工大）2024年度 物理学 問3
+
+## 問題の設定
+真空中に置かれた半径 $a$ の導体球を一様電場 $\\vec{E}_0 = E_0 \\hat{z}$ 中に置く。球の電位は接地されて $V = 0$。
+
+## 問われている内容
+(1) 外部 $(r > a)$ で電位 $V(r, \\theta)$ が満たす方程式と境界条件を書け（$\\theta$ は $z$ 軸からの極角）。
+(2) 軸対称性から $V = \\sum_\\ell (A_\\ell r^\\ell + B_\\ell r^{-\\ell - 1}) P_\\ell(\\cos\\theta)$ を仮定し、境界条件から $A_\\ell, B_\\ell$ を決定せよ。
+(3) 球面上の誘導電荷面密度 $\\sigma(\\theta)$ を求め、総電荷がゼロであることを確認せよ。`,
+    solution: `## (1) 方程式と境界条件
+外部は電荷なし → **ラプラス方程式** $\\nabla^2 V = 0$。境界条件：
+- 球表面: $V(a, \\theta) = 0$
+- 遠方: $V \\to -E_0 r\\cos\\theta$（一様電場のポテンシャル）
+
+## (2) 係数決定
+$P_1(\\cos\\theta) = \\cos\\theta$ なので、遠方条件は $A_1 r \\cos\\theta \\to -E_0 r\\cos\\theta$、すなわち $A_1 = -E_0$。他の $A_\\ell = 0$（$\\ell \\ne 1$）。
+
+球表面条件 $V(a) = 0$ を各 $\\ell$ で満たすには：
+$A_\\ell a^\\ell + B_\\ell/a^{\\ell+1} = 0 \\Rightarrow B_\\ell = -A_\\ell a^{2\\ell+1}$
+
+$\\ell = 1$: $B_1 = E_0 a^3$。$\\ell \\ne 1$: $A_\\ell = 0 \\Rightarrow B_\\ell = 0$。
+
+$$\\boxed{V(r, \\theta) = -E_0 \\left(r - \\frac{a^3}{r^2}\\right)\\cos\\theta}$$
+
+## (3) 誘導面電荷
+$\\sigma = -\\varepsilon_0(\\partial V/\\partial r)_{r=a}$：
+$$\\partial V/\\partial r = -E_0(1 + 2a^3/r^3)\\cos\\theta$$
+$r = a$ で：$-E_0(1 + 2)\\cos\\theta = -3E_0\\cos\\theta$
+
+$$\\boxed{\\sigma(\\theta) = 3\\varepsilon_0 E_0 \\cos\\theta}$$
+
+**総電荷**：
+$$Q = \\oint \\sigma\\, dS = \\int_0^{\\pi}3\\varepsilon_0 E_0\\cos\\theta \\cdot 2\\pi a^2\\sin\\theta\\, d\\theta = 0$$
+
+（$\\int_0^{\\pi}\\cos\\theta\\sin\\theta\\, d\\theta = 0$）。
+
+**物理的意味**：導体球は外部電場を歪めて双極子的に応答。$1/r^2$ 項は誘起双極子モーメント $\\vec{p} = 4\\pi\\varepsilon_0 a^3 \\vec{E}_0$ による寄与。分極率 $\\alpha = 4\\pi\\varepsilon_0 a^3$ は原子・分子の Lorentz モデルで同形。` },
+
+  { id: "titech-2024-phys-4", universitySlug: "titech", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "ヘリウム原子と電子相関", field: "quantum", difficulty: "advanced",
+    tags: ["ヘリウム原子", "電子-電子相互作用", "変分法", "摂動論"],
+    isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧 東工大）2024年度 物理学 問4
+
+## 問題の設定
+ヘリウム原子（$Z = 2$、電子 2 個）の基底状態エネルギーを摂動論で求める。ハミルトニアンは水素様項 $\\hat{H}_0 = \\hat{H}_1 + \\hat{H}_2$（個別に水素原子様、$Z=2$）と、電子間斥力 $\\hat{V} = e^2/(4\\pi\\varepsilon_0 |\\vec{r}_1 - \\vec{r}_2|)$。$E_H = e^2/(4\\pi\\varepsilon_0 a_0) \\cdot (1/2) = 13.6\\,\\text{eV}$（水素 Rydberg）、$a_0 = $ Bohr 半径。
+
+## 問われている内容
+(1) 摂動無視した基底状態エネルギー $E_0^{(0)}$ を、水素様 $(Z=2, n=1)$ の結果から書け。
+(2) 1 次摂動補正 $E_0^{(1)} = \\langle \\phi_0 | \\hat{V} | \\phi_0\\rangle$ を、結果 $(5Z/8)E_H$ として提示（導出は略可、因子の起源を説明）。
+(3) 1 次摂動まででのエネルギー $E_0^{(0)} + E_0^{(1)}$ と実験値 $-79.0\\,\\text{eV}$ の比較を行え。
+(4) 変分法で 1 電子の有効電荷 $Z_{\\text{eff}}$ を試行パラメータとすると、最適 $Z_{\\text{eff}} < 2$ となる物理的理由を述べよ。`,
+    solution: `## (1) 無摂動エネルギー
+水素様 $(Z, n=1)$ で $E_n = -Z^2 E_H$。2 電子分の合計：
+$$E_0^{(0)} = 2 \\cdot (-Z^2 E_H) = -2 \\cdot 4 \\cdot 13.6 = -108.8\\,\\text{eV}$$
+
+## (2) 1 次摂動補正
+基底状態波動関数 $\\phi_0 = \\psi_{1s}(\\vec{r}_1)\\psi_{1s}(\\vec{r}_2)$（各電子が水素様 1s、スピンシングレット）。$\\langle 1/|\\vec{r}_1 - \\vec{r}_2|\\rangle$ は 1s 軌道の二重積分で計算でき、結果：
+$$E_0^{(1)} = \\frac{5Z}{8}E_H \\quad (Z=2 \\Rightarrow = 34.0\\,\\text{eV})$$
+
+**係数 $5/8$ の起源**：水素様 1s の動径分布 $\\propto e^{-Zr/a_0}$ で $\\langle 1/r_{12}\\rangle$ を評価すると、球対称性の積分が $Ze^2/(a_0) \\cdot 5/8$。
+
+## (3) 実験値との比較
+$E_0^{(0)} + E_0^{(1)} = -108.8 + 34.0 = -74.8\\,\\text{eV}$
+
+実験値 $-79.0\\,\\text{eV}$ と比較して誤差 $+4.2\\,\\text{eV}$（約 5%）。1 次摂動としては良い近似。
+
+## (4) 変分法での有効電荷
+試行関数 $\\psi \\propto e^{-Z_{\\text{eff}} r/a_0}$ でエネルギーを最小化：
+$$E(Z_{\\text{eff}}) = (Z_{\\text{eff}}^2 - 2Z Z_{\\text{eff}} + 5 Z_{\\text{eff}}/8)E_H \\cdot 2$$
+
+$dE/dZ_{\\text{eff}} = 0$ から $Z_{\\text{eff}} = Z - 5/16 = 27/16 \\approx 1.69$。
+
+**物理的意味**：相方電子の電荷雲が核電荷を**遮蔽**し、実効的な核電荷が減少する（遮蔽効果 screening）。これにより 1 電子軌道が少し広がる方がエネルギー的に得。最適 $Z_{\\text{eff}} = 27/16$ で $E \\approx -77.5\\,\\text{eV}$、実験値に更に近づく。多電子原子の Hartree-Fock 自己無撞着場の原型。` },
+
+  { id: "titech-2024-phys-5", universitySlug: "titech", year: 2024, subject: "物理学", problemNumber: 5,
+    title: "エントロピーと熱力学第二法則", field: "thermodynamics", difficulty: "standard",
+    tags: ["エントロピー", "熱平衡", "熱機関"], isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧 東工大）2024年度 物理学 問5
+
+## 問題の設定
+熱容量 $C$（一定）の物体 A（初期温度 $T_H$）と物体 B（初期温度 $T_L$、$T_H > T_L$）を接触させて熱平衡に達するまで放置する。外部との熱交換はなし。
+
+## 問われている内容
+(1) 最終平衡温度 $T_f$ を求めよ。
+(2) 全系のエントロピー変化 $\\Delta S_{\\text{total}}$ を $T_H, T_L$ で表せ。
+(3) $\\Delta S_{\\text{total}} > 0$ を示せ（算術幾何平均不等式を使う）。
+(4) 代わりに A と B の間で可逆熱機関を運転し最大仕事 $W_{\\max}$ を取り出す場合、$W_{\\max}$ と (2) の結果の関係を論ぜよ。`,
+    solution: `## (1) 平衡温度
+熱容量一定の熱平衡：A が失った熱 = B が得た熱
+$$C(T_H - T_f) = C(T_f - T_L) \\Rightarrow T_f = \\frac{T_H + T_L}{2}$$
+
+## (2) エントロピー変化
+$$\\Delta S_A = \\int_{T_H}^{T_f}\\frac{C\\, dT}{T} = C\\ln\\frac{T_f}{T_H}$$
+$$\\Delta S_B = C\\ln\\frac{T_f}{T_L}$$
+
+$$\\boxed{\\Delta S_{\\text{total}} = C\\ln\\frac{T_f^2}{T_H T_L} = C\\ln\\frac{(T_H + T_L)^2}{4 T_H T_L}}$$
+
+## (3) 正値性
+AM-GM 不等式：$T_H + T_L \\ge 2\\sqrt{T_H T_L}$（等号は $T_H = T_L$）。したがって：
+$$(T_H + T_L)^2 \\ge 4 T_H T_L \\Rightarrow \\frac{(T_H+T_L)^2}{4 T_H T_L} \\ge 1$$
+
+$\\ln(\\text{≥1}) \\ge 0$、$T_H \\ne T_L$ なら厳密不等号 → $\\Delta S_{\\text{total}} > 0$。熱伝導は不可逆過程。
+
+## (4) 可逆熱機関
+可逆過程では $\\Delta S_{\\text{total}} = 0$。微小熱機関が A から $dQ_H$、B へ $dQ_L$ を渡し $dW = dQ_H - dQ_L$ を取り出す。可逆性（Carnot 効率）条件：
+$$dQ_H/T_A = dQ_L/T_B$$
+
+最終的に共通温度 $T_f^{\\text{rev}}$ に達する。$\\Delta S_A + \\Delta S_B = 0$ を解くと：
+$$T_f^{\\text{rev}} = \\sqrt{T_H T_L}$$（幾何平均）
+
+最大仕事：
+$$W_{\\max} = C(T_H + T_L - 2\\sqrt{T_H T_L}) = C(\\sqrt{T_H} - \\sqrt{T_L})^2$$
+
+**関係**：不可逆熱伝導では $W = 0$、エントロピー増加分 $\\Delta S_{\\text{total}}$ が "失われた仕事" に対応。熱力学第二法則の定量化。$W_{\\max}$ は AM-GM 不等式の差そのもの。` },
+
+  // ---- TOHOKU 2024 (+4) ----
+  { id: "tohoku-2024-phys-2", universitySlug: "tohoku", year: 2024, subject: "物理学", problemNumber: 2,
+    title: "鏡像法と導体平面", field: "electromagnetism", difficulty: "advanced",
+    tags: ["鏡像法", "無限導体平面", "誘導電荷"], isFree: true,
+    statement: `**対応問題**: 東北大学 2024年度 物理学 問2
+
+## 問題の設定
+無限に広がる接地された導体平面（$z = 0$）の上方 $z = d > 0$ に点電荷 $q > 0$ を置く。真空の誘電率 $\\varepsilon_0$。
+
+## 問われている内容
+(1) 鏡像法による電位 $V(x, y, z)$ を求めよ（$z > 0$ の領域で）。
+(2) 導体平面上の誘導面電荷密度 $\\sigma(x, y)$ を求めよ。
+(3) 平面上に誘起された全電荷を積分により計算せよ。
+(4) 点電荷 $q$ と導体平面の間に作用する力の大きさと向きを求めよ。`,
+    solution: `## (1) 鏡像電荷と電位
+$z = -d$ に鏡像電荷 $-q$ を置くと、$z = 0$ で電位が $0$ となる。$z > 0$ 領域での電位：
+$$V(\\vec{r}) = \\frac{q}{4\\pi\\varepsilon_0}\\left[\\frac{1}{\\sqrt{x^2 + y^2 + (z-d)^2}} - \\frac{1}{\\sqrt{x^2 + y^2 + (z+d)^2}}\\right]$$
+
+## (2) 誘導面電荷密度
+$\\sigma = -\\varepsilon_0 (\\partial V/\\partial z)_{z=0}$。計算すると（$\\rho^2 = x^2 + y^2$）：
+$$\\sigma(\\rho) = -\\frac{qd}{2\\pi(\\rho^2 + d^2)^{3/2}}$$
+
+点電荷直下 $\\rho = 0$ で最大（負の値）、遠方で $1/\\rho^3$ で減衰。
+
+## (3) 総誘導電荷
+$$Q_{\\text{ind}} = \\int_0^{\\infty}\\sigma(\\rho) \\cdot 2\\pi\\rho\\, d\\rho = -qd\\int_0^{\\infty}\\frac{\\rho\\, d\\rho}{(\\rho^2 + d^2)^{3/2}}$$
+
+$u = \\rho^2 + d^2$ と置換：
+$$= -qd \\cdot [-1/\\sqrt{u}]_{d^2}^{\\infty} \\cdot \\tfrac{1}{2} \\cdot 2 = -q$$
+
+$$\\boxed{Q_{\\text{ind}} = -q}$$
+
+## (4) 作用力
+鏡像法では、点電荷 $q$ が鏡像 $-q$ から受けるクーロン力として計算：
+$$F = \\frac{q \\cdot q}{4\\pi\\varepsilon_0 (2d)^2} = \\frac{q^2}{16\\pi\\varepsilon_0 d^2}$$
+
+向きは導体平面に向かう**引力**（鏡像電荷は反対符号）。
+
+**注意**：$z > 0$ 領域のエネルギーは $W = -q^2/(16\\pi\\varepsilon_0 d)$（実電荷のみを考える場合）で、2 電荷系 $W = -q^2/(8\\pi\\varepsilon_0 d)$ の半分。導体の鏡像法は静電的効果を等価な仮想電荷で置き換える強力な手法。` },
+
+  { id: "tohoku-2024-phys-3", universitySlug: "tohoku", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "有限井戸型ポテンシャルと束縛状態", field: "quantum", difficulty: "standard",
+    tags: ["有限井戸", "束縛状態", "超越方程式"], isFree: true,
+    statement: `**対応問題**: 東北大学 2024年度 物理学 問3
+
+## 問題の設定
+1 次元ポテンシャル
+$$V(x) = \\begin{cases} -V_0 & (|x| < a) \\\\ 0 & (|x| > a) \\end{cases}$$
+（$V_0 > 0$）中の質量 $m$ の粒子の束縛状態 ($-V_0 < E < 0$) を考える。
+
+## 問われている内容
+(1) 内部と外部のシュレーディンガー方程式を書き、内部の波数 $k$ と外部の減衰定数 $\\kappa$ を定義せよ。
+(2) 偶関数解 $\\psi(x) = \\psi(-x)$ の境界接続条件から束縛状態の超越方程式を導け。
+(3) 奇関数解についても同様に導け。
+(4) 束縛状態が常に少なくとも 1 つ存在することを示せ（偶関数解）。`,
+    solution: `## (1) 波数と減衰定数
+$E < 0$ とする。$\\hbar^2 k^2/(2m) = E + V_0 > 0 \\Rightarrow k = \\sqrt{2m(E+V_0)}/\\hbar$
+$\\hbar^2 \\kappa^2/(2m) = -E > 0 \\Rightarrow \\kappa = \\sqrt{-2mE}/\\hbar$
+
+内部：$\\psi = A\\cos kx$ または $B\\sin kx$、外部：$\\psi = Ce^{-\\kappa|x|}$
+
+## (2) 偶関数解の超越方程式
+$\\psi_{\\text{in}} = A\\cos(kx), \\psi_{\\text{out}} = Ce^{-\\kappa x}$ ($x > a$)。$x = a$ で波動関数と微分の接続：
+- $A\\cos(ka) = Ce^{-\\kappa a}$
+- $-Ak\\sin(ka) = -C\\kappa e^{-\\kappa a}$
+
+第 2 式 ÷ 第 1 式：
+$$\\boxed{k\\tan(ka) = \\kappa \\quad (\\text{偶関数})}$$
+
+## (3) 奇関数解
+$\\psi_{\\text{in}} = B\\sin(kx)$。同様に：
+$$\\boxed{k\\cot(ka) = -\\kappa \\quad (\\text{奇関数})}$$
+
+あるいは $k\\cot(ka) = -\\kappa$ の両辺を $-1$ 倍して $-k\\cot(ka) = \\kappa$。
+
+## (4) 束縛状態の存在証明
+$(k, \\kappa)$ は $k^2 + \\kappa^2 = 2mV_0/\\hbar^2 \\equiv R^2$（円）を満たす。
+
+偶関数解の条件 $k\\tan(ka) = \\kappa$ と円 $k^2 + \\kappa^2 = R^2$ のグラフ的交点を探す。$k = 0$ で $\\tan(ka) = 0 \\ne \\infty$ なので $\\kappa = 0$（左端）、$k = R$ で $\\kappa = 0$（右端）。連続性から必ず 1 点以上で交わる → **少なくとも 1 つの偶関数束縛状態が存在**。
+
+**物理的意味**：1 次元引力ポテンシャルは必ず束縛状態を持つ（3 次元以上と異なる結論。3 次元では $V_0$ が閾値以下だと束縛状態ゼロ）。奇関数束縛状態は $R > \\pi/(2a)$ でのみ出現。井戸が浅いときは偶関数基底状態のみ。` },
+
+  { id: "tohoku-2024-phys-4", universitySlug: "tohoku", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "Bose-Einstein 分布と理想 Bose 気体", field: "statistical", difficulty: "advanced",
+    tags: ["Bose-Einstein 統計", "化学ポテンシャル", "BEC"],
+    isFree: true,
+    statement: `**対応問題**: 東北大学 2024年度 物理学 問4
+
+## 問題の設定
+粒子数 $N$、体積 $V$ の非相対論的スピン 0 理想 Bose 気体（質量 $m$）を温度 $T$ で扱う。化学ポテンシャル $\\mu$、$\\beta = 1/(k_B T)$。
+
+## 問われている内容
+(1) Bose-Einstein 分布 $f(\\varepsilon) = 1/(e^{\\beta(\\varepsilon - \\mu)} - 1)$ で $\\mu \\le 0$ でなければならない理由を述べよ。
+(2) 状態密度 $g(\\varepsilon) = V(2m/\\hbar^2)^{3/2}\\sqrt{\\varepsilon}/(4\\pi^2)$ を用いて、$\\mu = 0$ での臨界粒子数 $N_c(T)$ を
+$$N_c(T) = V \\zeta(3/2)\\left(\\frac{m k_B T}{2\\pi\\hbar^2}\\right)^{3/2}$$
+として提示せよ（係数の起源を簡単に示す）。
+(3) $N > N_c(T)$ のとき Bose-Einstein 凝縮 (BEC) が起き、基底状態に巨視的占有が現れることを説明せよ。
+(4) 臨界温度 $T_c$ を粒子密度 $n = N/V$ で表せ。`,
+    solution: `## (1) $\\mu \\le 0$ の理由
+$f(\\varepsilon) \\ge 0$（占有数は非負）が必要。$\\varepsilon = 0$ が基底状態。$f(0) = 1/(e^{-\\beta\\mu} - 1) \\ge 0 \\Rightarrow e^{-\\beta\\mu} > 1 \\Rightarrow \\mu < 0$（または極限 $\\mu = 0$）。$\\mu > 0$ だと $f$ が発散または負になる。
+
+## (2) 臨界粒子数
+$\\mu \\to 0^-$ での励起状態総粒子数：
+$$N_{\\text{exc}}(T) = \\int_0^\\infty g(\\varepsilon)\\,f(\\varepsilon)\\,d\\varepsilon$$
+
+$g(\\varepsilon) = \\frac{V(2m)^{3/2}}{4\\pi^2\\hbar^3}\\sqrt{\\varepsilon}$、$x = \\beta\\varepsilon$ で無次元化：
+$$N_c = \\frac{V(2m k_B T)^{3/2}}{4\\pi^2\\hbar^3}\\int_0^\\infty\\frac{\\sqrt{x}\\,dx}{e^x - 1}$$
+
+$\\int_0^\\infty \\sqrt{x}/(e^x - 1)\\, dx = \\Gamma(3/2)\\zeta(3/2) = (\\sqrt{\\pi}/2)\\zeta(3/2)$。整理：
+$$N_c(T) = V\\zeta(3/2)\\left(\\frac{m k_B T}{2\\pi\\hbar^2}\\right)^{3/2}$$
+
+$\\zeta(3/2) \\approx 2.612$。熱的波長 $\\lambda_T = \\sqrt{2\\pi\\hbar^2/(m k_B T)}$ を使うと $N_c/V = \\zeta(3/2)/\\lambda_T^3$。
+
+## (3) BEC
+$N > N_c(T)$ では、励起状態に入り切れない $N - N_c$ 個の粒子が**基底状態に凝縮**：
+$$N_0 = N - N_c(T) = N\\left[1 - (T/T_c)^{3/2}\\right]$$
+
+（$T < T_c$）。これが Bose-Einstein 凝縮。基底状態の占有数がマクロ（$\\propto N$）になる相転移。
+
+## (4) 臨界温度
+$N = N_c(T_c)$ を $T_c$ で解いて：
+$$k_B T_c = \\frac{2\\pi\\hbar^2}{m}\\left(\\frac{n}{\\zeta(3/2)}\\right)^{2/3}$$
+
+**物理的意味**：BEC は 1924 年に Einstein が予言、1995 年に Cornell・Ketterle らが希薄原子気体 (Rb, Na) で初めて観測（ノーベル賞 2001）。超流動ヘリウム、超伝導（クーパー対の BEC）、レーザー冷却原子など多くの現象の基礎概念。` },
+
+  { id: "tohoku-2024-phys-5", universitySlug: "tohoku", year: 2024, subject: "物理学", problemNumber: 5,
+    title: "単スリット回折と Fraunhofer 近似", field: "optics", difficulty: "standard",
+    tags: ["単スリット", "Fraunhofer 回折", "sinc 関数"],
+    isFree: true,
+    statement: `**対応問題**: 東北大学 2024年度 物理学 問5
+
+## 問題の設定
+幅 $a$ の単スリットに波長 $\\lambda$ の平面波（振幅 $E_0$）が垂直入射する。スリットから十分離れた点 $P$（スリット中心からの角度 $\\theta$）での強度を考える (Fraunhofer 近似)。
+
+## 問われている内容
+(1) 点 $P$ での電場 $E(\\theta)$ を Huygens 原理から積分で書け。
+(2) 積分を実行し、強度 $I(\\theta) = |E(\\theta)|^2$ を sinc 関数で表せ。
+(3) 強度の最初の暗線となる角度 $\\theta_1$ を求めよ。
+(4) 中央主極大の角度幅 $\\Delta\\theta$ を、$a$ と $\\lambda$ の関数で述べよ。解像限界（Rayleigh 基準）との関連を言及。`,
+    solution: `## (1) 電場の積分形
+スリット上の位置 $y$（$-a/2 \\le y \\le a/2$）から $P$ への行路差は $y\\sin\\theta$。位相 $k y\\sin\\theta$（$k = 2\\pi/\\lambda$）：
+$$E(\\theta) \\propto \\int_{-a/2}^{a/2} e^{iky\\sin\\theta}\\, dy$$
+
+## (2) 強度
+積分を実行：
+$$E(\\theta) \\propto \\frac{e^{ika\\sin\\theta/2} - e^{-ika\\sin\\theta/2}}{ik\\sin\\theta} = a\\cdot\\frac{\\sin(\\alpha)}{\\alpha}, \\quad \\alpha \\equiv \\frac{ka\\sin\\theta}{2} = \\frac{\\pi a\\sin\\theta}{\\lambda}$$
+
+強度：
+$$\\boxed{I(\\theta) = I_0\\left(\\frac{\\sin\\alpha}{\\alpha}\\right)^2 = I_0\\,\\text{sinc}^2\\left(\\frac{\\pi a\\sin\\theta}{\\lambda}\\right)}$$
+
+$I_0 = I(\\theta = 0)$。
+
+## (3) 最初の暗線
+$\\sin\\alpha = 0$（$\\alpha \\ne 0$）。$\\alpha = \\pi$ のとき：
+$$\\frac{\\pi a \\sin\\theta_1}{\\lambda} = \\pi \\Rightarrow \\sin\\theta_1 = \\frac{\\lambda}{a}$$
+
+$$\\boxed{\\theta_1 \\approx \\lambda/a}$$（小角近似）
+
+## (4) 主極大の角幅と Rayleigh 基準
+中央主極大は $\\theta \\in (-\\theta_1, \\theta_1)$ に集中：
+$$\\Delta\\theta \\approx 2\\lambda/a$$
+
+**Rayleigh 基準**：2 つの点光源が分離可能な最小角は、1 つの主極大が他の最初の暗線に重なるとき：
+$$\\theta_{\\text{min}} \\approx \\lambda/a$$
+
+望遠鏡の分解能（口径 $a$）、顕微鏡の解像度、電子顕微鏡の波長優位性などの基礎。光の波動性が観測限界を決める普遍則。` },
+
+  // ---- OSAKA 2024 (+5) ----
+  { id: "osaka-2024-phys-2", universitySlug: "osaka", year: 2024, subject: "物理学", problemNumber: 2,
+    title: "電磁誘導と渦電流", field: "electromagnetism", difficulty: "standard",
+    tags: ["Faraday の法則", "渦電流", "Lenz の法則"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2024年度 物理学 問2
+
+## 問題の設定
+抵抗率 $\\rho$、厚さ $d$ の導体平板が一様磁場 $\\vec{B}(t) = B_0\\cos(\\omega t)\\hat{z}$ 中に置かれている（平板は $xy$ 平面に平行）。平板を半径 $a$ の円盤とする。
+
+## 問われている内容
+(1) 渦電流の流れ方向を Lenz の法則から説明せよ。
+(2) 半径 $r$ の同心円に沿った誘導起電力 $\\mathcal{E}(r, t)$ を求めよ。
+(3) $r$ から $r + dr$ の微小円環領域に流れる電流 $dI(r, t)$ を求めよ。
+(4) 円盤全体で消費される時間平均電力 $\\langle P \\rangle$ を求めよ。`,
+    solution: `## (1) 渦電流の向き
+Lenz の法則：誘導電流は磁束変化を打ち消す向き。$B$ が増加（$\\cos$ 減少段階）するとき、電流は $-\\hat{z}$ 方向の磁場を作る向き（上から見て時計回り）に流れる。$B$ 減少時は反時計回り。
+
+## (2) 誘導起電力
+半径 $r$ の円の磁束：$\\Phi(r) = B(t)\\pi r^2$。Faraday の法則：
+$$\\mathcal{E}(r, t) = -\\frac{d\\Phi}{dt} = B_0\\omega\\sin(\\omega t)\\pi r^2$$
+
+## (3) 微小円環の電流
+厚さ $d$、半径 $r$、幅 $dr$ の円環の抵抗：$dR = 2\\pi r \\rho/(d\\cdot dr)$。オームの法則：
+$$dI = \\mathcal{E}/dR = \\frac{B_0\\omega\\sin(\\omega t)\\pi r^2 \\cdot d\\cdot dr}{2\\pi r\\rho} = \\frac{B_0\\omega\\sin(\\omega t)\\cdot d\\cdot r\\, dr}{2\\rho}$$
+
+## (4) 消費電力
+微小円環での瞬時消費電力：$dP = \\mathcal{E}\\cdot dI = (B_0\\omega\\sin\\omega t\\cdot\\pi r^2)(B_0\\omega\\sin\\omega t\\cdot d r/(2\\rho)) dr$
+$$dP = \\frac{\\pi B_0^2\\omega^2 d \\sin^2(\\omega t)}{2\\rho} r^3\\, dr$$
+
+全円盤で積分：$\\int_0^a r^3\\, dr = a^4/4$。時間平均 $\\langle \\sin^2\\rangle = 1/2$：
+$$\\boxed{\\langle P\\rangle = \\frac{\\pi B_0^2\\omega^2 d\\, a^4}{16\\rho}}$$
+
+**物理的意味**：$\\langle P\\rangle \\propto \\omega^2 a^4/\\rho$。高周波・大面積・低抵抗率で発熱が大きい。**応用**：誘導加熱（IH クッキング、金属溶解）、電磁ブレーキ（鉄道の渦電流制動）。逆に変圧器鉄心は**積層構造**で渦電流を抑制し、効率を上げている。` },
+
+  { id: "osaka-2024-phys-3", universitySlug: "osaka", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "調和振動子のコヒーレント状態", field: "quantum", difficulty: "advanced",
+    tags: ["コヒーレント状態", "生成消滅演算子", "不確定性"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2024年度 物理学 問3
+
+## 問題の設定
+1 次元調和振動子（角振動数 $\\omega$、質量 $m$）に、消滅演算子 $\\hat{a}$ の固有状態 $|\\alpha\\rangle$（$\\hat{a}|\\alpha\\rangle = \\alpha|\\alpha\\rangle$、$\\alpha \\in \\mathbb{C}$）を**コヒーレント状態**と呼ぶ。
+
+## 問われている内容
+(1) 数状態 $|n\\rangle$ を用いて $|\\alpha\\rangle$ の展開係数 $c_n = \\langle n|\\alpha\\rangle$ を求めよ（$\\hat{a}|n\\rangle = \\sqrt{n}|n-1\\rangle$ を使用）。規格化条件 $\\langle\\alpha|\\alpha\\rangle = 1$ から $c_0$ の絶対値を決定。
+(2) コヒーレント状態における粒子数分布 $|c_n|^2$ を示し、これが Poisson 分布となることを示せ。
+(3) コヒーレント状態での $\\hat{x}, \\hat{p}$ の期待値と分散を計算し、Heisenberg の不確定性関係 $\\Delta x \\Delta p \\ge \\hbar/2$ の等号が成立することを示せ。
+(4) コヒーレント状態が「最も古典的な量子状態」と呼ばれる理由を述べよ。`,
+    solution: `## (1) 展開係数
+$\\hat{a}|\\alpha\\rangle = \\alpha|\\alpha\\rangle$ を $|\\alpha\\rangle = \\sum c_n |n\\rangle$ に作用：
+$$\\sum c_n \\sqrt{n}|n-1\\rangle = \\alpha\\sum c_n |n\\rangle$$
+
+添字を合わせて $\\sqrt{n+1}c_{n+1} = \\alpha c_n \\Rightarrow c_n = \\alpha^n c_0/\\sqrt{n!}$。
+
+規格化：$\\sum |c_n|^2 = |c_0|^2 \\sum |\\alpha|^{2n}/n! = |c_0|^2 e^{|\\alpha|^2} = 1$：
+$$|c_0| = e^{-|\\alpha|^2/2}$$
+
+$$\\boxed{|\\alpha\\rangle = e^{-|\\alpha|^2/2}\\sum_{n=0}^\\infty \\frac{\\alpha^n}{\\sqrt{n!}}|n\\rangle}$$
+
+## (2) Poisson 分布
+$$P(n) = |c_n|^2 = e^{-|\\alpha|^2}\\frac{|\\alpha|^{2n}}{n!}$$
+
+これは平均 $\\langle n\\rangle = |\\alpha|^2$ の Poisson 分布。分散も $|\\alpha|^2$（Poisson 統計の特徴、$\\Delta n = |\\alpha|$）。
+
+## (3) 期待値と分散
+$\\hat{x} = \\sqrt{\\hbar/(2m\\omega)}(\\hat{a} + \\hat{a}^\\dagger)$、$\\hat{p} = i\\sqrt{m\\hbar\\omega/2}(\\hat{a}^\\dagger - \\hat{a})$。
+
+$\\hat{a}|\\alpha\\rangle = \\alpha|\\alpha\\rangle$、$\\langle\\alpha|\\hat{a}^\\dagger = \\langle\\alpha|\\alpha^*$ から：
+- $\\langle\\hat{x}\\rangle = \\sqrt{\\hbar/(2m\\omega)}(\\alpha + \\alpha^*) = \\sqrt{2\\hbar/(m\\omega)}\\text{Re}(\\alpha)$
+- $\\langle\\hat{p}\\rangle = i\\sqrt{m\\hbar\\omega/2}(\\alpha^* - \\alpha) = \\sqrt{2m\\hbar\\omega}\\text{Im}(\\alpha)$
+
+分散計算（$[\\hat{a}, \\hat{a}^\\dagger] = 1$ を使って展開）：
+- $(\\Delta x)^2 = \\hbar/(2m\\omega)$
+- $(\\Delta p)^2 = m\\hbar\\omega/2$
+
+$$\\Delta x\\,\\Delta p = \\sqrt{\\hbar/(2m\\omega) \\cdot m\\hbar\\omega/2} = \\hbar/2$$
+
+**不確定性最小状態**。
+
+## (4) 古典的性質
+- $x$ と $p$ の期待値は古典軌道通り $\\langle\\hat{x}(t)\\rangle = \\text{Re}(\\alpha e^{-i\\omega t})\\sqrt{2\\hbar/(m\\omega)}$（時間発展で $\\alpha \\to \\alpha e^{-i\\omega t}$）
+- 揺らぎ $\\Delta x, \\Delta p$ は最小かつ時間不変（Gaussian 波束が崩れずに振動）
+- 大振幅極限 $|\\alpha| \\gg 1$ で粒子数 Poisson 分布が鋭くピーク → 古典振動
+
+これらから、レーザー光（電場のコヒーレント状態）、電磁場の古典対応、量子ノイズの基準（ショットノイズ極限）として重要。` },
+
+  { id: "osaka-2024-phys-4", universitySlug: "osaka", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "Ising 模型と平均場近似", field: "statistical", difficulty: "advanced",
+    tags: ["Ising 模型", "平均場近似", "相転移", "Curie-Weiss"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2024年度 物理学 問4
+
+## 問題の設定
+スピン変数 $s_i = \\pm 1$、各サイト $i$ が $z$ 個の最近接と結合する Ising 模型：
+$$H = -J\\sum_{\\langle ij\\rangle}s_i s_j - h\\sum_i s_i$$
+（$J > 0$ 強磁性、$h$ 外部磁場、$\\beta = 1/(k_B T)$）
+
+## 問われている内容
+(1) 平均場近似 $s_i s_j \\approx m s_j + m s_i - m^2$（$m = \\langle s\\rangle$）を施し、1 サイトの実効ハミルトニアンを書け。
+(2) 自己無撞着方程式 $m = \\tanh(\\beta(Jzm + h))$ を導け。
+(3) $h = 0$ で相転移温度 $T_c$ を求めよ（$T > T_c$ で $m = 0$、$T < T_c$ で $m \\ne 0$ の境界）。
+(4) $T$ が $T_c$ よりわずかに上（$h = 0$）のとき、帯磁率 $\\chi = \\partial m/\\partial h|_{h=0}$ を求め、$T \\to T_c$ で発散することを示せ（Curie-Weiss 則）。`,
+    solution: `## (1) 実効ハミルトニアン
+和を取ると、各サイト $i$ の周りに $z$ 個の最近接があるので：
+$$H_{\\text{MF}} = -\\sum_i (Jzm + h) s_i + \\frac{NJzm^2}{2}$$
+（定数項は規格化、$N$ は全サイト数）
+
+## (2) 自己無撞着方程式
+1 サイトの分配関数：$Z_1 = 2\\cosh(\\beta(Jzm + h))$。$\\langle s\\rangle = \\tanh(\\beta(Jzm+h))$、自己矛盾なく $m = \\langle s\\rangle$ とするには：
+$$\\boxed{m = \\tanh[\\beta(Jzm + h)]}$$
+
+## (3) 相転移温度
+$h = 0, m \\to 0$ で Taylor 展開：$\\tanh(\\beta Jzm) \\approx \\beta Jzm - (\\beta Jzm)^3/3$。1 次方程式 $m = \\beta Jzm$ は $m = 0$ 自明解。非自明解の境界は $\\beta Jz = 1$：
+$$\\boxed{k_B T_c = Jz}$$
+
+$T > T_c$：$m = 0$ のみ安定。$T < T_c$：$m \\ne 0$ も安定（自発磁化）。
+
+## (4) 帯磁率 Curie-Weiss
+$h \\ne 0$、$T > T_c$、$m$ 小：Taylor 展開 $m \\approx \\beta(Jzm + h)$ から：
+$$m(1 - \\beta Jz) = \\beta h \\Rightarrow m = \\frac{h}{k_B(T - T_c)}$$
+
+$$\\boxed{\\chi = \\frac{\\partial m}{\\partial h}\\bigg|_{h=0} = \\frac{1}{k_B(T - T_c)}}$$
+
+$T \\to T_c^+$ で $\\chi \\to \\infty$ 発散（臨界発散）。これが Curie-Weiss 則。
+
+**物理的意味**：平均場近似は相関の空間構造を無視する簡便法で、多くの系で**定性的**相転移を正しく捉える。ただし臨界指数（$\\chi \\sim |T-T_c|^{-\\gamma}$ の $\\gamma$ など）は誤り：$\\gamma_{\\text{MF}} = 1$、3D Ising の正確値 $\\gamma \\approx 1.24$。臨界点近傍では**繰り込み群**による補正が必要（共形場理論、厳密解 Onsager 1944）。` },
+
+  { id: "osaka-2024-math-1", universitySlug: "osaka", year: 2024, subject: "数学", problemNumber: 1,
+    title: "留数計算と三角関数の積分", field: "math", difficulty: "standard",
+    tags: ["留数定理", "単位円", "三角積分"], isFree: true,
+    statement: `**対応問題**: 大阪大学 2024年度 数学 問1
+
+## 問われている内容
+実数 $a$（$a > 1$）に対し、積分
+$$I = \\int_0^{2\\pi}\\frac{d\\theta}{a + \\cos\\theta}$$
+を留数定理で求めよ。
+
+(1) $z = e^{i\\theta}$ の置換で被積分関数を複素平面上に移せ。単位円上での積分に書き換えよ。
+(2) 被積分関数の極を全て求め、単位円内部にある極のみを特定せよ。
+(3) 留数定理を適用して $I$ を計算せよ。`,
+    solution: `## (1) 置換
+$z = e^{i\\theta}$、$d\\theta = dz/(iz)$、$\\cos\\theta = (z + 1/z)/2$：
+$$I = \\oint_{|z|=1}\\frac{1}{a + (z + 1/z)/2}\\cdot\\frac{dz}{iz} = \\oint\\frac{2\\,dz}{i(z^2 + 2az + 1)}$$
+
+## (2) 極の特定
+$z^2 + 2az + 1 = 0 \\Rightarrow z = -a \\pm \\sqrt{a^2 - 1}$。
+- $z_+ = -a + \\sqrt{a^2 - 1}$：$|z_+| < 1$ ✅（$a > 1$ で正の値、小さい）
+- $z_- = -a - \\sqrt{a^2 - 1}$：$|z_-| > 1$（単位円外）
+
+**Viète の公式**：$z_+ z_- = 1$、$z_+ + z_- = -2a$。
+
+## (3) 留数計算
+単位円内部の極 $z_+$ での留数：
+$$\\text{Res}_{z_+}\\frac{2/i}{(z - z_+)(z - z_-)} = \\frac{2/i}{z_+ - z_-} = \\frac{2/i}{2\\sqrt{a^2 - 1}} = \\frac{1}{i\\sqrt{a^2-1}}$$
+
+留数定理：
+$$I = 2\\pi i \\cdot \\frac{1}{i\\sqrt{a^2-1}} = \\frac{2\\pi}{\\sqrt{a^2 - 1}}$$
+
+$$\\boxed{I = \\frac{2\\pi}{\\sqrt{a^2 - 1}}}$$
+
+**検算**：$a \\to 1^+$ で $I \\to \\infty$（積分は特異性を持つ）、$a \\to \\infty$ で $I \\to 2\\pi/a$（被積分関数 $\\approx 1/a$ の周期積分）。いずれも直感と整合。
+
+**物理的意味**：三角関数の周期積分は単位円上の複素積分に落とすのが標準手法。物理では振動子の応答関数、Green 関数、散乱振幅などで頻出。` },
+
+  { id: "osaka-2024-math-2", universitySlug: "osaka", year: 2024, subject: "数学", problemNumber: 2,
+    title: "変分法と Euler-Lagrange 方程式", field: "math", difficulty: "advanced",
+    tags: ["変分法", "Euler-Lagrange", "測地線"], isFree: true,
+    statement: `**対応問題**: 大阪大学 2024年度 数学 問2
+
+## 問われている内容
+汎関数
+$$I[y] = \\int_a^b F(x, y, y')\\, dx$$
+を、両端固定 $y(a) = y_a, y(b) = y_b$ で極値化することを考える。
+
+(1) $y \\to y + \\epsilon\\eta$（$\\eta(a) = \\eta(b) = 0$）の変分から、Euler-Lagrange 方程式
+$$\\frac{\\partial F}{\\partial y} - \\frac{d}{dx}\\frac{\\partial F}{\\partial y'} = 0$$
+を導け。
+(2) 2 点 $(x_1, y_1), (x_2, y_2)$ を結ぶ**最短曲線**を求める問題を、(1) を使って解け（結果として直線を得ることを示せ）。
+(3) $F$ が $x$ を陽に含まないとき、保存量 $H \\equiv F - y'(\\partial F/\\partial y')$ = const（Beltrami の恒等式）を示せ。`,
+    solution: `## (1) Euler-Lagrange 方程式の導出
+変分 $\\delta I = I[y + \\epsilon\\eta] - I[y]$ の 1 次項：
+$$\\delta I = \\epsilon\\int_a^b\\left(\\frac{\\partial F}{\\partial y}\\eta + \\frac{\\partial F}{\\partial y'}\\eta'\\right)dx$$
+
+第 2 項を部分積分（表面項 $\\eta(a) = \\eta(b) = 0$ で消える）：
+$$\\delta I = \\epsilon\\int_a^b\\eta\\left[\\frac{\\partial F}{\\partial y} - \\frac{d}{dx}\\frac{\\partial F}{\\partial y'}\\right]dx$$
+
+任意 $\\eta$ で $\\delta I = 0$ が成立するには被積分の括弧 $= 0$：
+$$\\boxed{\\frac{\\partial F}{\\partial y} - \\frac{d}{dx}\\frac{\\partial F}{\\partial y'} = 0}$$
+
+（基本補題の適用）
+
+## (2) 最短曲線
+$y(x)$ の弧長：$I[y] = \\int\\sqrt{1 + y'^2}\\, dx$、$F = \\sqrt{1 + y'^2}$。
+
+$\\partial F/\\partial y = 0$、$\\partial F/\\partial y' = y'/\\sqrt{1 + y'^2}$。EL 方程式：
+$$\\frac{d}{dx}\\frac{y'}{\\sqrt{1+y'^2}} = 0 \\Rightarrow \\frac{y'}{\\sqrt{1+y'^2}} = \\text{const} \\Rightarrow y' = \\text{const}$$
+
+$y' = k$ で $y = kx + c$：**直線**。両端条件から $k, c$ が決定。
+
+## (3) Beltrami の恒等式
+$F$ が $x$ を陽に含まなければ、全微分 $dF/dx$ は $y'$ と $y''$ を通してのみ変化：
+$$\\frac{dF}{dx} = \\frac{\\partial F}{\\partial y}y' + \\frac{\\partial F}{\\partial y'}y''$$
+
+EL から $\\partial F/\\partial y = (d/dx)(\\partial F/\\partial y')$：
+$$\\frac{dF}{dx} = y'\\frac{d}{dx}\\frac{\\partial F}{\\partial y'} + \\frac{\\partial F}{\\partial y'}y'' = \\frac{d}{dx}\\left(y'\\frac{\\partial F}{\\partial y'}\\right)$$
+
+移項して：
+$$\\frac{d}{dx}\\left[F - y'\\frac{\\partial F}{\\partial y'}\\right] = 0 \\Rightarrow \\boxed{H = F - y'\\frac{\\partial F}{\\partial y'} = \\text{const}}$$
+
+**物理的意味**：Beltrami は Lagrangian 形式での**エネルギー保存**（時間並進対称性 → ハミルトニアン保存）の幾何学版。時間 $t$ を明示的に含まない Lagrangian ではハミルトニアン $H$ が保存。変分問題（最速降下、最小作用、測地線）で時間パラメータ消去の標準手法。` },
+
+  // ---- NAGOYA 2024 (+2) ----
+  { id: "nagoya-2024-phys-3", universitySlug: "nagoya", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "Biot-Savart 則と磁場", field: "electromagnetism", difficulty: "basic",
+    tags: ["Biot-Savart", "電流と磁場", "円電流"], isFree: true,
+    statement: `**対応問題**: 名古屋大学 2024年度 物理学 問3
+
+## 問題の設定
+半径 $R$、電流 $I$ の円電流（中心 $O$、$xy$ 平面上）が作る磁場を考える。真空の透磁率 $\\mu_0$。
+
+## 問われている内容
+(1) Biot-Savart の法則を書け（電流要素 $I d\\vec{\\ell}$ が作る磁場の式）。
+(2) 円電流の中心 $O$ での磁場 $B_O$ を求めよ。
+(3) 円電流の軸上 $z$ 軸 $(z > 0)$ での磁場 $B_z(z)$ を求めよ。
+(4) $z \\gg R$ での振る舞いを近似し、磁気双極子モーメント $\\vec{m} = I\\pi R^2\\hat{z}$ との関係を示せ。`,
+    solution: `## (1) Biot-Savart の法則
+$$d\\vec{B}(\\vec{r}) = \\frac{\\mu_0 I}{4\\pi}\\frac{d\\vec{\\ell}\\times(\\vec{r} - \\vec{r}')}{|\\vec{r} - \\vec{r}'|^3}$$
+
+## (2) 中心での磁場
+円電流の各要素 $Id\\vec{\\ell}$ から中心までの距離は $R$、$d\\vec{\\ell}$ は接線方向、$\\vec{r} - \\vec{r}'$ は半径方向で垂直 → 外積の大きさ $R\\, d\\ell$、方向は $+\\hat{z}$。
+
+$$B_O = \\frac{\\mu_0 I}{4\\pi}\\int\\frac{d\\ell}{R^2} = \\frac{\\mu_0 I}{4\\pi R^2}\\cdot 2\\pi R = \\frac{\\mu_0 I}{2R}$$
+
+## (3) 軸上の磁場
+距離 $\\sqrt{R^2 + z^2}$、対称性から $xy$ 方向寄与は打ち消し $z$ 成分のみ。$z$ 成分は外積の大きさ × $R/\\sqrt{R^2+z^2}$：
+$$dB_z = \\frac{\\mu_0 I}{4\\pi}\\cdot\\frac{d\\ell \\cdot R}{(R^2 + z^2)^{3/2}}$$
+
+積分：$\\int d\\ell = 2\\pi R$ より：
+$$\\boxed{B_z(z) = \\frac{\\mu_0 I R^2}{2(R^2 + z^2)^{3/2}}}$$
+
+## (4) 遠方近似
+$z \\gg R$：$(R^2 + z^2)^{3/2} \\approx z^3$。
+$$B_z \\approx \\frac{\\mu_0 I R^2}{2z^3} = \\frac{\\mu_0}{4\\pi}\\cdot\\frac{2I\\pi R^2}{z^3} = \\frac{\\mu_0}{4\\pi}\\cdot\\frac{2m}{z^3}$$
+
+これは**磁気双極子**の遠方磁場（軸上成分）と一致。$\\vec{m} = I\\pi R^2\\hat{z}$（面積 × 電流）が磁気モーメントの定義と整合。
+
+**物理的意味**：電流ループは遠方で磁気双極子として振る舞う。原子磁石、分子磁石、MRI 造影剤の基礎。` },
+
+  { id: "nagoya-2024-phys-4", universitySlug: "nagoya", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "理想気体の状態方程式", field: "thermodynamics", difficulty: "basic",
+    tags: ["理想気体", "状態方程式", "等温過程"], isFree: true,
+    statement: `**対応問題**: 名古屋大学 2024年度 物理学 問4
+
+## 問題の設定
+単原子分子の理想気体 $n$ モルを考える。気体定数 $R$、定積比熱 $C_V = (3/2)nR$、定圧比熱 $C_P = (5/2)nR$。
+
+## 問われている内容
+(1) 理想気体の状態方程式を書け。
+(2) 初期状態 $(P_1, V_1, T_1)$ から等温過程で $V_2 (> V_1)$ まで膨張させる場合、気体が外部にした仕事 $W$ を求めよ。
+(3) 同じ初期状態から**等圧**膨張で温度が $T_2 (> T_1)$ まで上昇した場合、気体が外部にした仕事 $W'$ と吸収した熱 $Q'$ を求めよ。
+(4) (3) の内部エネルギー変化 $\\Delta U$ を計算し、第一法則 $Q' = \\Delta U + W'$ が成立することを確認せよ。`,
+    solution: `## (1) 状態方程式
+$$\\boxed{PV = nRT}$$
+
+## (2) 等温膨張の仕事
+等温 $T_1$ 一定で $P = nRT_1/V$：
+$$W = \\int_{V_1}^{V_2} P\\, dV = nRT_1\\int_{V_1}^{V_2}\\frac{dV}{V} = nRT_1\\ln\\frac{V_2}{V_1}$$
+
+## (3) 等圧膨張の仕事と熱
+等圧で $P_1$ 一定、$V$ は $T$ に比例：$V(T) = nRT/P_1$。仕事：
+$$W' = P_1(V_2 - V_1) = P_1\\cdot\\frac{nR(T_2 - T_1)}{P_1} = nR(T_2 - T_1)$$
+
+吸収熱：$Q' = C_P(T_2 - T_1) = (5/2)nR(T_2 - T_1)$
+
+## (4) 第一法則の検証
+内部エネルギー変化：$\\Delta U = C_V(T_2 - T_1) = (3/2)nR(T_2 - T_1)$
+
+$\\Delta U + W' = (3/2)nR(T_2 - T_1) + nR(T_2 - T_1) = (5/2)nR(T_2 - T_1) = Q'$ ✅
+
+**物理的意味**：等圧膨張で吸収した熱 $Q'$ は、内部エネルギーの増加 $\\Delta U$（温度上昇）と外部仕事 $W'$（体積膨張）に分配される。$C_P - C_V = nR$（Mayer の関係式）が確認できる。単原子分子では $C_P/C_V = 5/3 = \\gamma$（比熱比）。` },
+
+  // ---- KYUSHU 2024 (+2) ----
+  { id: "kyushu-2024-phys-3", universitySlug: "kyushu", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "減衰振動とエネルギー散逸", field: "mechanics", difficulty: "basic",
+    tags: ["減衰振動", "Q 値", "エネルギー減衰"], isFree: true,
+    statement: `**対応問題**: 九州大学 2024年度 物理学 問3
+
+## 問題の設定
+質量 $m$、ばね定数 $k$、減衰係数 $\\gamma$ のばね減衰系：
+$$m\\ddot{x} + \\gamma\\dot{x} + kx = 0$$
+
+## 問われている内容
+(1) 運動方程式を $\\omega_0^2 = k/m$、$2\\zeta\\omega_0 = \\gamma/m$ で書き直せ。
+(2) 減衰振動解（$\\zeta < 1$）の一般形を求めよ。
+(3) $\\zeta \\ll 1$ の時、振幅の時間減衰率と振動周期を述べよ。
+(4) 1 周期あたりに失われるエネルギーの割合 $\\Delta E/E$ を求め、品質因子 $Q = 2\\pi E/(\\Delta E) = \\omega_0/(2\\zeta\\omega_0) = 1/(2\\zeta)$ を確認せよ。`,
+    solution: `## (1) 無次元化
+$$\\ddot{x} + 2\\zeta\\omega_0\\dot{x} + \\omega_0^2 x = 0$$
+
+$\\zeta$ は減衰比（無次元）。
+
+## (2) 減衰振動解
+特性方程式 $\\lambda^2 + 2\\zeta\\omega_0\\lambda + \\omega_0^2 = 0 \\Rightarrow \\lambda = -\\zeta\\omega_0 \\pm i\\omega_0\\sqrt{1-\\zeta^2}$
+
+$\\omega_d \\equiv \\omega_0\\sqrt{1 - \\zeta^2}$ と置いて：
+$$\\boxed{x(t) = A e^{-\\zeta\\omega_0 t}\\cos(\\omega_d t + \\phi)}$$
+
+## (3) 減衰率と周期
+- **振幅減衰**：エンベロープ $A e^{-\\zeta\\omega_0 t}$。$t = 1/(\\zeta\\omega_0)$ で振幅が $1/e$ に。
+- **周期**：$T = 2\\pi/\\omega_d \\approx 2\\pi/\\omega_0$（$\\zeta \\ll 1$）。
+
+## (4) Q 値
+エネルギー $E \\propto A^2 \\propto e^{-2\\zeta\\omega_0 t}$。1 周期 $T$ で：
+$$\\frac{\\Delta E}{E} = 1 - e^{-2\\zeta\\omega_0 T} \\approx 2\\zeta\\omega_0 T = 4\\pi\\zeta$$
+
+$$Q = 2\\pi/\\frac{\\Delta E}{E} = 2\\pi/(4\\pi\\zeta) = \\frac{1}{2\\zeta}$$
+
+$$\\boxed{Q = 1/(2\\zeta) = m\\omega_0/\\gamma}$$
+
+**物理的意味**：$Q$ が大きい（$\\zeta$ が小さい）ほど長く振動する。機械振り子 $Q \\sim 10^3$、石英振動子 $10^5$〜$10^6$、原子時計 $10^{10}$。光共振器・LC 共振回路・核スピン FID など、振動系の指標として普遍的。` },
+
+  { id: "kyushu-2024-phys-4", universitySlug: "kyushu", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "スネルの法則と屈折", field: "optics", difficulty: "basic",
+    tags: ["スネルの法則", "全反射", "Fermat の原理"],
+    isFree: true,
+    statement: `**対応問題**: 九州大学 2024年度 物理学 問4
+
+## 問題の設定
+屈折率 $n_1$ の媒質から屈折率 $n_2$ の媒質へ光が入射角 $\\theta_1$ で入るとき。
+
+## 問われている内容
+(1) スネルの法則を書き、屈折角 $\\theta_2$ を $\\theta_1, n_1, n_2$ で表せ。
+(2) $n_1 > n_2$ のとき全反射を起こす臨界角 $\\theta_c$ を求めよ。
+(3) 光ファイバー（芯の屈折率 $n_1 = 1.50$、クラッドの屈折率 $n_2 = 1.48$）の全反射条件を空気中からの入射角に変換（数値計算）。
+(4) Fermat の原理（光は光路長最短の経路を進む）からスネルの法則が導かれることを簡潔に述べよ。`,
+    solution: `## (1) スネルの法則
+$$\\boxed{n_1\\sin\\theta_1 = n_2\\sin\\theta_2}$$
+
+屈折角：$\\sin\\theta_2 = (n_1/n_2)\\sin\\theta_1$
+
+## (2) 臨界角
+$n_1 > n_2$：$\\sin\\theta_2 = (n_1/n_2)\\sin\\theta_1 > \\sin\\theta_1$。$\\theta_2 = \\pi/2$ となる入射角が臨界角：
+$$\\sin\\theta_c = n_2/n_1$$
+$$\\boxed{\\theta_c = \\arcsin(n_2/n_1)}$$
+
+$\\theta_1 > \\theta_c$ で全反射。
+
+## (3) 光ファイバー
+芯とクラッドの境界での臨界角：$\\sin\\theta_c = 1.48/1.50 = 0.9867 \\Rightarrow \\theta_c \\approx 80.6°$。
+
+空気中から光ファイバーの芯へ入射する光は、空気-芯界面で屈折（屈折角 $\\theta_a$）してから芯-クラッド界面に到達。幾何学的に $\\theta_a + \\theta_c = 90°$（コア内伝搬）、すなわち $\\theta_a = 9.4°$。Snell 則で空気中からの入射角 $\\theta_0$：
+$$\\sin\\theta_0 = 1.50\\sin(9.4°) \\approx 1.50 \\times 0.1633 \\approx 0.245$$
+$$\\theta_0 \\approx 14.2°$$
+
+$\\theta_0 < 14.2°$ で全反射しながら導波。$\\text{NA} = \\sqrt{n_1^2 - n_2^2} \\approx 0.245$（開口数）。
+
+## (4) Fermat 原理からの導出
+光路長 $L = \\int n\\, ds$。2 媒質で平面波を仮定、屈折点の座標を変分すると：
+$$\\frac{dL}{dx} = n_1\\sin\\theta_1 - n_2\\sin\\theta_2 = 0$$
+
+$\\Rightarrow$ スネルの法則。
+
+**物理的意味**：Fermat 原理は幾何光学の基本原理。量子的には経路積分 $\\exp(iS/\\hbar)$ の停留位相条件に相当し、古典極限で最短経路に干渉の中心が来る。光ファイバー通信、プリズム分光、光学レンズ設計の全てで根幹。` },
+
+  // ---- HOKKAIDO 2024 (+2) ----
+  { id: "hokkaido-2024-phys-3", universitySlug: "hokkaido", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "単振り子の周期", field: "mechanics", difficulty: "basic",
+    tags: ["単振り子", "微小振動", "周期"], isFree: true,
+    statement: `**対応問題**: 北海道大学 2024年度 物理学 問3
+
+## 問題の設定
+長さ $\\ell$ の軽い糸の先に質量 $m$ の質点を吊るした単振り子を重力加速度 $g$ の一様重力場で振らせる。
+
+## 問われている内容
+(1) 微小振動近似での周期 $T_0$ を導出せよ。
+(2) 糸の長さを 4 倍にすると周期はどう変わるか。
+(3) 振り子を水平速度 $v_0$ で動く電車内に設置したとき、定常状態で糸が鉛直から傾く角度 $\\theta_0$ を述べよ（電車は等速）。
+(4) 同じ電車が加速度 $a$ で加速中のとき、振り子の傾きを有効重力加速度 $g_{\\text{eff}}$ で表し、周期 $T$ を求めよ。`,
+    solution: `## (1) 微小振動の周期
+運動方程式：$m\\ell\\ddot\\theta = -mg\\sin\\theta$。$\\sin\\theta \\approx \\theta$（$\\theta \\ll 1$）：
+$$\\ddot\\theta = -(g/\\ell)\\theta$$
+$$\\boxed{T_0 = 2\\pi\\sqrt{\\ell/g}}$$
+
+## (2) 糸を 4 倍に
+$T \\propto \\sqrt{\\ell}$ なので $T_0' = 2 T_0$（2 倍）。
+
+## (3) 等速電車内
+等速慣性系：普段と同じ。$\\theta_0 = 0$（鉛直のまま）。
+
+## (4) 加速電車内
+電車の加速度 $a$（水平）。電車系は非慣性系、慣性力 $-ma$ が水平方向に働く。実効重力は $\\vec{g}_{\\text{eff}} = -g\\hat{z} - a\\hat{x}$、大きさ：
+$$g_{\\text{eff}} = \\sqrt{g^2 + a^2}$$
+
+傾き $\\tan\\theta = a/g$。周期：
+$$\\boxed{T = 2\\pi\\sqrt{\\ell/g_{\\text{eff}}} = 2\\pi\\sqrt{\\ell/\\sqrt{g^2 + a^2}}}$$
+
+**物理的意味**：等価原理の直感的表現。等加速度運動する電車内の重力は、地表の重力と慣性力の合成で斜めになる。Einstein の一般相対論の出発点の一つ。また振り子式加速度計（古典的な船舶計器、スマホジャイロの補助）の原理。` },
+
+  { id: "hokkaido-2024-phys-4", universitySlug: "hokkaido", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "ガウスの法則と球対称電荷", field: "electromagnetism", difficulty: "basic",
+    tags: ["ガウスの法則", "球対称", "一様電荷分布"],
+    isFree: true,
+    statement: `**対応問題**: 北海道大学 2024年度 物理学 問4
+
+## 問題の設定
+半径 $R$ の球内に、体積電荷密度 $\\rho_0$（一定）で電荷が一様に分布している。球外は真空。真空の誘電率 $\\varepsilon_0$。
+
+## 問われている内容
+(1) 総電荷 $Q$ を $\\rho_0, R$ で表せ。
+(2) 内部（$r < R$）での電場 $E(r)$ をガウスの法則で求めよ。
+(3) 外部（$r > R$）での電場 $E(r)$ を求めよ。
+(4) 無限遠を基準 ($V = 0$) として電位 $V(r)$ を求めよ（内外両方）。`,
+    solution: `## (1) 総電荷
+$$Q = \\rho_0 \\cdot \\frac{4\\pi R^3}{3}$$
+
+## (2) 内部の電場
+半径 $r$ のガウス球面内の電荷：$Q_{\\text{in}}(r) = \\rho_0 \\cdot 4\\pi r^3/3$。ガウスの法則：
+$$E(r)\\cdot 4\\pi r^2 = \\frac{Q_{\\text{in}}}{\\varepsilon_0} = \\frac{\\rho_0 \\cdot 4\\pi r^3/3}{\\varepsilon_0}$$
+$$\\boxed{E(r) = \\frac{\\rho_0 r}{3\\varepsilon_0} \\quad (r < R)}$$
+
+中心でゼロ、表面で最大（線形増加）。
+
+## (3) 外部の電場
+全電荷 $Q$ が中心にあるかのように：
+$$\\boxed{E(r) = \\frac{Q}{4\\pi\\varepsilon_0 r^2} = \\frac{\\rho_0 R^3}{3\\varepsilon_0 r^2} \\quad (r > R)}$$
+
+## (4) 電位
+外部：$V(r) = \\int_r^\\infty E\\, dr' = Q/(4\\pi\\varepsilon_0 r)$。$r = R$ で $V(R) = Q/(4\\pi\\varepsilon_0 R) = \\rho_0 R^2/(3\\varepsilon_0)$。
+
+内部：$V(r) = V(R) + \\int_r^R E_{\\text{in}}\\, dr' = V(R) + (\\rho_0/6\\varepsilon_0)(R^2 - r^2)$。整理：
+$$V(r) = \\frac{\\rho_0}{6\\varepsilon_0}(3R^2 - r^2) \\quad (r < R)$$
+
+$$\\boxed{V(r) = \\begin{cases} \\rho_0 (3R^2 - r^2)/(6\\varepsilon_0) & (r < R) \\\\ \\rho_0 R^3/(3\\varepsilon_0 r) & (r > R) \\end{cases}}$$
+
+**検算**：$r = R$ で両式とも $\\rho_0 R^2/(3\\varepsilon_0)$ で連続 ✅。中心で $V$ が極大。$E = -dV/dr$ も一致 ✅。
+
+**物理的意味**：球対称電荷は外部では点電荷と等価（Newton の重力定理のアナロジー）。内部では半径に比例する線形電場。原子核内部の電場、地球の重力場モデルなど応用。` },
+
+  // ---- YNU 2024 (+2) ----
+  { id: "ynu-2024-phys-3", universitySlug: "ynu", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "黒体放射と Stefan-Boltzmann 則", field: "quantum", difficulty: "basic",
+    tags: ["黒体放射", "Planck 分布", "Stefan-Boltzmann"],
+    isFree: true,
+    statement: `**対応問題**: 横浜国立大学 2024年度 物理学 問3
+
+## 問題の設定
+温度 $T$ の黒体が単位時間単位面積あたり放射するエネルギー（放射流束）$j$ は Stefan-Boltzmann 則に従う：
+$$j = \\sigma T^4, \\quad \\sigma = 5.67\\times 10^{-8}\\,\\text{W/(m}^2\\text{K}^4)$$
+
+## 問われている内容
+(1) 黒体とは何かを簡潔に述べよ。
+(2) 太陽の表面温度を $T_\\odot = 5800\\,\\text{K}$、半径 $R_\\odot = 7\\times 10^8\\,\\text{m}$ として、総放射パワー $L_\\odot$ を推定せよ。
+(3) Planck 分布のエネルギー密度 $u(\\nu, T)$ を書き、高周波（Wien）・低周波（Rayleigh-Jeans）極限の表式を示せ。
+(4) Wien の変位則 $\\lambda_{\\max}T = b$（$b \\approx 2.9\\times 10^{-3}\\,\\text{m K}$）から太陽のピーク波長を推定し、可視光域にあることを確認せよ。`,
+    solution: `## (1) 黒体
+入射する電磁波をすべて吸収する理想的な物体。熱平衡で放出スペクトルは Planck 分布（温度のみに依存）。実在物体は吸収率 $\\alpha < 1$、放出も $\\alpha\\sigma T^4$（Kirchhoff の法則）。
+
+## (2) 太陽の放射パワー
+表面積 $4\\pi R_\\odot^2 \\approx 6.16\\times 10^{18}\\,\\text{m}^2$。
+
+$T^4 = (5800)^4 \\approx 1.13\\times 10^{15}\\,\\text{K}^4$。
+
+$j = \\sigma T^4 \\approx 5.67\\times 10^{-8}\\times 1.13\\times 10^{15} \\approx 6.4\\times 10^{7}\\,\\text{W/m}^2$。
+
+$$L_\\odot = j \\cdot 4\\pi R_\\odot^2 \\approx 4\\times 10^{26}\\,\\text{W}$$
+
+実測値 $L_\\odot \\approx 3.8\\times 10^{26}\\,\\text{W}$ と近似的に一致 ✅。
+
+## (3) Planck 分布と極限
+$$u(\\nu, T)\\, d\\nu = \\frac{8\\pi h\\nu^3}{c^3}\\cdot\\frac{1}{e^{h\\nu/k_B T} - 1}\\,d\\nu$$
+
+- **高周波** ($h\\nu \\gg k_B T$): $u \\to (8\\pi h\\nu^3/c^3)e^{-h\\nu/k_B T}$ (Wien の法則)
+- **低周波** ($h\\nu \\ll k_B T$): $e^{x} - 1 \\approx x$ → $u \\to 8\\pi\\nu^2 k_B T/c^3$ (Rayleigh-Jeans)
+
+低周波極限は古典論と整合するが、高周波で**紫外破綻**を回避できるのが Planck の量子仮説（1900）の本質。
+
+## (4) Wien の変位則
+$\\lambda_{\\max} = b/T = 2.9\\times 10^{-3}/5800 \\approx 5\\times 10^{-7}\\,\\text{m} = 500\\,\\text{nm}$。
+
+可視光の緑〜黄色領域 ✅。太陽は緑で最大輝度、そのため我々の目は可視光域に最適化されて進化した（同値：生物の視覚帯域は太陽スペクトルに同調）。
+
+**物理的意味**：黒体放射の理論は量子力学の出発点。宇宙マイクロ波背景放射（$T \\approx 2.7\\,\\text{K}$）、恒星分光、赤外サーモグラフィー、LED の色温度設計など現代技術の基礎。` },
+
+  { id: "ynu-2024-phys-4", universitySlug: "ynu", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "ドップラー効果", field: "mechanics", difficulty: "basic",
+    tags: ["ドップラー効果", "音波", "相対速度"], isFree: true,
+    statement: `**対応問題**: 横浜国立大学 2024年度 物理学 問4
+
+## 問題の設定
+音源の振動数 $f_0$、音速 $c$。空気は静止。観測者と音源が 1 次元上を動く。
+
+## 問われている内容
+(1) 音源が速度 $v_s$ で観測者に近づき、観測者が静止しているときの観測振動数 $f_1$ を導出せよ。
+(2) 観測者が速度 $v_o$ で音源に近づき、音源が静止しているときの観測振動数 $f_2$ を導出せよ。
+(3) 両者が相対速度で近づくとき（音源 $v_s$、観測者 $v_o$、共に媒質に対して）の一般式を書け。
+(4) 光の相対論的ドップラー効果と比較し、古典的表現が相対速度のみに依存しない（$v_s$ と $v_o$ で非対称）理由を述べよ。`,
+    solution: `## (1) 音源が近づく場合
+音源が 1 周期 $T_0 = 1/f_0$ の間に $v_s T_0$ 進む → 波長が縮む：
+$$\\lambda' = cT_0 - v_s T_0 = (c - v_s)/f_0$$
+
+観測振動数：
+$$\\boxed{f_1 = c/\\lambda' = \\frac{c}{c - v_s}f_0}$$
+
+## (2) 観測者が近づく場合
+波長 $\\lambda = c/f_0$ は変わらず、観測者が相対速度 $c + v_o$ で波を受ける：
+$$\\boxed{f_2 = (c + v_o)/\\lambda = \\frac{c + v_o}{c}f_0}$$
+
+## (3) 一般式
+両方が媒質に対して動くとき：
+$$\\boxed{f = \\frac{c + v_o}{c - v_s}f_0}$$
+
+（符号：近づく方向を正）
+
+## (4) 相対論との比較
+古典：$f_1 \\ne f_2$（$v_s = v_o$ でも異なる値）。$v_s/c$ と $v_o/c$ は**独立変数**（音波は媒質に対して定義されるから）。
+
+**光の場合**：媒質不要（真空中でも伝搬）、相対論的ドップラー効果：
+$$f_{\\text{obs}}/f_0 = \\sqrt{(1-\\beta)/(1+\\beta)}$$（接近、$\\beta = v/c$）
+
+これは**相対速度 $v$ のみ**の関数（$v_s, v_o$ の区別がない）→ 相対性原理との整合。
+
+**物理的意味**：古典ドップラーは「媒質（空気）に対する速度」という概念があるから非対称。光では特殊相対論により媒質概念が破棄され対称な式になる。赤方偏移（宇宙論）、レーザードップラー測速、レーダー速度計、Mossbauer 分光など応用。` },
+
+  // ---- TSUKUBA 2024 (+2) ----
+  { id: "tsukuba-2024-phys-3", universitySlug: "tsukuba", year: 2024, subject: "物理学", problemNumber: 3,
+    title: "電気双極子の作る電場", field: "electromagnetism", difficulty: "basic",
+    tags: ["電気双極子", "多重極展開", "1/r^3 減衰"],
+    isFree: true,
+    statement: `**対応問題**: 筑波大学 2024年度 物理学 問3
+
+## 問題の設定
+$+q$ の点電荷を $\\vec{r} = +d\\hat{z}/2$、$-q$ の点電荷を $-d\\hat{z}/2$ に置く。双極子モーメント $\\vec{p} = qd\\hat{z}$。真空の誘電率 $\\varepsilon_0$。
+
+## 問われている内容
+(1) $z$ 軸上遠方 $(z \\gg d)$ での電位 $V(z)$ を主要項まで求めよ。
+(2) $xy$ 平面上 $(\\rho = \\sqrt{x^2 + y^2} \\gg d)$ での電位 $V(\\rho)$ を示せ。
+(3) 一般の遠方点 $(r, \\theta)$ での電位 $V(r, \\theta)$ を双極子近似で求めよ。
+(4) 電場 $\\vec{E}$ を計算し、双極子の遠方電場が $1/r^3$ で減衰することを確認せよ。`,
+    solution: `## (1) 軸上遠方
+$+q$ からの距離 $z - d/2$、$-q$ からの距離 $z + d/2$：
+$$V = \\frac{q}{4\\pi\\varepsilon_0}\\left[\\frac{1}{z - d/2} - \\frac{1}{z + d/2}\\right]$$
+
+$(z \\pm d/2)^{-1} \\approx z^{-1}(1 \\mp d/(2z))$ を展開：
+$$V \\approx \\frac{q}{4\\pi\\varepsilon_0 z}\\cdot\\frac{d}{z} = \\frac{qd}{4\\pi\\varepsilon_0 z^2}$$
+
+$$\\boxed{V(z) = \\frac{p}{4\\pi\\varepsilon_0 z^2} \\quad (z \\text{ 軸上})}$$
+
+## (2) $xy$ 平面上
+$+q$ と $-q$ からの距離が等しいため打ち消し合い、最低次では $V = 0$。
+
+## (3) 一般点での双極子近似
+$V = p\\cos\\theta/(4\\pi\\varepsilon_0 r^2)$（$\\theta$ は $\\vec{p}$ からの角度）：
+$$\\boxed{V(r, \\theta) = \\frac{\\vec{p}\\cdot\\hat{r}}{4\\pi\\varepsilon_0 r^2} = \\frac{p\\cos\\theta}{4\\pi\\varepsilon_0 r^2}}$$
+
+## (4) 電場
+極座標で $E_r = -\\partial V/\\partial r = 2p\\cos\\theta/(4\\pi\\varepsilon_0 r^3)$、$E_\\theta = -(1/r)\\partial V/\\partial\\theta = p\\sin\\theta/(4\\pi\\varepsilon_0 r^3)$：
+
+$$\\boxed{\\vec{E} = \\frac{p}{4\\pi\\varepsilon_0 r^3}(2\\cos\\theta\\hat{r} + \\sin\\theta\\hat{\\theta})}$$
+
+$1/r^3$ 減衰（点電荷 $1/r^2$ より速い）。
+
+**物理的意味**：電気双極子モーメントは分子の極性（水 $H_2O$、アンモニアなど）、誘電体応答、電磁波放射（Hertz の双極子放射）の基本。反対符号の 2 電荷の非対称性が残り、モノポールはゼロでも双極子項が主要項として生き残る。` },
+
+  { id: "tsukuba-2024-phys-4", universitySlug: "tsukuba", year: 2024, subject: "物理学", problemNumber: 4,
+    title: "熱平衡と熱容量", field: "thermodynamics", difficulty: "basic",
+    tags: ["熱容量", "熱平衡", "混合"], isFree: true,
+    statement: `**対応問題**: 筑波大学 2024年度 物理学 問4
+
+## 問題の設定
+比熱 $c_1$、質量 $m_1$、初期温度 $T_1$ の物体 A と、比熱 $c_2$、質量 $m_2$、初期温度 $T_2$ の物体 B を断熱容器内で接触させる。$T_1 > T_2$。
+
+## 問われている内容
+(1) 熱平衡での共通温度 $T_f$ を求めよ。
+(2) 物体 A から物体 B へ移動した熱量 $Q$ を求めよ。
+(3) 水（$c_w = 4.18\\,\\text{kJ/(kg K)}$）$m_1 = 2\\,\\text{kg}$、$T_1 = 80°\\text{C}$ と、鉄（$c_{Fe} = 0.45\\,\\text{kJ/(kg K)}$）$m_2 = 5\\,\\text{kg}$、$T_2 = 20°\\text{C}$ を混合したとき $T_f$ を数値で求めよ。
+(4) (3) で水の温度変化 $\\Delta T_1$ と鉄の $\\Delta T_2$ が大きく異なる理由を述べよ。`,
+    solution: `## (1) 平衡温度
+エネルギー保存（A が失った熱 = B が得た熱）：
+$$m_1 c_1 (T_1 - T_f) = m_2 c_2 (T_f - T_2)$$
+
+$T_f$ について解いて：
+$$\\boxed{T_f = \\frac{m_1 c_1 T_1 + m_2 c_2 T_2}{m_1 c_1 + m_2 c_2}}$$
+
+熱容量 $C_i = m_i c_i$ を使えば重み付き平均。
+
+## (2) 移動熱量
+$$Q = m_1 c_1 (T_1 - T_f) = m_2 c_2 (T_f - T_2)$$
+
+## (3) 数値計算
+- $m_1 c_1 = 2 \\times 4.18 = 8.36\\,\\text{kJ/K}$
+- $m_2 c_2 = 5 \\times 0.45 = 2.25\\,\\text{kJ/K}$
+
+$$T_f = \\frac{8.36 \\times 80 + 2.25 \\times 20}{8.36 + 2.25} = \\frac{668.8 + 45}{10.61} \\approx 67.3°\\text{C}$$
+
+水の温度変化 $\\Delta T_1 = 80 - 67.3 = -12.7°$、鉄 $\\Delta T_2 = 67.3 - 20 = 47.3°$
+
+## (4) 温度変化の違いの理由
+熱容量 $C_1 = 8.36$ vs $C_2 = 2.25$ なので $C_1 > C_2$ が約 3.7 倍。エネルギー保存 $C_1|\\Delta T_1| = C_2|\\Delta T_2|$ から $|\\Delta T_2| = (C_1/C_2)|\\Delta T_1|$。
+
+水は「単位質量・単位温度あたりに大量の熱を蓄える」物質（$c_w$ が大きい）、鉄は比熱が小さいので同じ熱量で温度が大きく変わる。
+
+**物理的意味**：水が大きな比熱を持つのは、水素結合による分子間結合のため。海・大型湖の気候緩衝効果、生物体温維持、熱伝達工学（冷却水）などの基礎。鉄や金属は熱容量が小さく温度応答が速いので、調理器具・自動車の冷却系・電子部品の放熱に使われる。` },
 ];
 
 export function getProblem(id: string): Problem | undefined {
