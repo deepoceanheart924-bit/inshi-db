@@ -1,5 +1,44 @@
 # 院試DB 作業履歴
 
+## 2026-04-23 — 2023年度を全大学×全科目で充足（+31問、累計151問）
+
+### 背景
+B案（1年度を全大学横断で完遂）の2024年度充足に続く第3ラウンド。
+2023年度を全13試験セットで `ExamRule.totalQuestions` 充足に持っていく。
+
+### 追加内容（+31問）
+
+| 大学 | 科目 | 追加 | 代表テーマ |
+|---|---|---|---|
+| todai | phys | phys-3,4 | 非調和振動子摂動論/van der Waals気体 |
+| todai | math | math-1,2 | Cauchy積分公式/Jordan標準形 |
+| kyodai | phys | phys-3,4 | Lorentz光分散モデル/Poisson括弧と正準変換 |
+| kyodai | math | math-1,2 | 相平面解析/Hermite多項式 |
+| titech | phys | phys-2,3,4,5 | Kepler軌道/Poyntingベクトル/WKB近似/Clausius-Clapeyron |
+| tohoku | phys | phys-2,3,4,5 | 連成振り子/Bernoulli方程式/Pauli常磁性/Bragg回折 |
+| osaka | phys | phys-2,3,4 | 磁場境界条件/Rabi振動/熱力学第3法則 |
+| osaka | math | math-1,2 | 波動方程式特性曲線/Fourier変換Parseval |
+| nagoya | phys | phys-3,4 | 弾性衝突/Fresnel電磁波反射 |
+| kyushu | phys | phys-3,4 | 仕事エネルギー定理/RLC交流インピーダンス |
+| hokkaido | phys | phys-3,4 | Kirchhoff直流回路/熱膨張 |
+| ynu | phys | phys-3,4 | 放射性崩壊半減期/毛管現象 |
+| tsukuba | phys | phys-3,4 | 断熱変化Poisson則/光の分散色収差 |
+
+### 設計方針
+- 2024/2025 および既存2023との**テーマ被り回避**
+- 各試験内での **field多様性**を維持（mech/EM/quantum/thermo/stat/optics バランス）
+- 難易度配分：旧帝大系は advanced/standard 混成、後発5大学は basic 中心
+
+### 動作確認
+- `npx tsc --noEmit` エラー0件 ✅
+- 13試験セット全て `ExamRule.totalQuestions` 充足 ✅
+- 問題総数: 120 → 151問（+31）
+
+### 次回TODO
+- 2022年度・2021年度も同じ要領で充足（B案の後続ラウンド）
+
+---
+
 ## 2026-04-23 — 2024年度を全大学×全科目で充足（+33問、累計120問）
 
 ### 背景

@@ -8057,6 +8057,1350 @@ $$T_f = \\frac{8.36 \\times 80 + 2.25 \\times 20}{8.36 + 2.25} = \\frac{668.8 + 
 水は「単位質量・単位温度あたりに大量の熱を蓄える」物質（$c_w$ が大きい）、鉄は比熱が小さいので同じ熱量で温度が大きく変わる。
 
 **物理的意味**：水が大きな比熱を持つのは、水素結合による分子間結合のため。海・大型湖の気候緩衝効果、生物体温維持、熱伝達工学（冷却水）などの基礎。鉄や金属は熱容量が小さく温度応答が速いので、調理器具・自動車の冷却系・電子部品の放熱に使われる。` },
+
+  // ===== 2023年度 拡充セット（全大学×全科目充足）=====
+
+  // ---- TODAI 2023 (+4) ----
+  { id: "todai-2023-phys-3", universitySlug: "todai", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "非調和振動子と摂動論", field: "quantum", difficulty: "advanced",
+    tags: ["摂動論", "非調和項", "1 次補正"], isFree: true,
+    statement: `**対応問題**: 東京大学 2023年度 物理学 問3
+
+## 問題の設定
+1 次元調和振動子 $\\hat{H}_0 = \\hat{p}^2/(2m) + (1/2)m\\omega^2 \\hat{x}^2$ に非調和摂動 $\\hat{V} = \\lambda\\hat{x}^4$（$\\lambda$ 小）を加えたハミルトニアン $\\hat{H} = \\hat{H}_0 + \\hat{V}$。$|n\\rangle$ を $\\hat{H}_0$ の固有状態とする。
+
+## 問われている内容
+(1) 基底状態エネルギー $E_0 = \\hbar\\omega/2$ への 1 次摂動補正 $E_0^{(1)}$ を計算せよ。$\\langle 0|\\hat{x}^4|0\\rangle$ を生成消滅演算子で評価。
+(2) 第 $n$ 励起状態への 1 次補正 $E_n^{(1)}$ の一般式を $n$ で表せ。
+(3) この補正が常に正となることの物理的理由を述べよ。
+(4) 摂動論が破綻する条件を（$\\lambda, \\hbar, \\omega, m$ で）評価せよ。`,
+    solution: `## (1) 基底状態への 1 次補正
+$\\hat{x} = \\sqrt{\\hbar/(2m\\omega)}(\\hat{a} + \\hat{a}^\\dagger)$ とおき、$x_0 \\equiv \\sqrt{\\hbar/(2m\\omega)}$：
+$$\\hat{x}^4 = x_0^4 (\\hat{a} + \\hat{a}^\\dagger)^4$$
+
+展開して $\\langle 0 | \\cdot | 0\\rangle$ に効く項は 2 つの $\\hat{a}^\\dagger$ と 2 つの $\\hat{a}$ の全組合せ。計算すると $\\langle 0|(\\hat{a}+\\hat{a}^\\dagger)^4|0\\rangle = 3$：
+$$E_0^{(1)} = \\lambda \\cdot 3 x_0^4 = \\frac{3\\lambda\\hbar^2}{4m^2\\omega^2}$$
+
+## (2) 第 $n$ 準位への補正
+一般の $\\langle n|(\\hat{a}+\\hat{a}^\\dagger)^4|n\\rangle = 6n^2 + 6n + 3$。よって：
+$$\\boxed{E_n^{(1)} = \\lambda x_0^4 (6n^2 + 6n + 3) = \\frac{\\lambda\\hbar^2(2n^2 + 2n + 1)}{4m^2\\omega^2}\\cdot 3/1}$$
+
+整理：$E_n^{(1)} = (3\\lambda\\hbar^2/(4m^2\\omega^2))(2n^2 + 2n + 1)$
+
+## (3) 正値性の意味
+$\\hat{x}^4 \\ge 0$ なので $\\langle n|\\hat{x}^4|n\\rangle > 0$。$\\lambda > 0$ なら全準位が持ち上げられる。物理的には非調和項が井戸の底を「硬く」する効果で、振動数が高くなる（古典的には振幅依存の振動数増加）。
+
+## (4) 摂動論の破綻条件
+摂動 $\\lambda x^4$ が $\\hat{H}_0$ の特性スケールを凌駕するとき。典型振幅 $x \\sim x_0$ での比較：
+$$\\lambda x_0^4 \\sim \\hbar\\omega \\Rightarrow \\lambda \\sim \\frac{4m^2\\omega^3}{\\hbar}$$
+
+これを超えると摂動展開が発散（実際 $x^4$ 振動子は漸近的収束のみで完全収束しない）。
+
+**物理的意味**：非調和振動子は分子振動（モース振動子）、量子光学、Higgs 機構（$\\phi^4$ 理論）など広く現れる。摂動論は漸近展開で、$\\lambda$ が小さければ有用だが、大振幅・強結合領域では変分法・数値対角化・再正規化群等へ移行。` },
+
+  { id: "todai-2023-phys-4", universitySlug: "todai", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "van der Waals 気体と Maxwell 構成", field: "thermodynamics", difficulty: "advanced",
+    tags: ["van der Waals", "相転移", "Maxwell 構成", "臨界点"],
+    isFree: true,
+    statement: `**対応問題**: 東京大学 2023年度 物理学 問4
+
+## 問題の設定
+$n$ モルの van der Waals (vdW) 気体の状態方程式：
+$$\\left(P + \\frac{an^2}{V^2}\\right)(V - nb) = nRT$$
+$a, b$ は物質固有の正定数。
+
+## 問われている内容
+(1) vdW 方程式の各項（$a/V^2$ と $b$）の物理的起源を述べよ。
+(2) 等温圧縮線 $P(V)_T$ が $V$ の 3 価関数になる条件から、臨界点 $(T_c, V_c, P_c)$ を $a, b$ で求めよ。
+(3) $T < T_c$ で等温線が物理的に許容されない領域（$\\partial P/\\partial V > 0$）があることを述べ、Maxwell の等面積則（Maxwell 構成）で液体・気体の共存を導くことを説明せよ。
+(4) 対応状態原理（$P_r = P/P_c, T_r = T/T_c, V_r = V/V_c$ の無次元化で物質依存性が消える）の意義を述べよ。`,
+    solution: `## (1) 物理的起源
+- **$a/V^2$ 項**：分子間引力の補正。真の圧力（容器壁への衝突）が引力により減少するため、内部圧力に $a(n/V)^2$ を補足。分子密度の 2 乗に比例（Lennard-Jones 相互作用の平均）。
+- **$b$ 項**：分子の有限体積（排除体積）。実効体積が $V - nb$。$b \\sim 4$ 倍の 1 分子体積（剛体球近似）。
+
+## (2) 臨界点
+$T = T_c$ で $(\\partial P/\\partial V)_T = (\\partial^2 P/\\partial V^2)_T = 0$ （変曲点）を要求。vdW を $V$ で解き条件を適用：
+$$V_c = 3nb, \\quad P_c = \\frac{a}{27 b^2}, \\quad T_c = \\frac{8a}{27 bR}$$
+
+**検証**：$P_c V_c/(n R T_c) = (a/27b^2)(3nb)/(n R \\cdot 8a/(27bR)) = 3/8$ （普遍値、実測値に約 5% 精度で一致）
+
+## (3) Maxwell 構成
+$T < T_c$：等温線に $(\\partial P/\\partial V) > 0$（熱力学的不安定、$\\partial P/\\partial V < 0$ が安定条件）の谷がある。物理的には気相・液相の共存領域。
+
+**Maxwell 構成**：共存圧 $P_{\\text{sat}}$ を、vdW 等温線の不安定区間の面積 = 0 となるように決定：
+$$\\oint P(V)\\,dV = P_{\\text{sat}}(V_g - V_\\ell) \\Rightarrow \\int_{V_\\ell}^{V_g}[P_{\\text{vdW}}(V) - P_{\\text{sat}}]\\,dV = 0$$
+
+これで液体相の体積 $V_\\ell$、気体相の体積 $V_g$、飽和蒸気圧 $P_{\\text{sat}}(T)$ が決定。Gibbs エネルギーの等値性（相平衡条件 $\\mu_{\\text{liq}} = \\mu_{\\text{gas}}$）と等価。
+
+## (4) 対応状態原理
+臨界値で規格化すると vdW 方程式は：
+$$\\left(P_r + \\frac{3}{V_r^2}\\right)(3 V_r - 1) = 8 T_r$$
+
+**物質依存の $a, b$ が消える**：すべての vdW 気体が同じ $P_r(V_r, T_r)$ 関係に従う。実在気体でも $T_r \\sim 1$ 付近では近似的に成立（実験的に確認）。気液相転移の普遍性、臨界現象の繰り込み群解析の出発点。` },
+
+  { id: "todai-2023-math-1", universitySlug: "todai", year: 2023, subject: "数学", problemNumber: 1,
+    title: "Cauchy の積分公式と解析関数", field: "math", difficulty: "standard",
+    tags: ["Cauchy の積分公式", "解析関数", "Taylor 展開"],
+    isFree: true,
+    statement: `**対応問題**: 東京大学 2023年度 数学 問1
+
+## 問われている内容
+複素関数 $f(z) = 1/(z^2 + 1)$ を考える。
+(1) $f$ の特異点を全て挙げ、それぞれの種類（極、その位数）を答えよ。
+(2) 中心 $z_0 = 0$、半径 $r$ の円 $C$（反時計回り）を考える。Cauchy の積分公式を用いて $\\oint_C f(z)\\,dz$ を $r$ によって分類せよ（$r < 1, r = 1, r > 1$）。
+(3) $f$ を $z_0 = 0$ まわりで Taylor 展開し、収束半径を示せ。`,
+    solution: `## (1) 特異点
+$z^2 + 1 = 0 \\Rightarrow z = \\pm i$。各 $\\pm i$ で $f$ は単純極（1 位の極）。
+
+## (2) 積分の分類
+$f(z) = 1/((z-i)(z+i))$。$r < 1$：$C$ 内に極なし → $\\oint = 0$。$r > 1$：$\\pm i$ とも内包。各極での留数：
+- Res$_{i} = \\lim_{z\\to i}(z-i)f(z) = 1/(2i)$
+- Res$_{-i} = -1/(2i)$
+
+総和：$\\text{Res}_{+i} + \\text{Res}_{-i} = 1/(2i) - 1/(2i) = 0$。
+
+$$\\boxed{\\oint_C f\\, dz = 0 \\quad (\\text{任意の } r, r \\ne 1)}$$
+
+$r = 1$：極が積分路上にあり、積分は principal value の意味でのみ定義。
+
+## (3) Taylor 展開
+$f(z) = 1/(z^2 + 1) = \\sum_{n=0}^\\infty (-z^2)^n$（$|z|^2 < 1$ で収束）：
+$$\\boxed{f(z) = 1 - z^2 + z^4 - z^6 + \\cdots = \\sum_{n=0}^\\infty (-1)^n z^{2n}}$$
+
+収束半径：最も近い特異点 $z = \\pm i$ までの距離 = 1。よって：
+$$\\boxed{R = 1}$$
+
+**物理的意味**：解析関数の Taylor 展開の収束半径は、最近接特異点までの距離に等しい。散乱振幅・Green 関数・伝達関数の解析構造は、物理的観測量（応答関数の極 = 共鳴状態、分岐点 = 閾値）の情報を含む。` },
+
+  { id: "todai-2023-math-2", universitySlug: "todai", year: 2023, subject: "数学", problemNumber: 2,
+    title: "Jordan 標準形と行列指数関数", field: "math", difficulty: "standard",
+    tags: ["Jordan 標準形", "行列指数", "線形 ODE"],
+    isFree: true,
+    statement: `**対応問題**: 東京大学 2023年度 数学 問2
+
+## 問われている内容
+行列 $A = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2 \\end{pmatrix}$ を考える。
+(1) $A$ の固有値・固有ベクトルを求め、$A$ が対角化できないことを示せ。
+(2) Jordan 標準形 $J$ への相似変換 $A = P J P^{-1}$ を具体的に構成せよ。
+(3) 行列指数関数 $e^{At}$ を計算せよ。
+(4) 線形微分方程式系 $d\\vec{x}/dt = A\\vec{x}$ の一般解を書け。`,
+    solution: `## (1) 対角化不可
+特性方程式 $\\det(A - \\lambda I) = (2-\\lambda)^2 = 0 \\Rightarrow \\lambda = 2$（重解）。
+
+固有ベクトル：$(A - 2I)\\vec{v} = 0 \\Rightarrow \\begin{pmatrix} 0 & 1 \\\\ 0 & 0\\end{pmatrix}\\vec{v} = 0$ から $\\vec{v}_1 = (1, 0)^T$ のみ（1 次元固有空間）。重複度 2 に対し固有ベクトル 1 本 → **対角化不可**。
+
+## (2) Jordan 標準形
+**一般化固有ベクトル** $\\vec{v}_2$：$(A - 2I)\\vec{v}_2 = \\vec{v}_1 \\Rightarrow \\vec{v}_2 = (0, 1)^T$。
+
+$P = [\\vec{v}_1 | \\vec{v}_2] = \\begin{pmatrix} 1 & 0 \\\\ 0 & 1\\end{pmatrix} = I$、$P^{-1} = I$。なんと $A$ 自身が Jordan 標準形：
+$$J = \\begin{pmatrix} 2 & 1 \\\\ 0 & 2\\end{pmatrix} = A$$
+
+## (3) 行列指数関数
+$J = 2I + N$、$N = \\begin{pmatrix} 0 & 1 \\\\ 0 & 0\\end{pmatrix}$、$N^2 = 0$（冪零）。
+
+$2I$ と $N$ は可換 $\\Rightarrow e^{Jt} = e^{2It}\\cdot e^{Nt}$：
+$$e^{2It} = e^{2t}I, \\quad e^{Nt} = I + tN = \\begin{pmatrix} 1 & t \\\\ 0 & 1\\end{pmatrix}$$
+
+$$\\boxed{e^{At} = e^{Jt} = e^{2t}\\begin{pmatrix} 1 & t \\\\ 0 & 1\\end{pmatrix}}$$
+
+## (4) 微分方程式の一般解
+$\\vec{x}(t) = e^{At}\\vec{x}(0)$。$\\vec{x}(0) = (c_1, c_2)^T$ とすると：
+$$\\vec{x}(t) = e^{2t}(c_1 + c_2 t, c_2)^T$$
+
+**物理的意味**：Jordan ブロックの存在で解に多項式 $t$ が伴う。これは振動系の臨界減衰、縮退摂動論、量子力学における有効ハミルトニアンの非対角化などに現れる。2 次元系では $t\\cdot e^{\\lambda t}$ の "secular" 増大が特徴。` },
+
+  // ---- KYODAI 2023 (+4) ----
+  { id: "kyodai-2023-phys-3", universitySlug: "kyodai", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "光の分散と Lorentz モデル", field: "optics", difficulty: "advanced",
+    tags: ["分散関係", "Lorentz モデル", "屈折率"], isFree: true,
+    statement: `**対応問題**: 京都大学 2023年度 物理学 問3
+
+## 問題の設定
+質量 $m$、電荷 $-e$ の電子が原子に弾性的に束縛されている（ばね定数 $k$、固有振動数 $\\omega_0 = \\sqrt{k/m}$）。外部から角振動数 $\\omega$、振幅 $E_0$ の電場が入射：
+$$m\\ddot{x} + m\\gamma\\dot{x} + m\\omega_0^2 x = -eE_0 e^{-i\\omega t}$$
+（$\\gamma$: 減衰）。電子密度 $N$。
+
+## 問われている内容
+(1) 定常解 $x(t)$ を求めよ。
+(2) 分極 $P = -Nex$ から比誘電率 $\\varepsilon_r(\\omega) = 1 + P/(\\varepsilon_0 E)$ を求めよ（Lorentz 分散式）。
+(3) 低周波 $\\omega \\ll \\omega_0$、高周波 $\\omega \\gg \\omega_0$ での $\\varepsilon_r$ の振る舞いを論ぜよ。
+(4) 共鳴領域 $\\omega \\sim \\omega_0$ での吸収と異常分散を説明せよ。`,
+    solution: `## (1) 定常解
+$x(t) = x_0 e^{-i\\omega t}$ と仮定：
+$$-m\\omega^2 x_0 - im\\gamma\\omega x_0 + m\\omega_0^2 x_0 = -eE_0$$
+$$x_0 = \\frac{-eE_0/m}{\\omega_0^2 - \\omega^2 - i\\gamma\\omega}$$
+
+## (2) Lorentz 分散式
+$P_0 = -Nex_0 = (Ne^2/m)E_0/(\\omega_0^2 - \\omega^2 - i\\gamma\\omega)$。比誘電率：
+$$\\boxed{\\varepsilon_r(\\omega) = 1 + \\frac{Ne^2/(m\\varepsilon_0)}{\\omega_0^2 - \\omega^2 - i\\gamma\\omega}}$$
+
+プラズマ振動数 $\\omega_p = \\sqrt{Ne^2/(m\\varepsilon_0)}$ で：
+$$\\varepsilon_r = 1 + \\frac{\\omega_p^2}{\\omega_0^2 - \\omega^2 - i\\gamma\\omega}$$
+
+## (3) 極限
+- **低周波** $\\omega \\ll \\omega_0$：$\\varepsilon_r \\approx 1 + \\omega_p^2/\\omega_0^2$（定数、静的誘電率）
+- **高周波** $\\omega \\gg \\omega_0$：$\\varepsilon_r \\approx 1 - \\omega_p^2/\\omega^2$（$\\omega < \\omega_p$ で $\\varepsilon_r < 0$ → 光は伝搬せず反射、金属の反射率）
+
+## (4) 共鳴領域
+$\\omega \\sim \\omega_0$：分母が小。$\\varepsilon_r$ の**虚部**（吸収）は $\\gamma\\omega \\omega_p^2/((\\omega_0^2-\\omega^2)^2 + \\gamma^2\\omega^2)$ でピーク（Lorentz プロファイル）。
+
+**異常分散**：$\\omega_0$ 直前では $\\text{Re}(\\varepsilon_r)$ が増加、直後で急減 → 屈折率 $n$ が振動数とともに**減少**する区間が現れる（通常は $n$ は $\\omega$ とともに増加）。これが異常分散。
+
+**物理的意味**：Lorentz モデルは光の吸収・分散・反射の統一的理解を与える。量子論的には電子の遷移スペクトル（原子線、分子吸収帯）を古典的に模擬。物質の屈折率の波長依存性（プリズム分光）、金属光学、偏光子、レーザー媒質の設計で基本。Kramers-Kronig 関係はこのモデルの因果律的帰結。` },
+
+  { id: "kyodai-2023-phys-4", universitySlug: "kyodai", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "Poisson 括弧と正準変換", field: "mechanics", difficulty: "advanced",
+    tags: ["Poisson 括弧", "正準変換", "ハミルトニアン力学"],
+    isFree: true,
+    statement: `**対応問題**: 京都大学 2023年度 物理学 問4
+
+## 問題の設定
+正準座標 $(q, p)$ に対し、Hamilton 力学の Poisson 括弧：
+$$\\{f, g\\} = \\frac{\\partial f}{\\partial q}\\frac{\\partial g}{\\partial p} - \\frac{\\partial f}{\\partial p}\\frac{\\partial g}{\\partial q}$$
+
+## 問われている内容
+(1) 基本 Poisson 括弧 $\\{q, p\\}, \\{q, q\\}, \\{p, p\\}$ を計算せよ。
+(2) 任意関数 $f(q, p, t)$ について、$df/dt = \\{f, H\\} + \\partial f/\\partial t$ を導け。
+(3) 角運動量 $L_z = x p_y - y p_x$ について $\\{L_x, L_y\\}$ を計算し、交換関係が $\\{L_x, L_y\\} = L_z$ となることを示せ（$L_x = y p_z - z p_y$ 等）。
+(4) 正準変換 $(q, p) \\to (Q, P)$ で Poisson 括弧が不変 $(\\{Q, P\\} = 1)$ となる条件を示せ。`,
+    solution: `## (1) 基本 Poisson 括弧
+$\\{q, p\\} = (\\partial q/\\partial q)(\\partial p/\\partial p) - 0 = 1$
+$\\{q, q\\} = \\{p, p\\} = 0$（自己括弧は反対称性から）
+
+## (2) 時間発展
+$f(q(t), p(t), t)$ の全微分：
+$$\\frac{df}{dt} = \\frac{\\partial f}{\\partial q}\\dot q + \\frac{\\partial f}{\\partial p}\\dot p + \\frac{\\partial f}{\\partial t}$$
+
+Hamilton 方程式 $\\dot q = \\partial H/\\partial p$, $\\dot p = -\\partial H/\\partial q$ を代入：
+$$\\frac{df}{dt} = \\frac{\\partial f}{\\partial q}\\frac{\\partial H}{\\partial p} - \\frac{\\partial f}{\\partial p}\\frac{\\partial H}{\\partial q} + \\frac{\\partial f}{\\partial t} = \\{f, H\\} + \\frac{\\partial f}{\\partial t}$$
+
+$\\partial f/\\partial t = 0$ で $\\{f, H\\} = 0$ ⇔ $f$ は保存量。
+
+## (3) 角運動量の Poisson 括弧
+$L_x = y p_z - z p_y$、$L_y = z p_x - x p_z$。$\\{L_x, L_y\\}$ を展開：
+
+微分の連鎖則により複数項が現れるが、異なる座標・運動量成分は独立なので交差項は Kronecker delta で生き残る：
+$$\\{L_x, L_y\\} = \\{y p_z, z p_x\\} + \\{y p_z, -x p_z\\} + \\{-z p_y, z p_x\\} + \\{-z p_y, -x p_z\\}$$
+
+$\\{y p_z, z p_x\\} = -y p_x$（$\\{p_z, z\\} = -1$）、他を計算して整理：
+$$\\{L_x, L_y\\} = x p_y - y p_x = L_z$$
+
+$$\\boxed{\\{L_x, L_y\\} = L_z}$$
+
+量子力学の交換関係 $[\\hat{L}_x, \\hat{L}_y] = i\\hbar\\hat{L}_z$ と同じ代数構造（Lie 代数 $\\mathfrak{so}(3)$）。
+
+## (4) 正準変換の条件
+$(Q(q,p), P(q,p))$ が正準変換 ⇔ 基本 Poisson 括弧が不変：
+$$\\{Q, P\\} = 1, \\quad \\{Q, Q\\} = \\{P, P\\} = 0$$
+
+$\\{Q, P\\} = (\\partial Q/\\partial q)(\\partial P/\\partial p) - (\\partial Q/\\partial p)(\\partial P/\\partial q) = 1$ は Jacobian $|\\partial(Q,P)/\\partial(q,p)| = 1$ と等価（面積保存、Liouville 定理）。
+
+**物理的意味**：Poisson 括弧は Hamilton 力学の構造を代数化する道具。量子化では $\\{A, B\\} \\to (1/i\\hbar)[\\hat{A}, \\hat{B}]$（Dirac の対応原理）。正準変換は Hamilton 系の対称性、可積分性（作用-角変数）、カオス理論の基礎。` },
+
+  { id: "kyodai-2023-math-1", universitySlug: "kyodai", year: 2023, subject: "数学", problemNumber: 1,
+    title: "微分方程式系と相平面解析", field: "math", difficulty: "standard",
+    tags: ["相平面", "固有値", "安定性"], isFree: true,
+    statement: `**対応問題**: 京都大学 2023年度 数学 問1
+
+## 問われている内容
+2 次元線形微分方程式系
+$$\\frac{d}{dt}\\begin{pmatrix} x \\\\ y\\end{pmatrix} = A\\begin{pmatrix} x \\\\ y\\end{pmatrix}$$
+の原点まわりの相平面を、$A$ の固有値の組で分類する。
+
+(1) $A$ の固有値が実数で符号が同じ場合（$\\lambda_1 \\lambda_2 > 0$）：固定点の性質（安定結節 vs 不安定結節）を述べよ。
+(2) $A$ の固有値が実数で符号が異なる場合（$\\lambda_1 \\lambda_2 < 0$）：鞍点の相図を描写せよ。
+(3) $A$ の固有値が複素共役（$\\alpha \\pm i\\beta$）：中心・渦状の相図を述べよ。
+(4) 具体例 $A = \\begin{pmatrix} -1 & 2 \\\\ -2 & -1\\end{pmatrix}$ について固有値を計算し、相図を分類せよ。`,
+    solution: `## (1) 同符号の実固有値
+- $\\lambda_1, \\lambda_2 < 0$：**安定結節** (node)。全軌道が原点に向かう。固有ベクトル方向の接線が 2 種。
+- $\\lambda_1, \\lambda_2 > 0$：**不安定結節**。全軌道が原点から離れる。
+
+## (2) 鞍点 (saddle)
+$\\lambda_1 > 0 > \\lambda_2$：原点は鞍点。$\\lambda_2$ 固有ベクトル方向は安定多様体（原点に吸い込まれる）、$\\lambda_1$ 固有ベクトル方向は不安定多様体（離れる）。ほとんどの初期条件は双曲的 $x \\to +\\infty$ 方向に発散。
+
+## (3) 複素固有値
+$\\lambda = \\alpha \\pm i\\beta$（$\\beta \\ne 0$）：
+- $\\alpha = 0$：中心 (center)。閉じた楕円軌道、周期運動。
+- $\\alpha < 0$：安定渦状点 (spiral)。螺旋状に原点に巻き込む。
+- $\\alpha > 0$：不安定渦状点。
+
+## (4) 具体例
+$\\det(A - \\lambda I) = (-1-\\lambda)^2 + 4 = 0 \\Rightarrow \\lambda = -1 \\pm 2i$
+
+$\\alpha = -1 < 0$、$\\beta = 2 \\ne 0$：**安定渦状点**。角振動数 $\\beta = 2$、減衰時間 $1/|\\alpha| = 1$。
+
+**相図**：原点を中心に時計回り（または反時計回り、$A$ の非対角成分の符号による）の螺旋で、$t \\to \\infty$ で原点に収束。
+
+**物理的意味**：相平面解析は非線形ダイナミクスの基本道具。減衰振動、捕食-被食モデル（Lotka-Volterra）、van der Pol 発振器、神経科学（Fitzhugh-Nagumo モデル）など、幅広い応用。線形化して固定点近傍の局所挙動を分類 → 大域的ダイナミクスを把握。` },
+
+  { id: "kyodai-2023-math-2", universitySlug: "kyodai", year: 2023, subject: "数学", problemNumber: 2,
+    title: "Hermite 多項式と直交性", field: "math", difficulty: "advanced",
+    tags: ["Hermite 多項式", "直交関数系", "調和振動子"],
+    isFree: true,
+    statement: `**対応問題**: 京都大学 2023年度 数学 問2
+
+## 問われている内容
+Hermite 多項式 $H_n(x)$ を Rodrigues 表示
+$$H_n(x) = (-1)^n e^{x^2}\\frac{d^n}{dx^n} e^{-x^2}$$
+で定義する。
+
+(1) $H_0, H_1, H_2, H_3$ を具体的に求めよ。
+(2) Hermite 多項式の直交性
+$$\\int_{-\\infty}^{\\infty}H_m(x)H_n(x)e^{-x^2}\\,dx = \\sqrt{\\pi}\\,2^n n!\\,\\delta_{mn}$$
+を $m < n$ の場合について、部分積分で示せ。
+(3) 量子力学の調和振動子の固有状態 $\\psi_n(x) \\propto H_n(\\alpha x)e^{-\\alpha^2 x^2/2}$（$\\alpha = \\sqrt{m\\omega/\\hbar}$）への関連を述べよ。`,
+    solution: `## (1) 具体計算
+- $H_0 = (-1)^0 e^{x^2} e^{-x^2} = 1$
+- $H_1 = -e^{x^2}(-2x e^{-x^2}) = 2x$
+- $H_2 = e^{x^2}(4x^2 e^{-x^2} - 2 e^{-x^2}) = 4x^2 - 2$
+- $H_3$：$d^3(e^{-x^2})/dx^3 = (8x^3 - 12x)(-1)e^{-x^2}$、$H_3 = 8x^3 - 12x$
+
+$$\\boxed{H_0 = 1,\\; H_1 = 2x,\\; H_2 = 4x^2 - 2,\\; H_3 = 8x^3 - 12x}$$
+
+## (2) 直交性（$m < n$）
+$$I = \\int H_m H_n e^{-x^2}\\, dx = (-1)^n \\int H_m D^n(e^{-x^2})\\,dx$$
+
+（$D = d/dx$）。部分積分 $n$ 回、表面項は $|x|\\to\\infty$ で $e^{-x^2}$ が十分速く落ちるので消える：
+$$I = (-1)^n \\cdot (-1)^n \\int (D^n H_m) e^{-x^2}\\,dx = \\int D^n H_m \\cdot e^{-x^2}\\,dx$$
+
+$H_m$ は $m$ 次多項式で $m < n$ なので $D^n H_m = 0$：$I = 0$ ✅。
+
+## (3) 調和振動子への関連
+量子調和振動子のシュレーディンガー方程式を $\\xi = \\alpha x$（$\\alpha = \\sqrt{m\\omega/\\hbar}$）で無次元化すると：
+$$-\\frac{d^2\\psi}{d\\xi^2} + \\xi^2 \\psi = \\lambda\\psi, \\quad \\lambda = 2E/(\\hbar\\omega)$$
+
+解は $\\psi_n(\\xi) = N_n H_n(\\xi) e^{-\\xi^2/2}$（$n = 0, 1, 2,\\ldots$）、エネルギー $E_n = (n + 1/2)\\hbar\\omega$。
+
+規格化：$\\int|\\psi_n|^2 d\\xi/\\alpha = 1$ から $N_n = (\\alpha/\\pi)^{1/4}/\\sqrt{2^n n!}$。
+
+**直交完備性**：$\\{\\psi_n\\}$ は $L^2(\\mathbb{R})$ の完全正規直交基底。任意の波動関数 $\\phi(x)$ は $\\phi = \\sum c_n \\psi_n$ と展開でき、$c_n$ は Fourier 係数。
+
+**物理的意味**：Hermite 多項式は調和振動子、量子光学（コヒーレント状態）、連続対称性（Gauss 重み付きモーメント）、統計学（正規分布との積分）で普遍的。Legendre 多項式（球面、角運動量）、Bessel 関数（円筒対称）と並ぶ特殊関数の三巨頭。` },
+
+  // ---- TITECH 2023 (+4) ----
+  { id: "titech-2023-phys-2", universitySlug: "titech", year: 2023, subject: "物理学", problemNumber: 2,
+    title: "Kepler の法則と惑星運動", field: "mechanics", difficulty: "standard",
+    tags: ["Kepler の法則", "楕円軌道", "万有引力"],
+    isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧 東工大）2023年度 物理学 問2
+
+## 問題の設定
+質量 $m$ の惑星が質量 $M$（$\\gg m$）の太陽のまわりを公転する。万有引力定数 $G$。
+
+## 問われている内容
+(1) 角運動量保存則が「面積速度一定」（Kepler 第 2 法則）と等価であることを示せ。
+(2) 楕円軌道の長半径 $a$、周期 $T$ の関係 $T^2 \\propto a^3$（Kepler 第 3 法則）を、エネルギー保存と角運動量保存から導け。
+(3) 遠日点距離 $r_a$、近日点距離 $r_p$ を離心率 $e$ で表せ。
+(4) 第一宇宙速度と第二宇宙速度を区別し、それぞれの意味を述べよ。`,
+    solution: `## (1) 面積速度一定
+面積速度 $dA/dt = (1/2)r^2\\dot\\phi$（極座標）。角運動量 $L = mr^2\\dot\\phi$ から：
+$$dA/dt = L/(2m) = \\text{const}$$
+
+角運動量保存（中心力場で自動的）⇔ 面積速度一定。
+
+## (2) Kepler 第 3 法則
+楕円の面積 $A = \\pi ab$（$b$：短半径）。1 周期で掃く面積 = $\\pi a b = (L/2m) T$：
+$$T = 2\\pi m ab/L$$
+
+エネルギー $E = -GMm/(2a)$（楕円軌道の性質）、$L^2 = GMm^2 a(1-e^2) = GMm^2 b^2/a$（$b^2 = a^2(1-e^2)$）から：
+$$T^2 = 4\\pi^2 m^2 a^2 b^2/L^2 = 4\\pi^2 m^2 a^2 \\cdot a(1-e^2)/[GMm^2(1-e^2)] = \\frac{4\\pi^2}{GM}a^3$$
+
+$$\\boxed{T^2 = \\frac{4\\pi^2}{GM}a^3}$$
+
+## (3) 遠・近日点
+楕円軌道の焦点に太陽。遠日点・近日点は長軸端：
+$$r_a = a(1 + e), \\quad r_p = a(1 - e)$$
+
+$e = 0$ で円（両点等距離）、$e \\to 1$ で放物線極限。
+
+## (4) 宇宙速度
+- **第一宇宙速度** $v_1 = \\sqrt{GM_\\oplus/R_\\oplus} \\approx 7.9\\,\\text{km/s}$：地球表面すれすれの円軌道速度
+- **第二宇宙速度** $v_2 = \\sqrt{2GM_\\oplus/R_\\oplus} = \\sqrt{2}v_1 \\approx 11.2\\,\\text{km/s}$：地球の重力を振り切って無限遠へ脱出するのに必要な速度
+
+差：$v_1$ は束縛軌道（楕円）への最小、$v_2$ は開放軌道（放物線・双曲線）への閾値。
+
+**物理的意味**：Kepler の法則は Newton 力学（万有引力 + 第二法則）から導ける。1687 年 Newton『プリンキピア』で実現した古典力学の大成功。現代では GPS、惑星探査、衛星通信すべての軌道計画の基礎。` },
+
+  { id: "titech-2023-phys-3", universitySlug: "titech", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "Poynting ベクトルとエネルギー流", field: "electromagnetism", difficulty: "standard",
+    tags: ["Poynting ベクトル", "電磁波エネルギー", "放射"],
+    isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧 東工大）2023年度 物理学 問3
+
+## 問題の設定
+真空中の電磁場 $(\\vec{E}, \\vec{B})$ のエネルギー密度と流れを考える。真空の誘電率 $\\varepsilon_0$、透磁率 $\\mu_0$、$c = 1/\\sqrt{\\mu_0\\varepsilon_0}$。
+
+## 問われている内容
+(1) 電磁場のエネルギー密度 $u$ を $\\vec{E}, \\vec{B}$ で書け。
+(2) Poynting ベクトル $\\vec{S} = (1/\\mu_0)\\vec{E}\\times\\vec{B}$ を定義し、エネルギー保存則 $\\partial u/\\partial t + \\nabla\\cdot\\vec{S} = -\\vec{j}\\cdot\\vec{E}$ を Maxwell 方程式から導け。
+(3) 平面電磁波 $\\vec{E} = E_0\\hat{x}\\cos(kz - \\omega t)$、$\\vec{B} = (E_0/c)\\hat{y}\\cos(kz - \\omega t)$ の時間平均 $\\langle\\vec{S}\\rangle$ を求めよ。
+(4) 強度 $I = |\\langle\\vec{S}\\rangle|$ を単位面積・単位時間のエネルギーとして、光のパワー密度（太陽光 $I \\sim 1.4\\,\\text{kW/m}^2$）から電場振幅 $E_0$ を見積もれ。`,
+    solution: `## (1) エネルギー密度
+$$u = \\frac{\\varepsilon_0}{2}|\\vec{E}|^2 + \\frac{1}{2\\mu_0}|\\vec{B}|^2$$
+
+## (2) 保存則の導出
+Maxwell 方程式：$\\nabla\\times\\vec{E} = -\\partial\\vec{B}/\\partial t$、$\\nabla\\times\\vec{B} = \\mu_0\\vec{j} + \\mu_0\\varepsilon_0\\partial\\vec{E}/\\partial t$。
+
+$\\vec{E}\\cdot$（第 1 式）＋ $(\\vec{B}/\\mu_0)\\cdot$（第 2 式）を操作、ベクトル恒等式 $\\nabla\\cdot(\\vec{E}\\times\\vec{B}) = \\vec{B}\\cdot(\\nabla\\times\\vec{E}) - \\vec{E}\\cdot(\\nabla\\times\\vec{B})$ を使って整理：
+$$\\frac{\\partial u}{\\partial t} + \\nabla\\cdot\\vec{S} = -\\vec{j}\\cdot\\vec{E}$$
+
+$\\vec{j}\\cdot\\vec{E}$：電場が電流にする仕事（Joule 熱の源）。$\\vec{j} = 0$ では真空中でエネルギー保存。
+
+## (3) 平面波の Poynting ベクトル
+$\\vec{E}\\times\\vec{B} = E_0 \\hat{x}\\cos\\theta \\times (E_0/c)\\hat{y}\\cos\\theta = (E_0^2/c)\\hat{z}\\cos^2\\theta$（$\\theta = kz - \\omega t$）：
+$$\\vec{S} = \\frac{E_0^2}{c\\mu_0}\\hat{z}\\cos^2(kz - \\omega t) = c\\varepsilon_0 E_0^2 \\hat{z}\\cos^2(kz-\\omega t)$$
+
+$\\langle\\cos^2\\rangle = 1/2$：
+$$\\boxed{\\langle\\vec{S}\\rangle = \\frac{c\\varepsilon_0 E_0^2}{2}\\hat{z}}$$
+
+## (4) 電場振幅の見積もり
+$I = c\\varepsilon_0 E_0^2/2 = 1.4\\times 10^3\\,\\text{W/m}^2$、$c\\varepsilon_0 \\approx 2.65\\times 10^{-3}$：
+$$E_0 = \\sqrt{2I/(c\\varepsilon_0)} \\approx \\sqrt{2 \\times 1400/(2.65\\times 10^{-3})} \\approx 1000\\,\\text{V/m}$$
+
+**物理的意味**：Poynting ベクトルは電磁場のエネルギー流の密度。太陽放射、アンテナ放射、光導波路、レーザーの出力計算で基本。$\\vec{S} \\propto \\vec{E}\\times\\vec{B}$ は電磁波の進行方向（Poynting の定理）を決め、同時に輻射圧 $P_{\\text{rad}} = |\\vec{S}|/c$（光の運動量）の源でもある。` },
+
+  { id: "titech-2023-phys-4", universitySlug: "titech", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "WKB 近似とトンネル効果の透過率", field: "quantum", difficulty: "advanced",
+    tags: ["WKB 近似", "トンネル効果", "透過率"],
+    isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧 東工大）2023年度 物理学 問4
+
+## 問題の設定
+1 次元障壁ポテンシャル $V(x)$（最大値 $V_{\\max}$）にエネルギー $E < V_{\\max}$ の粒子が入射する。古典的転回点 $x_1, x_2$（$V(x_{1,2}) = E$）の間で古典的に禁制。
+
+## 問われている内容
+(1) WKB 近似の基礎：禁制領域での波動関数の振る舞い $\\psi \\sim \\exp(\\pm\\int\\kappa\\, dx)$、$\\kappa = \\sqrt{2m(V-E)}/\\hbar$ を示せ（Schrödinger 方程式の解析から）。
+(2) 透過率の WKB 公式
+$$T \\approx \\exp\\left[-2\\int_{x_1}^{x_2}\\kappa(x)\\,dx\\right]$$
+の物理的解釈を述べよ。
+(3) 矩形障壁 $V(x) = V_0$（$0 < x < a$）の場合に WKB 公式を適用し、$T$ を計算せよ。
+(4) 核アルファ崩壊（Gamow のトンネル）の定性的理解を述べよ。`,
+    solution: `## (1) WKB 近似
+禁制領域 $V > E$ で Schrödinger 方程式 $-\\hbar^2\\psi''/(2m) + V\\psi = E\\psi$ を $\\psi = e^{S/\\hbar}$ と書き、$\\hbar$ 展開：
+
+主要項 $(S_0')^2 = -2m(V-E) \\Rightarrow S_0 = \\pm i\\hbar\\int\\kappa\\,dx$ ではなく実数値 $\\pm\\int\\kappa\\,dx$（指数減衰・成長）。
+
+$$\\psi(x) \\sim \\frac{1}{\\sqrt{\\kappa}}\\exp\\left(\\pm\\int\\kappa\\,dx\\right)$$
+
+（プリファクタ $1/\\sqrt{\\kappa}$ は次次オーダーから）
+
+## (2) 透過率公式
+禁制領域で波動関数が指数減衰する係数：$\\psi(x_2)/\\psi(x_1) \\sim \\exp(-\\int_{x_1}^{x_2}\\kappa\\,dx)$
+
+確率は振幅の 2 乗：
+$$T \\sim |\\psi(x_2)/\\psi(x_1)|^2 = \\exp\\left[-2\\int_{x_1}^{x_2}\\kappa\\,dx\\right]$$
+
+**物理的解釈**：障壁内部での波束振幅の幾何平均減衰率。$\\int\\kappa\\,dx$ は「禁制距離を量子振幅で測った量」、大きいほどトンネル困難。
+
+## (3) 矩形障壁
+$V = V_0$ 一定、$\\kappa = \\sqrt{2m(V_0-E)}/\\hbar$ 一定：
+$$\\int_0^a \\kappa\\,dx = \\kappa a$$
+$$T \\approx e^{-2\\kappa a}$$
+
+**正確解との比較**：$T_{\\text{exact}} = [1 + V_0^2\\sinh^2(\\kappa a)/(4E(V_0-E))]^{-1}$。$\\kappa a \\gg 1$ で WKB と一致：$T \\to 16 E(V_0-E)/V_0^2 \\cdot e^{-2\\kappa a}$。
+
+## (4) アルファ崩壊
+重い核（Uran 等）の内部で $\\alpha$ 粒子は Coulomb 障壁に閉じ込められる。核の強相互作用が障壁内で引力ポテンシャル、外部はクーロン斥力 $\\propto 1/r$。
+
+WKB で透過率を評価すると：
+$$T \\sim \\exp\\left(-\\int_{R_n}^{R_c}\\kappa\\,dr\\right) \\sim \\exp(-a/\\sqrt{E_\\alpha})$$
+
+$E_\\alpha$：$\\alpha$ 粒子エネルギー。半減期 $\\tau = \\ln 2/(T\\cdot f)$（$f$ は試行頻度 $\\sim 10^{21}\\text{Hz}$）が $E_\\alpha$ にべき的に依存 → **Geiger-Nuttall 則**。
+
+**物理的意味**：トンネル効果の古典的応用例。半減期が 10 桁以上にわたって $E_\\alpha$ と相関（U-238：$4.5\\times 10^9$ 年、Po-212：$3\\times 10^{-7}$ 秒）。$\\alpha$ 線スペクトロスコピー、走査トンネル顕微鏡 (STM)、Josephson 接合、核融合 (Gamow ピーク) で普遍的。` },
+
+  { id: "titech-2023-phys-5", universitySlug: "titech", year: 2023, subject: "物理学", problemNumber: 5,
+    title: "相転移と Clausius-Clapeyron 式", field: "thermodynamics", difficulty: "advanced",
+    tags: ["Clausius-Clapeyron", "相共存", "潜熱"],
+    isFree: true,
+    statement: `**対応問題**: 東京科学大学（旧 東工大）2023年度 物理学 問5
+
+## 問題の設定
+物質の相 $\\alpha$ と $\\beta$ の共存線 $P(T)$ を考える。比 Gibbs 自由エネルギー $g_\\alpha = g_\\beta$ が共存条件。
+
+## 問われている内容
+(1) 共存線の 2 点 $(T, P)$ と $(T + dT, P + dP)$ で $g_\\alpha = g_\\beta$ を両方満たす条件から、Clausius-Clapeyron 式
+$$\\frac{dP}{dT} = \\frac{\\Delta s}{\\Delta v} = \\frac{L}{T\\Delta v}$$
+を導け（$\\Delta s, \\Delta v$: 相変化のエントロピー・体積差、$L = T\\Delta s$：潜熱）。
+(2) 水-水蒸気の相転移で、水蒸気を理想気体（$\\Delta v \\approx v_{\\text{gas}} = RT/P$）として扱うと、積分形（Clausius-Clapeyron の積分形）になることを示せ。
+(3) 氷-水の相転移で $\\Delta v < 0$（氷が水より軽い）。$dP/dT < 0$ の符号が意味することを説明。
+(4) 高圧下での融点変化（スケーター現象、アイススケートが滑る理由）を定性的に論ぜよ。`,
+    solution: `## (1) Clausius-Clapeyron 式の導出
+共存条件 $g_\\alpha(T, P) = g_\\beta(T, P)$ を微分：
+$$dg_\\alpha = dg_\\beta \\Rightarrow -s_\\alpha dT + v_\\alpha dP = -s_\\beta dT + v_\\beta dP$$
+
+（$dg = -s dT + v dP$、比量）。整理：
+$$(v_\\beta - v_\\alpha)dP = (s_\\beta - s_\\alpha)dT$$
+
+$$\\boxed{\\frac{dP}{dT} = \\frac{\\Delta s}{\\Delta v} = \\frac{L}{T\\Delta v}}$$
+
+## (2) 理想気体近似の積分形
+$\\Delta v \\approx v_{\\text{gas}} = RT/P$、潜熱 $L$ を一定と仮定：
+$$\\frac{dP}{dT} = \\frac{LP}{RT^2} \\Rightarrow \\frac{d(\\ln P)}{dT} = \\frac{L}{RT^2}$$
+
+積分：
+$$\\boxed{\\ln P - \\ln P_0 = -\\frac{L}{R}\\left(\\frac{1}{T} - \\frac{1}{T_0}\\right)}$$
+
+$P \\propto e^{-L/(RT)}$ の Arrhenius 形。蒸気圧の温度依存性を与える。
+
+## (3) 氷-水の異常性
+氷 → 液体水で体積減少（$\\Delta v < 0$、水の異常：最大密度 4°C で液体 > 固体）。潜熱 $L > 0$（吸熱）。
+$$\\frac{dP}{dT} = \\frac{L}{T\\Delta v} < 0$$
+
+**意味**：圧力を上げると融点が**下がる**（水以外の普通の物質とは逆）。
+
+## (4) スケート
+氷上で刃が高圧をかけると、局所的に融点降下 → 薄い水膜形成 → 潤滑で滑りやすくなる。
+
+**定量評価**：$L_{\\text{水}} \\approx 334\\,\\text{J/g}$、$\\Delta v \\approx -9\\times 10^{-5}\\,\\text{m}^3/\\text{kg}$、$T \\approx 273\\,\\text{K}$：
+$$\\frac{dP}{dT} \\approx -1.4\\times 10^7\\,\\text{Pa/K}$$
+
+1 K の降下に 140 気圧必要。通常のスケーターの圧力（体重 60 kg を刃 $\\sim 10^{-4}\\,\\text{m}^2$ に集中）では 60 気圧で $\\Delta T \\sim -0.04\\,\\text{K}$ と微小。実際には摩擦熱の方が効く。
+
+**物理的意味**：Clausius-Clapeyron 式は 1 次相転移の共存線を特徴付ける普遍則。水-水蒸気（気候、雲形成）、金属の溶解・凝固（冶金）、超伝導の $B_c(T)$ 依存性など応用多数。` },
+
+  // ---- TOHOKU 2023 (+4) ----
+  { id: "tohoku-2023-phys-2", universitySlug: "tohoku", year: 2023, subject: "物理学", problemNumber: 2,
+    title: "連成振り子と正規モード", field: "mechanics", difficulty: "standard",
+    tags: ["連成振り子", "正規モード", "固有振動"],
+    isFree: true,
+    statement: `**対応問題**: 東北大学 2023年度 物理学 問2
+
+## 問題の設定
+長さ $\\ell$、質量 $m$ の単振り子 2 個が水平距離 $d$ の位置にあり、質点同士をばね定数 $k$ の軽いばねで連結する。重力加速度 $g$、微小振動（振り子の角度 $\\theta_1, \\theta_2$ 小）。
+
+## 問われている内容
+(1) 運動方程式を $\\theta_1, \\theta_2$ の連立方程式として書け（ばねによる相対変位の復元力を含む）。
+(2) 正規モード（対称モード・反対称モード）を求め、それぞれの角振動数 $\\omega_+, \\omega_-$ を計算せよ。
+(3) 初期条件 $\\theta_1(0) = \\theta_0, \\theta_2(0) = 0, \\dot\\theta_{1,2}(0) = 0$（片方だけ振らせて放す）での解を求めよ。
+(4) $\\omega_+ \\approx \\omega_-$ の場合に**うなり**が発生することを定性的に説明せよ。`,
+    solution: `## (1) 運動方程式
+ばねによる質点 1 への力：$-k(\\ell\\theta_1 - \\ell\\theta_2)$（$\\theta$ 小で質点の水平変位 $\\approx \\ell\\theta$）。振り子の復元力 $-mg\\theta$：
+$$m\\ell\\ddot\\theta_1 = -mg\\theta_1 - k\\ell(\\theta_1 - \\theta_2)$$
+$$m\\ell\\ddot\\theta_2 = -mg\\theta_2 - k\\ell(\\theta_2 - \\theta_1)$$
+
+整理（$\\omega_0^2 = g/\\ell$、$\\Omega^2 = k/m$）：
+$$\\ddot\\theta_1 = -\\omega_0^2\\theta_1 - \\Omega^2(\\theta_1 - \\theta_2)$$
+$$\\ddot\\theta_2 = -\\omega_0^2\\theta_2 - \\Omega^2(\\theta_2 - \\theta_1)$$
+
+## (2) 正規モード
+**対称モード** $\\theta_s = (\\theta_1 + \\theta_2)/2$：式を足し合わせて
+$$\\ddot\\theta_s = -\\omega_0^2\\theta_s \\Rightarrow \\omega_+ = \\omega_0 = \\sqrt{g/\\ell}$$
+
+**反対称モード** $\\theta_a = (\\theta_1 - \\theta_2)/2$：引き算
+$$\\ddot\\theta_a = -(\\omega_0^2 + 2\\Omega^2)\\theta_a \\Rightarrow \\omega_- = \\sqrt{g/\\ell + 2k/m}$$
+
+## (3) 特定初期条件の解
+一般解：$\\theta_1 = A_+\\cos\\omega_+ t + A_-\\cos\\omega_- t$、$\\theta_2 = A_+\\cos\\omega_+ t - A_-\\cos\\omega_- t$。
+
+初期条件 $\\theta_1(0) = \\theta_0, \\theta_2(0) = 0$：$A_+ + A_- = \\theta_0, A_+ - A_- = 0 \\Rightarrow A_\\pm = \\theta_0/2$
+
+$$\\theta_1(t) = \\frac{\\theta_0}{2}(\\cos\\omega_+ t + \\cos\\omega_- t) = \\theta_0\\cos(\\omega_+ t)\\cos(\\Delta\\omega \\cdot t)$$
+
+（和積公式、$\\omega_+ = (\\omega_+ + \\omega_-)/2$、$\\Delta\\omega = (\\omega_- - \\omega_+)/2$ と近似）
+
+## (4) うなり
+$\\Omega \\ll \\omega_0 \\Rightarrow \\omega_+ \\approx \\omega_-$、$\\Delta\\omega$ 小。$\\theta_1(t)$ は高速振動 $\\cos(\\omega_+ t)$ と遅い包絡線 $\\cos(\\Delta\\omega \\cdot t)$ の積 → **うなり**。
+
+エネルギーが 2 つの振り子の間を周期的に行き来する：$\\theta_1$ 最大 ↔ $\\theta_2$ 最大が $T_{\\text{beat}} = \\pi/\\Delta\\omega$ ごとに交互。
+
+**物理的意味**：量子力学の 2 準位系と同型（Rabi 振動）。結合振動子は化学結合、分子振動モード（赤外分光）、連成電気回路、音響システムで普遍的。` },
+
+  { id: "tohoku-2023-phys-3", universitySlug: "tohoku", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "Bernoulli 方程式と流体", field: "mechanics", difficulty: "standard",
+    tags: ["Bernoulli の定理", "流体", "Pitot 管"],
+    isFree: true,
+    statement: `**対応問題**: 東北大学 2023年度 物理学 問3
+
+## 問題の設定
+非圧縮性・非粘性・定常な流体の流れを考える（密度 $\\rho$）。重力場 $\\vec{g}$。
+
+## 問われている内容
+(1) Bernoulli の定理
+$$\\frac{1}{2}\\rho v^2 + \\rho g z + P = \\text{const}$$
+を、Euler 方程式と流線に沿った線積分から導け。
+(2) タンクから小孔を通じて流出する水の流速（Torricelli の定理）を Bernoulli から導け。
+(3) Pitot 管（航空機の速度計）の原理を説明せよ：動圧 $(1/2)\\rho v^2$ と静圧 $P$ の差から流速を測定。
+(4) ベンチュリ管で流速が狭窄部で増加し、圧力が減少することを示せ（連続の式と Bernoulli）。`,
+    solution: `## (1) Bernoulli の定理
+非粘性 Euler 方程式：$\\rho(\\partial\\vec{v}/\\partial t + (\\vec{v}\\cdot\\nabla)\\vec{v}) = -\\nabla P + \\rho\\vec{g}$
+
+定常 $\\partial\\vec{v}/\\partial t = 0$、重力 $\\vec{g} = -g\\hat{z}$。流線方向 $\\hat{t}$ の接線成分：
+$$\\rho v\\frac{dv}{ds} = -\\frac{dP}{ds} - \\rho g\\frac{dz}{ds}$$
+
+$s$：流線に沿った弧長、$v\\,dv/ds = d(v^2/2)/ds$：
+$$\\frac{d}{ds}\\left(\\frac{\\rho v^2}{2} + P + \\rho g z\\right) = 0$$
+
+流線に沿って括弧内量が一定：Bernoulli の定理。
+
+## (2) Torricelli の定理
+タンク水面（静止、圧力 $P_0$、高さ $h$）と小孔（流速 $v$、圧力 $P_0$、高さ 0）で Bernoulli：
+$$P_0 + \\rho g h = P_0 + \\tfrac{1}{2}\\rho v^2$$
+$$\\boxed{v = \\sqrt{2gh}}$$
+
+自由落下速度と同じ。
+
+## (3) Pitot 管
+流れに向けた開口部（動圧 $+$ 静圧 = 全圧 $P_s + (1/2)\\rho v^2$）と横向き開口（静圧 $P_s$）の圧力差：
+$$\\Delta P = \\tfrac{1}{2}\\rho v^2 \\Rightarrow v = \\sqrt{2\\Delta P/\\rho}$$
+
+空気密度既知で $\\Delta P$ から $v$ を算出。航空機の対気速度計、風速計に応用。
+
+## (4) ベンチュリ管
+断面積 $A_1 \\to A_2$（$A_2 < A_1$）の狭窄。連続の式：$A_1 v_1 = A_2 v_2 \\Rightarrow v_2 > v_1$。
+
+Bernoulli：$P_1 + (1/2)\\rho v_1^2 = P_2 + (1/2)\\rho v_2^2$、$v_2 > v_1 \\Rightarrow P_2 < P_1$。
+
+**狭いところで流速増加・圧力減少**（ベルヌーイ効果）。応用：ガソリンキャブレター、流量計、翼の揚力（上面は曲がって流速大、下面は直線で流速小 → 上面圧低 → 揚力）。
+
+**物理的意味**：Bernoulli の定理は流体力学の基本。気象（竜巻の圧力分布）、血流（狭窄部での血圧低下）、航空工学（翼型、超音速ノズル）、スポーツ（カーブボール）など広範な応用。$1/2 \\rho v^2$ は「動圧」として運動量流束の圧力換算。` },
+
+  { id: "tohoku-2023-phys-4", universitySlug: "tohoku", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "Pauli 常磁性と Landau 反磁性", field: "statistical", difficulty: "advanced",
+    tags: ["Pauli 常磁性", "Landau 反磁性", "帯磁率"],
+    isFree: true,
+    statement: `**対応問題**: 東北大学 2023年度 物理学 問4
+
+## 問題の設定
+磁場 $B$ 中の自由電子ガス（温度 $T = 0$、Fermi エネルギー $E_F$）の磁気応答を考える。電子の Bohr 磁子 $\\mu_B = e\\hbar/(2m_e)$、状態密度 $g(E_F)$（フェルミエネルギーでの片スピンあたり）。
+
+## 問われている内容
+(1) Pauli 常磁性：電子スピンが Zeeman 効果でエネルギー $\\pm \\mu_B B$ にシフトし、スピン分布が変化することから磁化 $M_P$ と帯磁率 $\\chi_P$ を求めよ。
+(2) $\\chi_P$ が Fermi エネルギーの状態密度 $g(E_F)$ に比例することを物理的に説明せよ。
+(3) Landau 反磁性：軌道運動の量子化（Landau 準位）により軌道磁化 $M_L = -M_P/3$ となることを結果として示せ（詳細導出不要）。
+(4) 実際の金属での全磁化応答 $\\chi = \\chi_P + \\chi_L$ の符号を論じ、強磁性（Stoner 機構）との関連を述べよ。`,
+    solution: `## (1) Pauli 常磁性
+電子数密度：$n = n_\\uparrow + n_\\downarrow$。$B \\ne 0$ で up-spin はエネルギー $-\\mu_B B$ だけ下がり、down-spin は $+\\mu_B B$ だけ上がる。フェルミ海の再分配：
+
+$T = 0$ で状態密度 $g(E)$ の下で、化学ポテンシャル $E_F$ を共通にするため：
+$$n_\\uparrow - n_\\downarrow \\approx 2 g(E_F) \\mu_B B$$
+
+磁化 $M_P = \\mu_B(n_\\uparrow - n_\\downarrow) = 2\\mu_B^2 g(E_F) B$：
+$$\\boxed{\\chi_P = \\mu_0 M/B = 2\\mu_0\\mu_B^2 g(E_F)}$$
+
+（$\\mu_0$：真空透磁率）
+
+## (2) $\\chi_P \\propto g(E_F)$ の意味
+フェルミエネルギー近傍の電子のみが磁場に応答できる（Pauli 排他で下層は凍結）。応答可能な電子数 $\\sim g(E_F)\\cdot k_B T$ ではなく **$g(E_F)\\cdot\\mu_B B$**（$T = 0$ でも磁場応答）。これが金属の帯磁率が温度に**依存しない**（Pauli 常磁性）理由。
+
+## (3) Landau 反磁性
+電子の軌道運動は $B$ 中で Landau 準位に量子化：$E_n = (n + 1/2)\\hbar\\omega_c$、$\\omega_c = eB/m_e$。自由電子フェルミガスで総エネルギーを $B$ の関数として評価し、$M_L = -\\partial E/\\partial B$ を取ると：
+$$M_L = -M_P/3 \\Rightarrow \\chi_L = -\\chi_P/3$$
+
+（Landau, 1930）
+
+## (4) 全帯磁率
+$$\\chi = \\chi_P + \\chi_L = \\chi_P(1 - 1/3) = (2/3)\\chi_P > 0$$
+
+自由電子金属は**常磁性**。Pauli 主導。
+
+**Stoner 機構**：電子間交換相互作用 $I$ を入れると $\\chi_{\\text{eff}} = \\chi_P/(1 - I g(E_F))$（Stoner 増幅）。$I g(E_F) \\ge 1$ で発散 → 自発磁化（強磁性）。Fe, Co, Ni は $g(E_F)$ が大きく Stoner 条件を満たす。
+
+**物理的意味**：金属の磁気応答は自由電子モデルで大まかに理解できる。実際の物質では局在電子（Curie 則 $\\chi \\propto 1/T$）、遍歴電子（Pauli）、軌道（Landau）、電子相関（Kondo 効果）などが複雑に絡む。物性物理学の中心テーマ。` },
+
+  { id: "tohoku-2023-phys-5", universitySlug: "tohoku", year: 2023, subject: "物理学", problemNumber: 5,
+    title: "X 線回折と Bragg の法則", field: "optics", difficulty: "standard",
+    tags: ["Bragg の法則", "X 線回折", "結晶構造"],
+    isFree: true,
+    statement: `**対応問題**: 東北大学 2023年度 物理学 問5
+
+## 問題の設定
+結晶中の原子平面（面間隔 $d$）に波長 $\\lambda$ の X 線が入射角 $\\theta$（平面と入射線のなす角）で当たる。
+
+## 問われている内容
+(1) Bragg の条件
+$$2d\\sin\\theta = n\\lambda \\quad (n = 1, 2, 3,\\ldots)$$
+を、隣接する 2 面からの反射波の行路差から導け。
+(2) Cu の $K_\\alpha$ 線（$\\lambda = 1.54\\,\\text{Å}$）を用いて、NaCl 結晶（$d_{100} = 2.82\\,\\text{Å}$）で 1 次回折 ($n = 1$) の角度 $\\theta_1$ を計算せよ。
+(3) 電子線回折と X 線回折の違い（試料貫通長、波長、弾性/非弾性散乱）を簡潔に述べよ。
+(4) Bragg 条件から逆に結晶構造（面間隔）を決定する X 線構造解析の意義を述べよ。`,
+    solution: `## (1) Bragg 条件の導出
+2 つの平面への同じ波長の X 線入射。上面での反射と下面での反射の**行路差**：
+$$\\Delta = 2d\\sin\\theta$$
+
+（幾何：下面反射の光線は上面反射より $2d\\sin\\theta$ だけ長い経路）。
+
+建設的干渉（強め合い）条件：$\\Delta = n\\lambda$ （整数倍）：
+$$\\boxed{2d\\sin\\theta = n\\lambda}$$
+
+## (2) 数値例
+$n = 1, \\lambda = 1.54\\,\\text{Å}, d = 2.82\\,\\text{Å}$：
+$$\\sin\\theta_1 = 1.54/(2\\times 2.82) = 0.273$$
+$$\\theta_1 \\approx 15.85° \\quad (\\text{2}\\theta \\approx 31.7°)$$
+
+## (3) 電子線 vs X 線
+|  | X 線 | 電子線 |
+|---|---|---|
+| 波長 | 0.1 - 1 Å | 0.01 - 0.1 Å (加速電圧依存) |
+| 貫通長 | 数 mm | 数 μm |
+| 相互作用 | 電子雲と散乱 | 原子核・電子両方 |
+| 用途 | バルク構造解析 | 薄膜・表面・電顕 |
+
+## (4) 構造解析の意義
+- 既知 $\\lambda$ と測定 $\\theta$ から面間隔 $d$ を特定（Bragg $\\to d$）
+- 複数の回折ピーク（$hkl$ 指数）から結晶格子全体を再構成
+- タンパク質結晶学（DNA 二重螺旋 1953、リボソーム 2009 など）、新規材料設計の基盤
+
+**物理的意味**：1912 年 Laue が X 線の結晶回折を発見、同年 Bragg 父子が式を簡潔に導出。以降の固体物理・構造生物学・材料科学の根幹ツール。現代では放射光施設（SPring-8、ESRF）や XFEL で時間分解構造解析が進展。` },
+
+  // ---- OSAKA 2023 (+5) ----
+  { id: "osaka-2023-phys-2", universitySlug: "osaka", year: 2023, subject: "物理学", problemNumber: 2,
+    title: "磁場の境界条件と屈折則", field: "electromagnetism", difficulty: "standard",
+    tags: ["磁場の境界条件", "磁束密度", "磁性体"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2023年度 物理学 問2
+
+## 問題の設定
+2 つの磁性体の界面（平面）を境に、透磁率 $\\mu_1, \\mu_2$ が異なる領域を考える。界面に表面電流はないとする。
+
+## 問われている内容
+(1) 磁束密度 $\\vec{B}$ の法線成分の連続条件を示せ（Gauss の法則 $\\nabla\\cdot\\vec{B} = 0$ より）。
+(2) 磁場 $\\vec{H}$ の接線成分の連続条件を示せ（Ampère の法則、表面電流なし）。
+(3) 界面で磁力線（$\\vec{B}$ の方向）が入射角 $\\theta_1$ から出射角 $\\theta_2$ へ屈折するとき、屈折則
+$$\\tan\\theta_2/\\tan\\theta_1 = \\mu_2/\\mu_1$$
+を導け。
+(4) 鉄（$\\mu_r \\sim 10^4$）と空気（$\\mu_r \\approx 1$）の境界では磁力線がほぼ鉄表面に沿って曲がることを述べよ。`,
+    solution: `## (1) $\\vec{B}$ の法線成分
+Gauss の法則 $\\oint\\vec{B}\\cdot d\\vec{S} = 0$ を界面上の薄い pillbox に適用：側面の寄与が消える厚さ極限で、上下の面の法線成分 $B_{n1}, B_{n2}$ について：
+$$B_{n1} = B_{n2}$$
+
+## (2) $\\vec{H}$ の接線成分
+Ampère の法則 $\\oint\\vec{H}\\cdot d\\vec{l} = I_{\\text{free}} = 0$（表面電流なし）を界面に垂直な薄いループに適用：高さ極限で上下の接線成分：
+$$H_{t1} = H_{t2}$$
+
+## (3) 屈折則
+界面法線を $\\hat{n}$ とする。$\\vec{B} = \\mu\\vec{H}$：
+- 法線：$B_n = \\mu H_n \\Rightarrow H_{n1}/H_{n2} = B_{n1}/(\\mu_1)\\cdot\\mu_2/B_{n2} = \\mu_2/\\mu_1$（$B_n$ 連続）
+- 接線：$H_{t1} = H_{t2}$
+
+$\\tan\\theta = H_t/H_n$ で：
+$$\\tan\\theta_1/\\tan\\theta_2 = H_{n2}/H_{n1} = \\mu_1/\\mu_2$$
+
+$$\\boxed{\\tan\\theta_2/\\tan\\theta_1 = \\mu_2/\\mu_1}$$
+
+## (4) 鉄/空気界面
+$\\mu_{2(\\text{鉄})}/\\mu_{1(\\text{空気})} \\sim 10^4$：$\\tan\\theta_2 \\sim 10^4\\tan\\theta_1$。空気中で $\\theta_1 = 5°$ でも鉄中では $\\theta_2 \\to 90°$（ほぼ面内）。
+
+**物理的意味**：磁力線は高透磁率領域に吸い込まれ、その中を「沿って」流れる。変圧器鉄心、電磁石のヨーク、磁気シールド（鉄製筐体で磁場を遮蔽）の設計原理。
+
+光学のスネル則 $n_1\\sin\\theta_1 = n_2\\sin\\theta_2$ と類似構造（接線方向の運動量 $k_t$ 連続、Fresnel 係数の類似）。ただし光学では $\\sin$、磁場では $\\tan$ が出る違いに注意。` },
+
+  { id: "osaka-2023-phys-3", universitySlug: "osaka", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "Rabi 振動と 2 準位系", field: "quantum", difficulty: "advanced",
+    tags: ["Rabi 振動", "2 準位系", "共鳴"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2023年度 物理学 問3
+
+## 問題の設定
+エネルギー差 $\\hbar\\omega_0$ の 2 準位系 $|g\\rangle, |e\\rangle$ に、角振動数 $\\omega$ の駆動項 $V(t) = \\hbar\\Omega(\\hat\\sigma_+ e^{-i\\omega t} + \\hat\\sigma_- e^{i\\omega t})$（回転波近似後、$\\Omega$ は Rabi 周波数）を加える。離調 $\\delta = \\omega - \\omega_0$。
+
+## 問われている内容
+(1) 回転座標系（ハミルトニアン $\\hat{H}_0$ の相互作用表示）に移ったとき、実効ハミルトニアンを書け。
+(2) $\\delta = 0$（共鳴）での時間発展 $|\\psi(t)\\rangle$ を初期状態 $|g\\rangle$ から計算せよ。
+(3) 励起状態への遷移確率 $P_e(t) = |\\langle e|\\psi(t)\\rangle|^2$ を $\\delta$ を含めた一般式（一般化 Rabi 振動数 $\\tilde\\Omega = \\sqrt{\\Omega^2 + \\delta^2}$）で示せ。
+(4) 共鳴 $\\pi$ パルス（$\\Omega \\tau = \\pi$）で完全反転できることを述べ、量子ゲート（NOT 演算）との関連を説明。`,
+    solution: `## (1) 実効ハミルトニアン（回転座標系）
+$\\hat{H}_0 = \\hbar\\omega_0\\hat\\sigma_z/2$、回転座標系 $\\hat{U} = e^{i\\omega t\\hat\\sigma_z/2}$ で変換後：
+$$\\hat{H}_{\\text{rot}} = -\\hbar\\delta\\hat\\sigma_z/2 + \\hbar\\Omega\\hat\\sigma_x$$
+
+（$\\delta = \\omega - \\omega_0$、$\\hat\\sigma_\\pm = (\\hat\\sigma_x \\pm i\\hat\\sigma_y)/2$ で $\\hat\\sigma_+ + \\hat\\sigma_- = \\hat\\sigma_x$）
+
+## (2) 共鳴での時間発展
+$\\delta = 0$：$\\hat{H}_{\\text{rot}} = \\hbar\\Omega\\hat\\sigma_x$。$|\\psi(0)\\rangle = |g\\rangle$：
+$$|\\psi(t)\\rangle = e^{-i\\Omega t\\hat\\sigma_x}|g\\rangle = \\cos(\\Omega t)|g\\rangle - i\\sin(\\Omega t)|e\\rangle$$
+
+（$\\hat\\sigma_x|g\\rangle = |e\\rangle$）
+
+$P_e(t) = \\sin^2(\\Omega t)$（完全な振動、0 から 1 を往復）。
+
+## (3) 一般化 Rabi 振動
+$\\hat{H}_{\\text{rot}} = \\hbar(\\Omega\\hat\\sigma_x - \\delta\\hat\\sigma_z/2)$。ブロッホベクトル $\\vec{n} = (2\\Omega, 0, -\\delta)/\\tilde\\Omega$、$\\tilde\\Omega = \\sqrt{(2\\Omega)^2 + \\delta^2}/2$ ほか...。実用形：
+$$\\boxed{P_e(t) = \\frac{\\Omega^2}{\\Omega^2 + (\\delta/2)^2}\\sin^2\\left(\\tfrac{\\tilde\\Omega t}{2}\\right)}$$
+
+$\\tilde\\Omega = \\sqrt{\\Omega^2 + (\\delta/2)^2}$。共鳴 ($\\delta = 0$) で最大振幅 1、離調 ($\\delta \\ne 0$) で振幅減少 → Lorentz 型共鳴線形。
+
+## (4) $\\pi$ パルスと量子 NOT
+共鳴で $\\Omega\\tau = \\pi/2$（$\\tilde\\Omega \\tau = \\pi$）とすると $P_e = 1$：状態が $|g\\rangle \\to |e\\rangle$ に完全反転。
+
+**量子 NOT 演算**：古典 NOT $|0\\rangle \\to |1\\rangle$ の量子版。$\\pi$ パルスは $\\hat\\sigma_x$ に対応し、これが量子コンピュータの X ゲート。より一般に $\\pi/2$ パルスは Hadamard、$\\pi/4$ は T ゲート等。
+
+**物理的意味**：Rabi 振動は NMR、原子時計（セシウム原子の基底 hyperfine 準位）、量子光学（原子-光場結合）、量子コンピュータ（超伝導 qubit、イオントラップ）の中核メカニズム。共鳴吸収スペクトルの幅は Rabi 振動数 $\\Omega$（パルス強度）と離調 $\\delta$ の関係で決まる。` },
+
+  { id: "osaka-2023-phys-4", universitySlug: "osaka", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "熱力学第 3 法則と絶対零度", field: "thermodynamics", difficulty: "standard",
+    tags: ["熱力学第 3 法則", "Nernst", "到達不可能性"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2023年度 物理学 問4
+
+## 問題の設定
+熱力学第 3 法則（Nernst 定理）：「十分に低温では、純粋物質のエントロピーは絶対零度で一定値（$S_0 = 0$）に近づく」
+
+## 問われている内容
+(1) Nernst 定理から導かれる帰結として、以下を示せ：
+  (a) $T \\to 0$ で $(\\partial S/\\partial V)_T \\to 0$ および $(\\partial S/\\partial P)_T \\to 0$
+  (b) 熱膨張係数 $\\alpha = (1/V)(\\partial V/\\partial T)_P \\to 0$ for $T \\to 0$
+(2) 低温で $C_P - C_V \\to 0$ となることを示せ（$C_P - C_V = TV\\alpha^2/\\kappa_T$ 関係式から）。
+(3) 絶対零度到達不可能性の原理を述べ、Nernst 定理との関連を説明せよ。
+(4) 実在物質における量子効果（縮退 Fermi 気体の $C_V \\propto T$、Debye モデルの $C_V \\propto T^3$）と第 3 法則の整合を述べよ。`,
+    solution: `## (1) Nernst 定理の帰結
+**(a)** Maxwell 関係式 $(\\partial S/\\partial V)_T = (\\partial P/\\partial T)_V$。$T \\to 0$ で $S$ が $V$ に依存しない（$S \\to 0$ 一定）ので左辺 $\\to 0$、よって $(\\partial P/\\partial T)_V \\to 0$。同様に $(\\partial S/\\partial P)_T = -(\\partial V/\\partial T)_P \\to 0$。
+
+**(b)** $\\alpha = (1/V)(\\partial V/\\partial T)_P \\to 0$：低温で物質の熱膨張が消える。
+
+## (2) $C_P - C_V$ の低温挙動
+熱力学恒等式：
+$$C_P - C_V = T V \\alpha^2/\\kappa_T$$
+
+$T \\to 0$：$T \\to 0$ かつ $\\alpha \\to 0$（(1b) より）。$\\kappa_T$（等温圧縮率）は有限。だから $C_P - C_V \\to 0$。定圧と定積比熱が同じ値に近づく。
+
+## (3) 絶対零度到達不可能性
+有限回の可逆断熱過程（あるいは任意の過程）で $T = 0$ に到達できない、という主張。
+
+**Nernst との関連**：$T \\to 0$ で $S(V, T=0) = S_0 = 0$ 一定（どの $V$ でも同じ）。断熱変化（$\\Delta S = 0$）で始点・終点がこの $S = 0$ 曲線に来ると、始点も終点も $T = 0$ になる必要があり、これは実際には達成できない（曲線が $T = 0$ で一致）。
+
+直感的には、温度下がるほど比熱が減り（第 3 法則）、冷却効率が悪化する。
+
+## (4) 量子効果との整合
+- **縮退 Fermi 気体**（電子）：$C_V = \\gamma T$（$\\gamma$：Sommerfeld 定数）。$T \\to 0$ で $C_V \\to 0$ ✓
+- **Debye モデル**（格子振動）：低温で $C_V \\propto T^3$。$T \\to 0$ で速く 0 に収束 ✓
+
+両者とも $\\int_0^T C_V/T\\,dT'$ が有限（発散しない）ので、$S(T \\to 0) = 0$ と整合。古典の Dulong-Petit 則（$C_V = 3R = $ const）は低温で破れ、量子的な振る舞いが第 3 法則を保証。
+
+**物理的意味**：第 3 法則は 1906 年 Nernst が実験的に発見。量子論（Planck の Zero-point ゼロ点エネルギー、1911）と結びついて現代的理解に到達。低温物理学（He 液化、超伝導、超流動、BEC）の根底、断熱消磁冷却・蒸発冷却・レーザー冷却の限界を決める。` },
+
+  { id: "osaka-2023-math-1", universitySlug: "osaka", year: 2023, subject: "数学", problemNumber: 1,
+    title: "波動方程式と特性曲線", field: "math", difficulty: "standard",
+    tags: ["波動方程式", "特性曲線", "d'Alembert 解"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2023年度 数学 問1
+
+## 問われている内容
+1 次元波動方程式
+$$\\frac{\\partial^2 u}{\\partial t^2} = c^2 \\frac{\\partial^2 u}{\\partial x^2}$$
+を考える。
+
+(1) 変数変換 $\\xi = x - ct, \\eta = x + ct$ で $\\partial^2 u/(\\partial\\xi\\partial\\eta) = 0$ になることを示せ。
+(2) 一般解 $u(x, t) = f(x - ct) + g(x + ct)$（d'Alembert 解）を導け。
+(3) 初期条件 $u(x, 0) = \\phi(x), u_t(x, 0) = \\psi(x)$ のもとで、$f, g$ を決定し、d'Alembert の公式
+$$u(x, t) = \\frac{1}{2}[\\phi(x-ct) + \\phi(x+ct)] + \\frac{1}{2c}\\int_{x-ct}^{x+ct}\\psi(s)\\,ds$$
+を導け。
+(4) 特性曲線 $x \\pm ct = $ const の物理的意味を述べよ。`,
+    solution: `## (1) 変数変換
+連鎖則：$\\partial/\\partial t = (\\partial\\xi/\\partial t)\\partial/\\partial\\xi + (\\partial\\eta/\\partial t)\\partial/\\partial\\eta = -c\\partial_\\xi + c\\partial_\\eta$
+同様に $\\partial/\\partial x = \\partial_\\xi + \\partial_\\eta$。
+
+$\\partial^2/\\partial t^2 = c^2(\\partial_\\xi - \\partial_\\eta)^2 = c^2(\\partial_\\xi^2 - 2\\partial_\\xi\\partial_\\eta + \\partial_\\eta^2)$
+$\\partial^2/\\partial x^2 = (\\partial_\\xi + \\partial_\\eta)^2 = \\partial_\\xi^2 + 2\\partial_\\xi\\partial_\\eta + \\partial_\\eta^2$
+
+方程式に代入：
+$$c^2(\\partial_\\xi^2 - 2\\partial_\\xi\\partial_\\eta + \\partial_\\eta^2)u = c^2(\\partial_\\xi^2 + 2\\partial_\\xi\\partial_\\eta + \\partial_\\eta^2)u$$
+
+$\\Rightarrow -4c^2\\partial_\\xi\\partial_\\eta u = 0 \\Rightarrow \\partial^2 u/(\\partial\\xi\\partial\\eta) = 0$
+
+## (2) d'Alembert 解
+$\\partial_\\eta(\\partial_\\xi u) = 0 \\Rightarrow \\partial_\\xi u = F(\\xi)$（$\\eta$ 依存性なし）
+$u = \\int F\\,d\\xi + g(\\eta) = f(\\xi) + g(\\eta)$
+
+$x, t$ 変数に戻して：
+$$u(x, t) = f(x - ct) + g(x + ct)$$
+
+$f, g$：任意関数。$f$ は右進行波、$g$ は左進行波。
+
+## (3) 初期値問題の解
+$u(x, 0) = f(x) + g(x) = \\phi(x)$ ...(A)
+$u_t(x, 0) = -cf'(x) + cg'(x) = \\psi(x) \\Rightarrow -f + g = (1/c)\\int\\psi$ ...(B)
+
+(A) + (B) と (A) - (B)：
+$g(x) = \\phi(x)/2 + (1/2c)\\int^x\\psi$
+$f(x) = \\phi(x)/2 - (1/2c)\\int^x\\psi$
+
+代入：
+$$\\boxed{u(x, t) = \\tfrac{1}{2}[\\phi(x-ct) + \\phi(x+ct)] + \\tfrac{1}{2c}\\int_{x-ct}^{x+ct}\\psi(s)\\,ds}$$
+
+## (4) 特性曲線の意味
+$x - ct = $ const：右向きに速度 $c$ で進む波の "worldline"。
+$x + ct = $ const：左向き。
+
+**因果律**：点 $(x_0, t_0)$ の値は、過去の区間 $[x_0 - ct_0, x_0 + ct_0]$ 上の初期データのみに依存。情報は光速 $c$ で伝わる（局所性、Einstein の因果律の古典版）。
+
+**物理的意味**：波動方程式は力学（弦、膜、音波）、電磁気（電磁波）、相対論（場の方程式）で普遍的。d'Alembert 解（1747）は最初期の偏微分方程式解の一つ。特性曲線は双曲型 PDE の本質的構造で、数値計算（CFL 条件）、量子場理論（光円錐）、波束伝搬の物理に基礎を与える。` },
+
+  { id: "osaka-2023-math-2", universitySlug: "osaka", year: 2023, subject: "数学", problemNumber: 2,
+    title: "Fourier 変換と Parseval の定理", field: "math", difficulty: "advanced",
+    tags: ["Fourier 変換", "Parseval", "畳み込み"],
+    isFree: true,
+    statement: `**対応問題**: 大阪大学 2023年度 数学 問2
+
+## 問われている内容
+Fourier 変換を
+$$\\tilde{f}(k) = \\int_{-\\infty}^\\infty f(x)e^{-ikx}\\,dx, \\quad f(x) = \\frac{1}{2\\pi}\\int_{-\\infty}^\\infty\\tilde{f}(k)e^{ikx}\\,dk$$
+と定義する。
+
+(1) Parseval の定理
+$$\\int_{-\\infty}^\\infty|f(x)|^2\\,dx = \\frac{1}{2\\pi}\\int_{-\\infty}^\\infty|\\tilde f(k)|^2\\,dk$$
+を導け。
+(2) Gauss 関数 $f(x) = e^{-ax^2}$ の Fourier 変換 $\\tilde f(k)$ を計算せよ。
+(3) 畳み込み定理 $\\widetilde{(f * g)} = \\tilde{f}\\cdot\\tilde{g}$ を証明せよ（$f*g(x) = \\int f(y)g(x-y)\\,dy$）。
+(4) 量子力学の Heisenberg 不確定性関係 $\\Delta x\\Delta k \\ge 1/2$ と Fourier 変換の関連を述べよ。`,
+    solution: `## (1) Parseval の定理
+$\\int|f|^2 dx = \\int f(x)\\bar f(x)\\,dx$。両方を逆変換で書き：
+$$f(x) = \\frac{1}{2\\pi}\\int\\tilde f(k)e^{ikx}dk, \\quad \\bar f(x) = \\frac{1}{2\\pi}\\int\\overline{\\tilde f(k')}e^{-ik'x}dk'$$
+
+積を取って $x$ 積分：$\\int e^{i(k - k')x}dx = 2\\pi\\delta(k - k')$。
+$$\\int|f|^2 dx = \\frac{1}{(2\\pi)^2}\\int\\tilde f(k)\\overline{\\tilde f(k')}\\cdot 2\\pi\\delta(k - k')\\,dk\\,dk' = \\frac{1}{2\\pi}\\int|\\tilde f(k)|^2 dk$$
+
+## (2) Gauss 関数の Fourier 変換
+$$\\tilde f(k) = \\int e^{-ax^2 - ikx}dx = \\int e^{-a(x + ik/(2a))^2 - k^2/(4a)}dx$$
+
+平方完成、積分路を平行移動（解析関数なので可）：
+$$\\tilde f(k) = e^{-k^2/(4a)}\\int e^{-au^2}du = \\sqrt{\\pi/a}\\,e^{-k^2/(4a)}$$
+
+$$\\boxed{\\tilde f(k) = \\sqrt{\\pi/a}\\,e^{-k^2/(4a)}}$$
+
+**重要**：Gauss 関数の Fourier 変換は Gauss 関数（自己相似）。$x$ 空間の幅 $\\sim 1/\\sqrt{a}$、$k$ 空間の幅 $\\sim \\sqrt{a}$：積 $= 1$（不確定性の等号）。
+
+## (3) 畳み込み定理
+$$\\widetilde{(f*g)}(k) = \\int e^{-ikx}\\left(\\int f(y)g(x-y)dy\\right)dx$$
+
+$x' = x - y$ と変数変換：
+$$= \\int f(y) e^{-iky}dy \\cdot \\int g(x')e^{-ikx'}dx' = \\tilde f(k)\\tilde g(k)$$
+
+## (4) 不確定性関係との関連
+Gauss 波束 $\\psi(x) = e^{-x^2/(4\\sigma_x^2)}/(2\\pi\\sigma_x^2)^{1/4}$ の Fourier 変換は Gauss $\\tilde\\psi(k)$、幅 $\\sigma_k = 1/(2\\sigma_x)$：
+$$\\sigma_x \\cdot \\sigma_k = 1/2$$
+
+一般の関数では Cauchy-Schwarz 不等式から：
+$$\\Delta x \\cdot \\Delta k \\ge 1/2$$
+
+等号は Gauss 波束のみ。量子力学で $p = \\hbar k$ より：
+$$\\boxed{\\Delta x \\cdot \\Delta p \\ge \\hbar/2}$$
+
+**物理的意味**：Fourier 変換は時間↔振動数、位置↔波数、時間↔エネルギーの双対変換。信号処理、結晶構造解析（逆格子）、量子力学の運動量表示など本質的役割。不確定性関係は Fourier 変換の数学的定理の物理的言い換え。` },
+
+  // ---- NAGOYA 2023 (+2) ----
+  { id: "nagoya-2023-phys-3", universitySlug: "nagoya", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "弾性衝突と反発係数", field: "mechanics", difficulty: "basic",
+    tags: ["弾性衝突", "運動量保存", "反発係数"],
+    isFree: true,
+    statement: `**対応問題**: 名古屋大学 2023年度 物理学 問3
+
+## 問題の設定
+質量 $m_1$ の物体 A（速度 $v_1$）が、静止している質量 $m_2$ の物体 B に 1 次元的に衝突する。反発係数 $e$（$0 \\le e \\le 1$）。
+
+## 問われている内容
+(1) 衝突後の A, B の速度 $v_1', v_2'$ を運動量保存と反発係数の定義から求めよ。
+(2) 完全弾性衝突 ($e = 1$) で、$m_1 = m_2$ の場合の結果を述べよ。
+(3) $e = 1, m_1 \\ll m_2$ の極限で、A が跳ね返る振る舞いを述べよ。
+(4) 衝突前後のエネルギー変化 $\\Delta K = K_{\\text{after}} - K_{\\text{before}}$ を $e$ で表し、$e < 1$ で散逸があることを示せ。`,
+    solution: `## (1) 速度の決定
+運動量保存：$m_1 v_1 = m_1 v_1' + m_2 v_2'$
+反発係数：$e = (v_2' - v_1')/v_1$ → $v_2' - v_1' = ev_1$
+
+連立して：
+$$v_1' = \\frac{m_1 - em_2}{m_1 + m_2}v_1, \\quad v_2' = \\frac{(1+e)m_1}{m_1 + m_2}v_1$$
+
+## (2) $m_1 = m_2, e = 1$
+$v_1' = 0, v_2' = v_1$：**速度の完全交換**。ビリヤードの玉衝突の典型。
+
+## (3) $m_1 \\ll m_2, e = 1$
+$v_1' \\approx -v_1$（完全反転）、$v_2' \\approx 0$。軽い物体が重い物体にぶつかると跳ね返る（速さそのまま、向き逆転）。壁に対するボール衝突の極限。
+
+## (4) エネルギー変化
+$K_{\\text{before}} = (1/2)m_1 v_1^2$
+$K_{\\text{after}} = (1/2)m_1 v_1'^2 + (1/2)m_2 v_2'^2$
+
+代入・整理：
+$$\\Delta K = -\\frac{m_1 m_2}{2(m_1 + m_2)}(1 - e^2)v_1^2$$
+
+$e < 1 \\Rightarrow \\Delta K < 0$：運動エネルギー損失（熱・音・変形として散逸）。完全弾性 $e = 1$ で $\\Delta K = 0$。
+
+**物理的意味**：衝突問題は運動量保存の基本応用。反発係数は物質の性質（ゴムボール $e \\sim 0.8$、鋼球 $\\sim 0.9$、粘土 $\\sim 0$）。衝突実験（Rutherford 散乱、素粒子物理）、交通事故解析、スポーツ（ゴルフクラブとボール）の基本。` },
+
+  { id: "nagoya-2023-phys-4", universitySlug: "nagoya", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "電磁波の反射と透過", field: "electromagnetism", difficulty: "basic",
+    tags: ["Fresnel 係数", "垂直入射", "反射率"],
+    isFree: true,
+    statement: `**対応問題**: 名古屋大学 2023年度 物理学 問4
+
+## 問題の設定
+屈折率 $n_1$ の媒質から屈折率 $n_2$ の媒質へ電磁波が**垂直入射**する（界面に法線方向から入射）。
+
+## 問われている内容
+(1) 入射波・反射波・透過波の電場振幅を $E_i, E_r, E_t$ とおき、境界条件（$E_\\parallel$ 連続、$H_\\parallel$ 連続）から Fresnel 係数
+$$r = \\frac{E_r}{E_i} = \\frac{n_1 - n_2}{n_1 + n_2}, \\quad t = \\frac{E_t}{E_i} = \\frac{2n_1}{n_1 + n_2}$$
+を導け。
+(2) 反射率 $R = |r|^2$ とエネルギー透過率 $T$ を求め、$R + T = 1$（エネルギー保存）を確認せよ。
+(3) 空気 ($n_1 = 1$) から水 ($n_2 = 1.33$) への入射で $R$ を数値計算せよ。
+(4) 反射防止膜（$n_{\\text{coat}} = \\sqrt{n_1 n_2}$、厚さ $\\lambda/(4n_{\\text{coat}})$）の原理を簡潔に述べよ。`,
+    solution: `## (1) Fresnel 係数
+垂直入射で電場は界面に平行、$E_i + E_r = E_t$（接線電場連続）。
+
+磁場：$H = E/Z$、$Z = \\sqrt{\\mu/\\epsilon} = \\mu c/n$（インピーダンス）。入射磁場 $H_i = E_i/Z_1$（同向き進行波）、反射 $H_r = -E_r/Z_1$（反射で $H$ 反転）、透過 $H_t = E_t/Z_2$。
+
+$H$ 連続：$E_i/Z_1 - E_r/Z_1 = E_t/Z_2$。$Z \\propto 1/n$ より：
+$$n_1(E_i - E_r) = n_2 E_t$$
+
+$E$ 連続と連立：
+$$r = (n_1 - n_2)/(n_1 + n_2), \\quad t = 2n_1/(n_1 + n_2)$$
+
+## (2) 反射率とエネルギー保存
+$R = r^2 = ((n_1 - n_2)/(n_1 + n_2))^2$
+
+エネルギー透過率（Poynting ベクトル $\\propto n E^2$）：
+$$T = (n_2/n_1)t^2 = (n_2/n_1) \\cdot 4n_1^2/(n_1+n_2)^2 = 4n_1 n_2/(n_1+n_2)^2$$
+
+$R + T = \\{(n_1-n_2)^2 + 4n_1 n_2\\}/(n_1+n_2)^2 = (n_1+n_2)^2/(n_1+n_2)^2 = 1$ ✅
+
+## (3) 空気→水
+$n_1 = 1, n_2 = 1.33$：
+$$R = ((1-1.33)/(1+1.33))^2 = (-0.33/2.33)^2 \\approx 0.02$$
+
+約 2% が反射、98% が透過。水面の低反射率は日常的に観察できる（水面越しの水中が見える）。
+
+## (4) 反射防止膜（AR コート）
+ガラス表面に厚さ $\\lambda/(4n_{\\text{coat}})$、屈折率 $n_{\\text{coat}} = \\sqrt{n_1 n_2}$ の薄膜を塗る。薄膜表面からの反射と、ガラス表面からの反射が**位相差 $\\pi$** で干渉消失 → 反射率ゼロ。
+
+$\\lambda/4$ 厚：薄膜を通過する時間差から位相差 $2\\times 2\\pi n_{\\text{coat}}(\\lambda/(4n_{\\text{coat}}))/\\lambda = \\pi$。
+
+**物理的意味**：Fresnel 係数は光学の基本。レンズ（多層反射防止膜）、光ファイバー、液晶ディスプレイ、ソーラーパネル（光吸収最大化）すべての設計で基本公式。$r$ の符号（$n_1 < n_2$ で $r < 0$）が位相反転を表す。` },
+
+  // ---- KYUSHU 2023 (+2) ----
+  { id: "kyushu-2023-phys-3", universitySlug: "kyushu", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "仕事とエネルギー定理", field: "mechanics", difficulty: "basic",
+    tags: ["仕事エネルギー定理", "保存力", "非保存力"],
+    isFree: true,
+    statement: `**対応問題**: 九州大学 2023年度 物理学 問3
+
+## 問題の設定
+質量 $m$ の物体に外力 $\\vec{F}$ が作用し、$\\vec{r}_1$ から $\\vec{r}_2$ まで経路 $C$ に沿って移動する。
+
+## 問われている内容
+(1) 仕事エネルギー定理 $W = \\Delta K$ を Newton の第 2 法則から導け（$W$: 力が物体にした仕事、$\\Delta K$: 運動エネルギー変化）。
+(2) 摩擦のない斜面（角度 $\\theta$、長さ $L$）を質量 $m$ の物体が滑り落ちるとき、下端での速度 $v$ を仕事エネルギー定理から求めよ。
+(3) 摩擦係数 $\\mu$ の場合を (2) と比較し、摩擦力の仕事 $W_f$ を計算せよ。
+(4) 保存力と非保存力を仕事の経路依存性で区別せよ。`,
+    solution: `## (1) 仕事エネルギー定理
+Newton 第 2 法則：$\\vec{F} = m d\\vec{v}/dt$。$\\vec{v}\\cdot$ を両辺に：
+$$\\vec{F}\\cdot\\vec{v} = m\\vec{v}\\cdot d\\vec{v}/dt = (1/2)m\\frac{d}{dt}(\\vec{v}\\cdot\\vec{v}) = \\frac{dK}{dt}$$
+
+$\\vec{v} dt = d\\vec{r}$ で経路 $C$ に沿って積分：
+$$W = \\int_C \\vec{F}\\cdot d\\vec{r} = K_2 - K_1 = \\Delta K$$
+
+## (2) 摩擦なし斜面
+重力の斜面方向成分 $mg\\sin\\theta$ が経路 $L$ にわたって働く：$W = mg\\sin\\theta \\cdot L = mgh$（$h = L\\sin\\theta$ 高さ差）。
+
+$\\Delta K = (1/2)mv^2 - 0 = mgh \\Rightarrow v = \\sqrt{2gh}$
+
+自由落下と同じ（一般的な結論：重力仕事は経路によらず高さ差のみ）。
+
+## (3) 摩擦あり斜面
+垂直抗力 $N = mg\\cos\\theta$、動摩擦力 $f = \\mu mg\\cos\\theta$（運動方向と逆）。
+
+摩擦力の仕事：$W_f = -\\mu mg\\cos\\theta \\cdot L$（マイナス：運動と逆向き）
+
+全仕事 $W = mgh - \\mu mg\\cos\\theta \\cdot L = mgL(\\sin\\theta - \\mu\\cos\\theta)$
+
+下端での速度：$v = \\sqrt{2gL(\\sin\\theta - \\mu\\cos\\theta)}$
+
+$\\mu > \\tan\\theta$ では動けない（静摩擦が勝る）。
+
+## (4) 保存力 vs 非保存力
+- **保存力**（重力、弾性力、静電力）：仕事が経路に**よらず**、始点・終点のみで決まる。ポテンシャルエネルギー $U$ が定義でき、$W = -\\Delta U$。閉路積分 $\\oint\\vec{F}\\cdot d\\vec{r} = 0$。
+- **非保存力**（摩擦、空気抵抗）：仕事が経路に**依存**する。$U$ 定義不可。
+
+**判定**：$\\nabla\\times\\vec{F} = 0$（回転ゼロ）⇔ 単連結領域で保存力。
+
+**物理的意味**：力学的エネルギー保存 $K + U = $ const は保存力のみ。非保存力があると $\\Delta(K+U) = W_{\\text{nc}}$（熱散逸等）。この振り分けが熱力学第一法則へつながる（機械的仕事 ↔ 熱）。` },
+
+  { id: "kyushu-2023-phys-4", universitySlug: "kyushu", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "交流回路のインピーダンス", field: "electromagnetism", difficulty: "basic",
+    tags: ["交流", "インピーダンス", "共振"],
+    isFree: true,
+    statement: `**対応問題**: 九州大学 2023年度 物理学 問4
+
+## 問題の設定
+抵抗 $R$、インダクタンス $L$、キャパシタンス $C$ が直列に接続された RLC 回路に、角振動数 $\\omega$ の交流電源 $V(t) = V_0\\cos(\\omega t)$ が印加されている。
+
+## 問われている内容
+(1) 各素子のインピーダンス $Z_R, Z_L, Z_C$ を複素表示で書け。
+(2) 直列合成インピーダンス $Z(\\omega) = R + i\\omega L + 1/(i\\omega C)$ を整理せよ。
+(3) 電流の振幅 $I_0 = V_0/|Z|$ を $\\omega$ の関数として書き、共振振動数 $\\omega_0 = 1/\\sqrt{LC}$ で最大となることを示せ。
+(4) 共振での位相差、および品質因子 $Q = \\omega_0 L/R$ の意味を述べよ。`,
+    solution: `## (1) 各インピーダンス
+- 抵抗：$Z_R = R$（実数）
+- インダクタンス：$Z_L = i\\omega L$
+- キャパシタンス：$Z_C = 1/(i\\omega C) = -i/(\\omega C)$
+
+## (2) 合成インピーダンス
+$$Z(\\omega) = R + i\\left(\\omega L - \\frac{1}{\\omega C}\\right)$$
+
+大きさ：
+$$|Z| = \\sqrt{R^2 + (\\omega L - 1/(\\omega C))^2}$$
+
+## (3) 共振
+$I_0 = V_0/|Z|$。$|Z|$ が最小になる条件：$\\omega L = 1/(\\omega C) \\Rightarrow \\omega_0 = 1/\\sqrt{LC}$。
+
+このとき $|Z| = R$（最小、虚部ゼロ）：
+$$I_{0,\\max} = V_0/R$$
+
+## (4) 共振での位相と $Q$
+**位相差**：$Z$ の位相 $\\phi = \\arg(Z) = \\arctan((\\omega L - 1/(\\omega C))/R)$。
+- $\\omega < \\omega_0$：$\\phi < 0$（容量性、電流が電圧より進む）
+- $\\omega = \\omega_0$：$\\phi = 0$（共振、同位相）
+- $\\omega > \\omega_0$：$\\phi > 0$（誘導性、電流が遅れる）
+
+**$Q$ 因子**：$Q = \\omega_0 L/R = (1/R)\\sqrt{L/C}$。共振曲線 $I_0(\\omega)$ の半値全幅 $\\Delta\\omega = \\omega_0/Q$：$Q$ が大きいほど鋭い共振ピーク。
+
+**物理的意味**：RLC 回路はラジオ・テレビのチューナー、電力系統のフィルター、MRI の送受信コイルで基本。$Q$ 値は共振系の性能指標として機械振動、光共振器、原子時計まで普遍的。並列 RLC では振る舞いが異なるが、数学的構造は同じ。` },
+
+  // ---- HOKKAIDO 2023 (+2) ----
+  { id: "hokkaido-2023-phys-3", universitySlug: "hokkaido", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "Kirchhoff の法則と直流回路", field: "electromagnetism", difficulty: "basic",
+    tags: ["Kirchhoff", "節点法則", "ループ法則"],
+    isFree: true,
+    statement: `**対応問題**: 北海道大学 2023年度 物理学 問3
+
+## 問題の設定
+起電力 $\\mathcal{E}_1, \\mathcal{E}_2$ の電池と抵抗 $R_1, R_2, R_3$ からなる 2 ループ直流回路を考える（具体的な接続は通常の 2 メッシュ回路）。
+
+## 問われている内容
+(1) Kirchhoff の電流則（節点法則）と電圧則（ループ法則）を述べよ。
+(2) 2 ループ回路の各抵抗に流れる電流 $I_1, I_2, I_3$ を Kirchhoff の法則から決定する連立方程式を書け。
+(3) $\\mathcal{E}_1 = 6\\,\\text{V}, \\mathcal{E}_2 = 3\\,\\text{V}, R_1 = R_2 = R_3 = 1\\,\\Omega$ の場合の数値解を求めよ。
+(4) 抵抗 $R_3$ で消費される電力 $P_3$ を求めよ。`,
+    solution: `## (1) Kirchhoff の法則
+**電流則**（Junction rule、KCL）：任意の節点で、流入電流の和 = 流出電流の和。$\\sum I_{\\text{in}} = \\sum I_{\\text{out}}$（電荷保存の反映）。
+
+**電圧則**（Loop rule、KVL）：任意の閉ループ 1 周で、起電力の総和 = 電圧降下の総和。$\\sum \\mathcal{E} = \\sum IR$（電場が保存場の反映）。
+
+## (2) 連立方程式（メッシュ電流法）
+左ループ：$\\mathcal{E}_1 = R_1 I_1 + R_3 I_3$
+右ループ：$\\mathcal{E}_2 = R_2 I_2 + R_3 I_3$
+節点則：$I_3 = I_1 + I_2$
+
+3 式で $I_1, I_2, I_3$ が決定。
+
+## (3) 数値解
+代入：
+$6 = I_1 + (I_1 + I_2) = 2I_1 + I_2$ → $2I_1 + I_2 = 6$
+$3 = I_2 + (I_1 + I_2) = I_1 + 2I_2$ → $I_1 + 2I_2 = 3$
+
+連立：第 1 式 × 2 - 第 2 式：$3I_1 = 9 \\Rightarrow I_1 = 3\\,\\text{A}$、$I_2 = 0\\,\\text{A}$、$I_3 = 3\\,\\text{A}$
+
+## (4) $R_3$ 消費電力
+$P_3 = I_3^2 R_3 = 9 \\times 1 = 9\\,\\text{W}$
+
+**物理的意味**：Kirchhoff の法則（1845）は直流・交流回路解析の基本。複雑な回路網でも系統的に解ける。実際の応用：集積回路設計、電力系統解析、SPICE シミュレータなど。ノーベル物理学賞を受けた Kirchhoff は分光学（太陽吸収線、黒体放射）でも重要貢献。` },
+
+  { id: "hokkaido-2023-phys-4", universitySlug: "hokkaido", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "熱膨張と PVT 関係", field: "thermodynamics", difficulty: "basic",
+    tags: ["熱膨張係数", "体積弾性率", "PVT"],
+    isFree: true,
+    statement: `**対応問題**: 北海道大学 2023年度 物理学 問4
+
+## 問題の設定
+物質の体積は温度 $T$ と圧力 $P$ の関数 $V(T, P)$。熱膨張係数 $\\alpha = (1/V)(\\partial V/\\partial T)_P$、等温圧縮率 $\\kappa_T = -(1/V)(\\partial V/\\partial P)_T$。
+
+## 問われている内容
+(1) 全微分 $dV$ を $dT, dP$ で表せ。
+(2) 理想気体の状態方程式 $PV = nRT$ から $\\alpha, \\kappa_T$ を計算せよ。
+(3) 銅（$\\alpha \\approx 5\\times 10^{-5}\\,\\text{K}^{-1}$）の長さが 1 m の棒で、温度が 20 K 上昇したときの長さ変化 $\\Delta L$ を推定（線膨張係数 $\\alpha_L \\approx \\alpha/3$）。
+(4) バイメタル（2 種金属の貼り合わせ）の温度センサとしての原理を述べよ。`,
+    solution: `## (1) 全微分
+$$dV = \\left(\\frac{\\partial V}{\\partial T}\\right)_P dT + \\left(\\frac{\\partial V}{\\partial P}\\right)_T dP = V\\alpha\\,dT - V\\kappa_T\\,dP$$
+
+## (2) 理想気体の場合
+$V = nRT/P$：
+- $(\\partial V/\\partial T)_P = nR/P = V/T \\Rightarrow \\alpha = 1/T$
+- $(\\partial V/\\partial P)_T = -nRT/P^2 = -V/P \\Rightarrow \\kappa_T = 1/P$
+
+$T = 300\\,\\text{K}$ で $\\alpha \\approx 3.3\\times 10^{-3}\\,\\text{K}^{-1}$、$P = 10^5\\,\\text{Pa}$ で $\\kappa_T = 10^{-5}\\,\\text{Pa}^{-1}$。
+
+## (3) 銅棒の熱膨張
+線膨張 $\\Delta L/L = \\alpha_L \\Delta T$：
+$$\\Delta L = L \\cdot \\alpha_L \\cdot \\Delta T \\approx 1\\,\\text{m} \\times (5\\times 10^{-5}/3)\\,\\text{K}^{-1} \\times 20\\,\\text{K} \\approx 0.33\\,\\text{mm}$$
+
+橋や鉄道の接続継目で熱膨張を吸収する理由。
+
+## (4) バイメタル
+熱膨張係数の異なる 2 金属（例：鉄 $\\alpha \\sim 1.2\\times 10^{-5}$ と真鍮 $\\alpha \\sim 1.9\\times 10^{-5}$）を貼り合わせ。温度変化で片方が多く伸び → 帯が湾曲。
+
+**応用**：
+- サーモスタット（電気ポット、アイロン）：曲がりで電気接点を開閉
+- 温度計（湾曲度を指示針で可視化）
+- 自動温度補正装置
+
+**物理的意味**：熱膨張は物質の原子間距離が温度上昇で平均的に増える（非調和ポテンシャルの効果）。水の異常（4°C で最大密度）は例外。精密機器の熱補償、LSI の熱応力設計、建築物の伸縮継目など応用多数。` },
+
+  // ---- YNU 2023 (+2) ----
+  { id: "ynu-2023-phys-3", universitySlug: "ynu", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "放射性崩壊と半減期", field: "quantum", difficulty: "basic",
+    tags: ["放射性崩壊", "半減期", "指数崩壊則"],
+    isFree: true,
+    statement: `**対応問題**: 横浜国立大学 2023年度 物理学 問3
+
+## 問題の設定
+放射性原子核の崩壊：時刻 $t$ における未崩壊核数 $N(t)$ は、単位時間あたり崩壊確率 $\\lambda$（崩壊定数）で減少する。
+
+## 問われている内容
+(1) 微分方程式 $dN/dt = -\\lambda N$ を解き、$N(t) = N_0 e^{-\\lambda t}$ を導け。
+(2) 半減期 $T_{1/2}$（$N$ が $N_0/2$ になる時間）を $\\lambda$ で表せ。
+(3) 炭素 14 の半減期 $T_{1/2} = 5730$ 年を用いて、$C^{14}$ 濃度が現代の 1/4 になった試料の年代を求めよ（炭素年代測定）。
+(4) 放射性崩壊の量子的起源（トンネル効果、弱相互作用）を簡潔に述べよ。`,
+    solution: `## (1) 指数崩壊則
+$dN/N = -\\lambda\\,dt$ → 積分：$\\ln(N/N_0) = -\\lambda t$：
+$$\\boxed{N(t) = N_0 e^{-\\lambda t}}$$
+
+## (2) 半減期
+$N_0/2 = N_0 e^{-\\lambda T_{1/2}}$：
+$$T_{1/2} = \\ln 2/\\lambda \\approx 0.693/\\lambda$$
+
+## (3) 炭素年代測定
+$N/N_0 = 1/4 = 2^{-2} = (1/2)^2$：2 半減期経過。
+$$t = 2 T_{1/2} = 2 \\times 5730 = 11460\\,\\text{年}$$
+
+**方法**：生物体内の $C^{14}/C^{12}$ 比は大気中と平衡（宇宙線で生成）。死後は補給停止、崩壊のみで比が減少。化石・考古学遺物の年代決定の標準手法（数万年前まで）。
+
+## (4) 量子論的起源
+- **$\\alpha$ 崩壊**：Coulomb 障壁のトンネル効果（問 4 で詳細）。
+- **$\\beta$ 崩壊**：$n \\to p + e^- + \\bar\\nu_e$、弱相互作用による。Fermi の 4 点理論から電弱統一理論へ。
+- **$\\gamma$ 崩壊**：励起状態からの光子放出（電磁相互作用）。
+
+崩壊の「いつ」は量子論的ランダム（測定の不確定性原理と関連、エネルギー-時間不確定性 $\\Delta E \\Delta t \\sim \\hbar$、有限寿命 $\\Rightarrow$ 幅広いエネルギー分布）。
+
+**物理的意味**：指数崩壊は量子力学的散乱・崩壊過程の普遍的帰結。薬剤の体内半減期（薬物動態）、核反応炉の燃料消費、放射線治療、年代測定（$C^{14}$、$U^{238}$、$K^{40}$）など応用は多岐。半減期の概念は単純だが、応用分野は物理・化学・医学・考古学・環境科学に及ぶ。` },
+
+  { id: "ynu-2023-phys-4", universitySlug: "ynu", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "毛細管現象と表面張力", field: "mechanics", difficulty: "basic",
+    tags: ["表面張力", "毛細管", "Young-Laplace"],
+    isFree: true,
+    statement: `**対応問題**: 横浜国立大学 2023年度 物理学 問4
+
+## 問題の設定
+半径 $r$ の細管を液体（密度 $\\rho$、表面張力 $\\gamma$、接触角 $\\theta$）に垂直に立てる。重力加速度 $g$。
+
+## 問われている内容
+(1) 毛細管内で液面が高さ $h$ だけ上昇する（または $\\theta > \\pi/2$ なら下降）現象を**毛細管現象**と呼ぶ。$h$ を $\\gamma, \\rho, g, r, \\theta$ で表せ（Jurin の法則）。
+(2) 水（$\\gamma = 0.073\\,\\text{N/m}, \\theta \\approx 0$）を半径 $r = 0.1\\,\\text{mm}$ のガラス管に入れたときの上昇高を計算せよ。
+(3) 接触角 $\\theta > \\pi/2$ の場合（例：水銀-ガラス）、液面が下降することを説明せよ。
+(4) Young-Laplace 式 $\\Delta P = 2\\gamma/R$（球形液滴）を述べ、肺胞の表面張力と界面活性剤の役割を論ぜよ。`,
+    solution: `## (1) Jurin の法則
+毛細管内の液面上部と下部の圧力差（大気圧との差）：
+$$\\Delta P = \\rho g h$$
+
+表面張力による圧力差（Young-Laplace）：$\\Delta P = 2\\gamma\\cos\\theta/r$（接触角 $\\theta$、メニスカス半径 $r/\\cos\\theta$）。
+
+両者等しく：
+$$\\boxed{h = \\frac{2\\gamma\\cos\\theta}{\\rho g r}}$$
+
+$\\theta < \\pi/2$：水はガラスを**濡らす**、上昇。$\\theta > \\pi/2$：撥水、下降（負の $h$）。
+
+## (2) 水の上昇高
+$\\gamma = 0.073, \\rho = 1000, g = 9.8, r = 10^{-4}, \\cos\\theta = 1$：
+$$h = 2 \\times 0.073 / (1000 \\times 9.8 \\times 10^{-4}) \\approx 0.149\\,\\text{m} = 14.9\\,\\text{cm}$$
+
+細い管ほど高く上昇（植物の水吸い上げ、土壌水分保持の原理）。
+
+## (3) 水銀-ガラス
+水銀は ガラスを濡らさない（$\\theta \\approx 140°$、$\\cos\\theta < 0$）。$h < 0$ で下降。水銀温度計のメニスカスが下向き凸なのもこのため。
+
+## (4) Young-Laplace と肺
+球形液滴の内外圧力差：$\\Delta P = 2\\gamma/R$。小さな球ほど内圧高い。
+
+**肺胞の問題**：大小の肺胞が連結すると、小肺胞は内圧高く → 空気が大肺胞に押し出される → 小肺胞潰れ、大肺胞過膨張（不安定）。
+
+**界面活性剤**（サーファクタント）：肺胞内面を覆い表面張力を低下（半径依存的に：小肺胞で特に低下）。これで大小肺胞の $\\Delta P$ が均等化、すべての肺胞が開いた状態を維持。
+
+早産児の**呼吸窮迫症候群**は界面活性剤不足による。治療に人工サーファクタント投与。
+
+**物理的意味**：表面張力は分子間力の巨視的現れ。毛細管現象（植物の水吸収、インクペンの吸い上げ）、洗剤（界面活性剤の界面エネルギー低下）、雨滴・シャボン玉の球形性、ナノ流体デバイスすべての基礎。` },
+
+  // ---- TSUKUBA 2023 (+2) ----
+  { id: "tsukuba-2023-phys-3", universitySlug: "tsukuba", year: 2023, subject: "物理学", problemNumber: 3,
+    title: "理想気体の断熱変化", field: "thermodynamics", difficulty: "basic",
+    tags: ["断熱変化", "Poisson 則", "比熱比"],
+    isFree: true,
+    statement: `**対応問題**: 筑波大学 2023年度 物理学 問3
+
+## 問題の設定
+単原子理想気体（比熱比 $\\gamma = C_P/C_V = 5/3$）が断熱的に変化する。
+
+## 問われている内容
+(1) 断熱過程での Poisson の法則 $PV^\\gamma = $ const を導出せよ（熱力学第 1 法則と理想気体の性質から）。
+(2) $TV^{\\gamma-1} = $ const と $TP^{(1-\\gamma)/\\gamma} = $ const も同様に導け。
+(3) 初期状態 $P_1 = 1\\,\\text{atm}, V_1 = 1\\,\\text{L}$ から体積を半分に断熱圧縮するとき、最終圧力 $P_2$ を求めよ。
+(4) 等温変化 $PV = $ const と比較し、断熱圧縮で温度が上昇する理由を定性的に述べよ。`,
+    solution: `## (1) Poisson の法則の導出
+断熱 $dQ = 0$、第 1 法則：$dU = -dW = -PdV$。理想気体 $dU = C_V dT$、$P = nRT/V$：
+$$C_V dT = -\\frac{nRT}{V}dV \\Rightarrow \\frac{dT}{T} = -\\frac{nR}{C_V}\\frac{dV}{V}$$
+
+$C_P - C_V = nR$、$\\gamma = C_P/C_V$、$(nR)/C_V = \\gamma - 1$：
+$$\\frac{dT}{T} = -(\\gamma-1)\\frac{dV}{V} \\Rightarrow TV^{\\gamma-1} = \\text{const}$$
+
+$PV = nRT$ で $T = PV/(nR)$：$PV \\cdot V^{\\gamma-1} = $ const $\\Rightarrow PV^\\gamma = $ const
+
+## (2) 他の表現
+(1) で示した $TV^{\\gamma-1}$ と、$PV^\\gamma$ から $V = $ nRT/P$ を代入：
+$T(nRT/P)^{\\gamma-1} = $ const $\\Rightarrow T^\\gamma/P^{\\gamma-1} = $ const $\\Rightarrow TP^{(1-\\gamma)/\\gamma} = $ const
+
+## (3) 断熱圧縮
+$P_1 V_1^\\gamma = P_2 V_2^\\gamma$、$V_2 = V_1/2$、$\\gamma = 5/3$：
+$$P_2 = P_1 (V_1/V_2)^\\gamma = 1 \\cdot 2^{5/3} \\approx 3.17\\,\\text{atm}$$
+
+等温なら $P_2 = 2\\,\\text{atm}$。断熱の方が圧力上昇が大きい。
+
+## (4) 定性的説明
+等温：外部との熱交換で温度一定（圧縮の仕事 = 熱として放出）。
+
+断熱：熱の逃げ場なし → 圧縮の仕事が全て内部エネルギー（温度）の増加に変換。よって温度上昇 → 状態方程式 $PV = nRT$ で、同じ $V$ 減少でも $T$ 増加分だけ圧力が追加上昇。
+
+**物理的意味**：断熱過程は熱機関（ディーゼルエンジンの圧縮行程）、音波の伝搬（断熱的で $c = \\sqrt{\\gamma P/\\rho}$）、気圧と雲の形成（空気塊の断熱上昇で冷却、凝結して雲）で重要。ディーゼルエンジンは圧縮熱で燃料を自発点火させる設計。` },
+
+  { id: "tsukuba-2023-phys-4", universitySlug: "tsukuba", year: 2023, subject: "物理学", problemNumber: 4,
+    title: "光の分散と屈折率の波長依存", field: "optics", difficulty: "basic",
+    tags: ["分散", "プリズム", "色収差"],
+    isFree: true,
+    statement: `**対応問題**: 筑波大学 2023年度 物理学 問4
+
+## 問題の設定
+ガラスプリズム（頂角 $A = 60°$）に白色光を入射する。ガラスの屈折率 $n(\\lambda)$ は波長 $\\lambda$ に依存（分散）。
+
+## 問われている内容
+(1) プリズムの最小偏角 $D_{\\min}$ の条件で、屈折率 $n$ と頂角 $A$、最小偏角 $D_{\\min}$ の関係式
+$$n = \\sin((A + D_{\\min})/2)/\\sin(A/2)$$
+を導け。
+(2) Cauchy の分散公式 $n(\\lambda) = B + C/\\lambda^2$ を用いて、赤色（$\\lambda = 700\\,\\text{nm}$）と紫色（$\\lambda = 400\\,\\text{nm}$）で屈折率が異なることを述べよ。
+(3) 分散の向きが「紫ほど大きく屈折」となる理由を Lorentz モデルから簡潔に説明せよ。
+(4) カメラレンズにおける**色収差**と、その補正手段（アクロマート、アポクロマート）を述べよ。`,
+    solution: `## (1) 最小偏角
+プリズム入射角 $i$、出射角 $i'$、内部角 $r, r'$（$r + r' = A$）。全偏角 $D = (i - r) + (i' - r') = i + i' - A$。
+
+最小偏角条件：対称入射 $i = i', r = r' = A/2 \\Rightarrow D_{\\min} = 2i - A \\Rightarrow i = (A + D_{\\min})/2$。
+
+Snell 則：$\\sin i = n\\sin r = n\\sin(A/2)$：
+$$\\boxed{n = \\frac{\\sin((A + D_{\\min})/2)}{\\sin(A/2)}}$$
+
+## (2) Cauchy 分散
+$C > 0$ の場合：
+- $\\lambda = 700\\,\\text{nm}$：$n_{\\text{赤}} = B + C/(700)^2$（小さい補正）
+- $\\lambda = 400\\,\\text{nm}$：$n_{\\text{紫}} = B + C/(400)^2 > n_{\\text{赤}}$
+
+紫の方が屈折率が大きい → 大きく曲がる。虹・プリズムスペクトルで紫が外側（赤が内側）。
+
+## (3) Lorentz モデルの説明
+原子内電子の固有振動数 $\\omega_0$（UV 領域）より低い振動数 $\\omega$ の光：
+$$n^2(\\omega) - 1 \\propto \\frac{1}{\\omega_0^2 - \\omega^2}$$
+
+$\\omega$ が $\\omega_0$ に近づく（紫、高振動数）ほど分母が小さく $n$ 増加。赤（低振動数）は $\\omega_0$ から遠く $n$ が小さい。これが通常の分散。
+
+## (4) 色収差とその補正
+**色収差**：異なる波長で焦点位置が異なる（$n$ が $\\lambda$ 依存 → 焦点距離 $f \\propto 1/(n-1)$ が波長依存）→ 像がにじむ。
+
+**アクロマート**（achromatic）：低分散ガラス（クラウン、$V$ 値大）と高分散ガラス（フリント、$V$ 値小）を組合せた 2 枚レンズ。2 波長で焦点を一致させる。
+
+**アポクロマート**（apochromatic）：3 波長で焦点一致（3 種のガラス組合せ、あるいは異常分散ガラス使用）。天体望遠鏡・高級カメラレンズで使用。
+
+**物理的意味**：分散現象は光の波動性・物質との相互作用の現れ。虹、ダイヤモンドの輝き（高屈折率 $n = 2.4$ + 大きな分散）、光ファイバー通信の分散補償（信号の拡散）、光学機器の色収差補正まで応用。Newton のプリズム実験（1666）が光の色分解の最初の科学的実証。` },
 ];
 
 export function getProblem(id: string): Problem | undefined {
