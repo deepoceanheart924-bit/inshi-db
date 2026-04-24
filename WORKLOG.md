@@ -1,5 +1,43 @@
 # 院試DB 作業履歴
 
+## 2026-04-23 — 2022年度を全大学×全科目で充足（+33問、累計184問）
+
+### 背景
+B案（1年度を全大学横断で完遂）の第4ラウンド。2022年度を全13試験セットで `ExamRule.totalQuestions` 充足。
+
+### 追加内容（+33問）
+
+| 大学 | 科目 | 追加 | 代表テーマ |
+|---|---|---|---|
+| todai | phys | phys-2,3,4 | 相対論エネルギー運動量/2次摂動論/Fourier熱伝導 |
+| todai | math | math-1,2 | Laplace方程式調和関数/Rayleigh商変分原理 |
+| kyodai | phys | phys-2,3,4 | Kirchhoff熱放射/Curie則/Navier-Stokes |
+| kyodai | math | math-1,2 | Sturm-Liouville/有限群表現論 |
+| titech | phys | phys-2,3,4,5 | Euler角剛体/導波管/Compton散乱/vdW熱容量 |
+| tohoku | phys | phys-2,3,4,5 | Lorentz力サイクロイド/Zeeman効果/Hall効果/Boltzmann H定理 |
+| osaka | phys | phys-2,3,4 | Foucault振り子/Fermi黄金則/Clausius不等式 |
+| osaka | math | math-1,2 | Green関数/テンソル解析共変微分 |
+| nagoya | phys | phys-3,4 | 整流回路/波の反射(自由端固定端) |
+| kyushu | phys | phys-3,4 | 投射運動/抵抗合成Joule熱 |
+| hokkaido | phys | phys-3,4 | クーロン則/Bohr水素原子 |
+| ynu | phys | phys-3,4 | RC充放電/気体分子運動論 |
+| tsukuba | phys | phys-3,4 | 偏光Malus則/2層壁熱伝導 |
+
+### 設計方針
+- 2023/2024/2025 および既存2022とのテーマ重複回避
+- 各試験内での field多様性維持
+- 難易度配分：旧帝大系 advanced/standard、後発5大学 basic 中心
+
+### 動作確認
+- `npx tsc --noEmit` エラー0件 ✅
+- 13試験セット全て `ExamRule.totalQuestions` 充足 ✅
+- 問題総数: 151 → 184問（+33）
+
+### 次回TODO
+- 2021年度も同じ要領で充足（B案最終ラウンド）
+
+---
+
 ## 2026-04-23 — 2023年度を全大学×全科目で充足（+31問、累計151問）
 
 ### 背景
