@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GrainOverlay } from "@/components/GrainOverlay";
 import { CommandPalette } from "@/components/CommandPalette";
 import { GlossaryProvider } from "@/components/GlossaryProvider";
+import { PeekingGiant } from "@/components/PeekingGiant";
 import { BOOKS_ENABLED } from "@/lib/features";
 import { JsonLd, organizationSchema, websiteSchema } from "@/components/JsonLd";
 import "./globals.css";
@@ -80,6 +81,7 @@ export default function RootLayout({
         <GrainOverlay />
         <CommandPalette />
         <GlossaryProvider />
+        <PeekingGiant />
         <Header />
         <main className="flex-1 pt-16">{children}</main>
         <footer className="border-t bg-muted/20 py-16 mt-16">
