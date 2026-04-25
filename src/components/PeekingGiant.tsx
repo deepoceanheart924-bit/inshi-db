@@ -34,8 +34,8 @@ export function PeekingGiant() {
 
     const schedule = (initial = false) => {
       const wait = initial
-        ? 8000 + Math.random() * 5000
-        : 25000 + Math.random() * 35000;
+        ? 3000
+        : 20000 + Math.random() * 25000;
       id = setTimeout(() => {
         setSide(SIDES[Math.floor(Math.random() * SIDES.length)]);
         setVisible(true);
@@ -52,11 +52,11 @@ export function PeekingGiant() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[1] flex items-center justify-center overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-30 flex items-center justify-center overflow-hidden"
       aria-hidden
     >
       <motion.div
-        className="text-foreground/15 dark:text-primary/25"
+        className="text-foreground/40 dark:text-primary/50"
         animate={visible ? PEEK[side] : HIDDEN[side]}
         transition={{ type: "spring", damping: 14, stiffness: 50, mass: 1.5 }}
       >
