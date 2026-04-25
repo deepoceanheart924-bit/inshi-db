@@ -13,6 +13,8 @@ import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { DotPattern, MathSymbolsBackground } from "@/components/patterns";
 import { JapanMap } from "@/components/JapanMap";
 import { Meteors } from "@/components/ui/meteors";
+import { AuroraBackground } from "@/components/ui/aurora-background";
+import { Spotlight } from "@/components/ui/spotlight";
 import { cn } from "@/lib/utils";
 
 function getFieldCounts(): Record<Field, number> {
@@ -29,13 +31,16 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* ====== HERO: Compact, single column ====== */}
-      <section className="relative overflow-hidden">
+      {/* ====== HERO: Compact, single column with cosmic motion ====== */}
+      <Spotlight className="relative overflow-hidden" size={700}>
+        <AuroraBackground className="absolute inset-0 size-full">
+          <span aria-hidden />
+        </AuroraBackground>
         <MathSymbolsBackground className="text-primary" />
         <DotPattern className="text-foreground/40" size={32} opacity={0.12} />
         <Meteors number={30} />
 
-        <div className="relative mx-auto max-w-4xl px-6 py-16 sm:py-20 text-center">
+        <div className="relative z-10 mx-auto max-w-4xl px-6 py-16 sm:py-24 text-center">
           <FadeIn>
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border bg-background/60 backdrop-blur-sm px-3 py-1">
               <span className="flex size-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -116,7 +121,7 @@ export default function HomePage() {
             </div>
           </FadeIn>
         </div>
-      </section>
+      </Spotlight>
 
       {/* ====== Universities ====== */}
       <section id="universities" className="border-t bg-muted/[0.04]">
