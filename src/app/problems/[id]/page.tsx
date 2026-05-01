@@ -2,20 +2,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { problems, getProblem } from "@/data/problems";
 import { getUniversity } from "@/data/universities";
-import { FieldBadge } from "@/components/FieldBadge";
-import { DifficultyBadge } from "@/components/DifficultyBadge";
-import { FieldIcon } from "@/components/FieldIcon";
-import { DotPattern } from "@/components/patterns";
 import { MathContent } from "@/components/KaTeX";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { buttonVariants } from "@/components/ui/button";
 import { FadeIn } from "@/components/animations";
 import { Prerequisites } from "@/components/Prerequisites";
 import { FieldSimulation } from "@/components/FieldSimulation";
 import { FloatingTOC } from "@/components/FloatingTOC";
 import { ReadingProgress } from "@/components/ReadingProgress";
-import { getRelatedTopics, CATEGORY_LABELS, CATEGORY_COLORS } from "@/data/topics";
+import { EditorialBreadcrumb } from "@/components/EditorialBreadcrumb";
+import { EditorialButton } from "@/components/ui/editorial-button";
+import {
+  Kicker,
+  OrnamentRule,
+  Hairline,
+} from "@/components/ornaments/Ornaments";
+import { ArrowUpRight } from "@/components/icons/arrows";
+import { getRelatedTopics, CATEGORY_LABELS } from "@/data/topics";
 import { getRelatedBooks } from "@/data/books";
 import { RelatedBooks } from "@/components/RelatedBooks";
 import { BOOKS_ENABLED } from "@/lib/features";
@@ -24,10 +25,7 @@ import {
   articleSchema,
   breadcrumbSchema,
 } from "@/components/JsonLd";
-import { Particles } from "@/components/ui/particles";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
-import { FIELD_LABELS } from "@/data/types";
-import { cn } from "@/lib/utils";
+import { FIELD_LABELS, DIFFICULTY_LABELS } from "@/data/types";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -66,6 +64,17 @@ export async function generateMetadata({
   };
 }
 
+const FIELD_EN: Record<string, string> = {
+  mechanics: "Classical Mechanics",
+  electromagnetism: "Electromagnetism",
+  quantum: "Quantum Mechanics",
+  statistical: "Statistical Mechanics",
+  thermodynamics: "Thermodynamics",
+  optics: "Optics",
+  relativity: "Relativity",
+  math: "Mathematical Physics",
+};
+
 export default async function ProblemPage({
   params,
 }: {
@@ -76,13 +85,15 @@ export default async function ProblemPage({
   if (!problem) notFound();
 
   const uni = getUniversity(problem.universitySlug);
-
   const canonicalPath = `/problems/${problem.id}`;
   const articleHeadline = `${uni?.shortName ?? ""} ${problem.year}年 ${problem.title}`;
   const articleDescription = `${uni?.name ?? ""} ${problem.year}年度 ${problem.subject} 問${problem.problemNumber}「${problem.title}」の解答解説。`;
+  const fieldEn = FIELD_EN[problem.field] ?? FIELD_LABELS[problem.field];
+  const related = getRelatedTopics(problem.id);
+  const books = BOOKS_ENABLED ? getRelatedBooks(problem.id, problem.field) : [];
 
   return (
-    <div className="relative mx-auto max-w-3xl px-6 py-12" data-toc-root>
+    <div className="bg-background" data-toc-root>
       <JsonLd
         data={articleSchema({
           url: canonicalPath,
@@ -96,261 +107,335 @@ export default async function ProblemPage({
         data={breadcrumbSchema([
           { name: "ホーム", url: "/" },
           { name: uni?.name ?? "", url: `/universities/${problem.universitySlug}` },
-          { name: `${problem.year}年度`, url: `/universities/${problem.universitySlug}/${problem.year}` },
+          {
+            name: `${problem.year}年度`,
+            url: `/universities/${problem.universitySlug}/${problem.year}`,
+          },
           { name: problem.title },
         ])}
       />
-      <Particles className="text-primary/30" quantity={22} staticity={80} />
       <ReadingProgress />
       <FloatingTOC />
 
-      {/* Breadcrumb */}
-      <FadeIn>
-        <nav className="mb-10 flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
-          <Link href="/" className="hover:text-foreground transition-colors">
-            ホーム
-          </Link>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg>
-          <Link href={`/universities/${problem.universitySlug}`} className="hover:text-foreground transition-colors">
-            {uni?.name}
-          </Link>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg>
-          <Link href={`/universities/${problem.universitySlug}/${problem.year}`} className="hover:text-foreground transition-colors">
-            {problem.year}年度
-          </Link>
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg>
-          <span className="text-foreground font-medium truncate">{problem.title}</span>
-        </nav>
-      </FadeIn>
-
-      {/* Problem Header */}
-      <FadeIn>
-        <div className="relative mb-12 rounded-2xl border bg-card/50 p-8 overflow-hidden">
-          <DotPattern className="text-foreground/60" size={20} opacity={0.08} />
-          <div className="relative flex gap-6">
-            <div className="hidden sm:flex size-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 text-primary ring-1 ring-primary/10 shrink-0">
-              <FieldIcon field={problem.field} className="size-8" />
+      {/* ============================================================ */}
+      {/*  MASTHEAD                                                      */}
+      {/* ============================================================ */}
+      <section className="border-b border-foreground/15">
+        <div className="mx-auto max-w-6xl px-6 pt-12 pb-16 sm:pt-16 sm:pb-20">
+          {/* Edition strip */}
+          <FadeIn direction="none">
+            <div className="flex items-center gap-3 sm:gap-6 pb-4 border-b border-foreground/30 font-mono text-[10px] uppercase tracking-[0.32em] text-muted-foreground">
+              <span className="text-foreground/80">{uni?.shortName}</span>
+              <span aria-hidden className="text-foreground/30">·</span>
+              <span className="tabular-nums">{problem.year}</span>
+              <span aria-hidden className="text-foreground/30">·</span>
+              <span>{problem.subject}</span>
+              <span aria-hidden className="text-foreground/30">·</span>
+              <span>問{problem.problemNumber}</span>
+              <span aria-hidden className="flex-1 h-px bg-foreground/15 self-center" />
+              <span className="hidden md:inline">{fieldEn}</span>
             </div>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2 text-[11px] text-muted-foreground tracking-wide mb-3">
-                <span>{uni?.name}</span>
-                <span className="text-border">|</span>
-                <span>{problem.year}年度</span>
-                <span className="text-border">|</span>
-                <span>{problem.subject} 問{problem.problemNumber}</span>
-              </div>
-              <h1 className="text-2xl font-bold tracking-tight sm:text-3xl mb-5 leading-tight">
-                <TextGenerateEffect
-                  words={problem.title}
-                  splitBy="char"
-                  stagger={0.018}
-                  duration={0.35}
-                />
-              </h1>
-              <div className="flex flex-wrap items-center gap-2 mb-4">
-                <FieldBadge field={problem.field} />
-                <DifficultyBadge difficulty={problem.difficulty} />
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {problem.tags.map((tag) => (
-                  <Badge key={tag} variant="secondary" className="text-[10px] font-normal">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
+          </FadeIn>
+
+          {/* Breadcrumb */}
+          <FadeIn delay={0.04}>
+            <div className="mt-8">
+              <EditorialBreadcrumb
+                items={[
+                  { label: "Home", href: "/" },
+                  { label: uni?.shortName ?? "", href: `/universities/${problem.universitySlug}` },
+                  { label: `${problem.year}`, href: `/universities/${problem.universitySlug}/${problem.year}` },
+                  { label: problem.title },
+                ]}
+              />
             </div>
-          </div>
-        </div>
-      </FadeIn>
+          </FadeIn>
 
-      {/* Field simulation */}
-      <FadeIn delay={0.05}>
-        <div className="mb-10 rounded-2xl border bg-gradient-to-br from-card to-background overflow-hidden">
-          <div className="flex items-center justify-between p-4 border-b">
-            <div className="flex items-center gap-2">
-              <div className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
-                Live Simulation
-              </span>
-            </div>
-            <span className="text-[10px] text-muted-foreground">この分野のインタラクティブ可視化</span>
-          </div>
-          <div className="p-4 text-foreground">
-            <FieldSimulation field={problem.field} className="w-full h-auto max-h-64 mx-auto" />
-          </div>
-        </div>
-      </FadeIn>
-
-      {/* Prerequisites */}
-      <FadeIn delay={0.08}>
-        <div className="mb-10">
-          <Prerequisites field={problem.field} />
-        </div>
-      </FadeIn>
-
-      {/* Problem Statement */}
-      <FadeIn delay={0.1}>
-        <div className="mb-10">
-          <div className="flex items-center gap-2.5 mb-5">
-            <div className="size-1.5 rounded-full bg-primary" />
-            <h2 id="problem" className="text-sm font-semibold uppercase tracking-widest text-primary">
-              Problem
-            </h2>
-          </div>
-          <Card>
-            <CardContent className="py-6">
-              <div className="rounded-lg bg-primary/[0.02] border border-primary/[0.06] p-6">
-                <MathContent content={problem.statement} className="text-foreground leading-relaxed" />
+          <div className="mt-10 grid grid-cols-12 gap-x-6 sm:gap-x-10">
+            {/* Left rail meta */}
+            <FadeIn direction="none" delay={0.08} className="col-span-12 md:col-span-3 lg:col-span-2">
+              <div className="md:sticky md:top-24 flex md:flex-col flex-wrap gap-x-8 gap-y-6">
+                <Meta label="University" value={uni?.name ?? ""} />
+                <Meta label="Year" value={`${problem.year}`} />
+                <Meta label="Subject" value={problem.subject} />
+                <Meta label="Item" value={`No. ${problem.problemNumber}`} />
+                <Meta label="Field" value={FIELD_LABELS[problem.field]} />
+                <Meta label="Level" value={DIFFICULTY_LABELS[problem.difficulty]} />
               </div>
-              <div className="mt-4 flex items-center justify-between rounded-lg border bg-muted/30 px-4 py-3">
-                <p className="text-xs text-muted-foreground">
-                  問題文は各大学の著作物のため掲載していません
+            </FadeIn>
+
+            {/* Title block */}
+            <div className="col-span-12 md:col-span-9 lg:col-span-10 mt-8 md:mt-0">
+              <FadeIn delay={0.1}>
+                <p className="font-serif-jp italic text-base sm:text-lg text-muted-foreground tracking-wide">
+                  {fieldEn}
                 </p>
-                <a
-                  href={uni?.officialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-medium text-primary hover:underline inline-flex items-center gap-1"
-                >
-                  公式PDFで確認
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>
-                </a>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </FadeIn>
+              </FadeIn>
+              <FadeIn delay={0.14}>
+                <h1 className="font-serif-jp mt-3 sm:mt-4 font-bold tracking-[-0.025em] leading-[1.05] text-[2.4rem] sm:text-[3.4rem] lg:text-[4rem]">
+                  {problem.title}
+                </h1>
+              </FadeIn>
 
-      {/* Solution */}
-      <FadeIn delay={0.2}>
-        <div className="mb-12">
-          <div className="flex items-center gap-2.5 mb-5">
-            <div className="size-1.5 rounded-full bg-emerald-500" />
-            <h2 id="solution" className="text-sm font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
-              Solution
-            </h2>
+              {problem.tags.length > 0 && (
+                <FadeIn delay={0.2}>
+                  <div className="mt-8 pt-5 border-t border-foreground/15 flex flex-wrap items-baseline gap-x-3 gap-y-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                    <span className="text-foreground/55">Tags</span>
+                    <span aria-hidden>·</span>
+                    {problem.tags.map((t, i) => (
+                      <span key={t}>
+                        {t}
+                        {i < problem.tags.length - 1 && (
+                          <span aria-hidden className="text-foreground/25 ml-3">/</span>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                </FadeIn>
+              )}
+            </div>
           </div>
-
-          <Card>
-            <CardContent className="py-6">
-              <div className="rounded-lg bg-muted/30 border p-6">
-                <MathContent content={problem.solution} className="text-foreground leading-relaxed" />
-              </div>
-            </CardContent>
-          </Card>
         </div>
-      </FadeIn>
+      </section>
 
-      {/* Related topics */}
-      {(() => {
-        const related = getRelatedTopics(problem.id);
-        if (related.length === 0) return null;
-        return (
-          <FadeIn delay={0.22}>
-            <div className="mb-8">
-              <div className="flex items-center gap-2.5 mb-4">
-                <div className="size-1.5 rounded-full bg-rose-500" />
-                <h2 className="text-sm font-semibold uppercase tracking-widest text-rose-600 dark:text-rose-400">
-                  関連する物理解説
-                </h2>
+      {/* ============================================================ */}
+      {/*  PRELUDE: simulation + prerequisites                          */}
+      {/* ============================================================ */}
+      <section className="border-b border-foreground/15 bg-foreground/[0.015]">
+        <div className="mx-auto max-w-6xl px-6 py-14 sm:py-16">
+          <div className="grid grid-cols-12 gap-x-6 sm:gap-x-10 items-start">
+            <div className="col-span-12 md:col-span-3 lg:col-span-2">
+              <Kicker prefix="¶">Prelude</Kicker>
+              <p className="font-serif-jp italic text-sm text-muted-foreground mt-3 leading-relaxed max-w-[14rem]">
+                解く前に、分野の幾何と前提を一望しておく。
+              </p>
+            </div>
+            <div className="col-span-12 md:col-span-9 lg:col-span-10 mt-8 md:mt-0 space-y-10">
+              <div>
+                <Kicker className="mb-3">Live Simulation</Kicker>
+                <div className="border border-foreground/20">
+                  <FieldSimulation field={problem.field} className="w-full h-auto max-h-72 mx-auto" />
+                </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {related.map((t) => (
-                  <Link
-                    key={t.id}
-                    href={`/topics/${t.id}`}
-                    className="block rounded-lg border bg-card p-4 text-sm hover:shadow-md hover:border-primary/30 transition-all group"
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <Badge
-                        variant="outline"
-                        className={cn("text-[9px]", CATEGORY_COLORS[t.category])}
+              <Prerequisites field={problem.field} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/*  §I.  PROBLEM                                                  */}
+      {/* ============================================================ */}
+      <Article roman="I" title="Problem" kicker="問題" id="problem">
+        <div className="font-serif-jp text-[15.5px] sm:text-base leading-[2] text-foreground/90">
+          <MathContent
+            content={problem.statement}
+            className="text-foreground leading-[2]"
+          />
+        </div>
+
+        <div className="mt-10 pt-5 border-t border-foreground/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <p className="font-serif-jp italic text-[13px] text-muted-foreground max-w-md">
+            問題文は各大学の著作物のため掲載していません。原典は公式PDFをご参照ください。
+          </p>
+          <a
+            href={uni?.officialUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.28em] text-foreground hover:text-foreground/70 transition-colors self-start sm:self-auto shrink-0"
+          >
+            <span>Official PDF</span>
+            <ArrowUpRight className="size-3 translate-y-[1px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </a>
+        </div>
+      </Article>
+
+      {/* ============================================================ */}
+      {/*  §II. SOLUTION                                                 */}
+      {/* ============================================================ */}
+      <Article roman="II" title="Solution" kicker="解答" id="solution">
+        <div className="font-serif-jp text-[15.5px] sm:text-base leading-[2] text-foreground/90">
+          <MathContent
+            content={problem.solution}
+            className="text-foreground leading-[2]"
+          />
+        </div>
+      </Article>
+
+      {/* ============================================================ */}
+      {/*  §III. RELATED                                                 */}
+      {/* ============================================================ */}
+      {(related.length > 0 || books.length > 0) && (
+        <Article roman="III" title="Related" kicker="関連">
+          <div className="space-y-12">
+            {related.length > 0 && (
+              <div>
+                <h3 className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground mb-5">
+                  Topics
+                </h3>
+                <ol className="border-t border-foreground/15">
+                  {related.map((t, i) => (
+                    <li key={t.id}>
+                      <Link
+                        href={`/topics/${t.id}`}
+                        className="group grid grid-cols-[2rem_1fr_auto] items-baseline gap-x-4 py-5 border-b border-foreground/10 hover:bg-foreground/[0.025] -mx-3 px-3 transition-colors"
                       >
-                        {CATEGORY_LABELS[t.category]}
-                      </Badge>
-                      {t.readMinutes && (
-                        <span className="text-[10px] text-muted-foreground">
-                          ⏱ {t.readMinutes}分
+                        <span className="font-mono text-[10px] text-muted-foreground/70 tabular-nums tracking-wider">
+                          {String(i + 1).padStart(2, "0")}
                         </span>
-                      )}
-                    </div>
-                    <div className="font-semibold group-hover:text-primary transition-colors">
-                      {t.title}
-                    </div>
-                    <div className="text-[11px] text-muted-foreground line-clamp-2 mt-1">
-                      {t.summary}
-                    </div>
+                        <div>
+                          <span className="font-serif-jp text-lg sm:text-xl font-medium tracking-tight group-hover:underline underline-offset-[6px] decoration-1">
+                            {t.title}
+                          </span>
+                          <span className="ml-3 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground">
+                            {CATEGORY_LABELS[t.category]}
+                            {t.readMinutes && ` · ${t.readMinutes}min`}
+                          </span>
+                          <p className="mt-2 font-serif-jp italic text-[13px] text-muted-foreground leading-relaxed line-clamp-2 max-w-2xl">
+                            {t.summary}
+                          </p>
+                        </div>
+                        <ArrowUpRight className="size-4 text-foreground/45 group-hover:text-foreground transition-colors self-baseline mt-1" />
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+
+            {books.length > 0 && (
+              <div>
+                <h3 className="font-mono text-[10px] uppercase tracking-[0.28em] text-muted-foreground mb-5">
+                  References
+                </h3>
+                <RelatedBooks books={books} />
+              </div>
+            )}
+          </div>
+        </Article>
+      )}
+
+      {/* ============================================================ */}
+      {/*  COLOPHON: copyright + nav                                    */}
+      {/* ============================================================ */}
+      <section>
+        <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+          <FadeIn>
+            <OrnamentRule ornament="fleuron" className="mb-12" />
+          </FadeIn>
+          <FadeIn delay={0.05}>
+            <div className="grid grid-cols-12 gap-x-6 sm:gap-x-10">
+              <div className="col-span-12 md:col-span-3 lg:col-span-2">
+                <Kicker>Notice</Kicker>
+              </div>
+              <div className="col-span-12 md:col-span-9 lg:col-span-10 mt-4 md:mt-0">
+                <p className="font-serif-jp text-[14px] leading-[1.95] text-foreground/80 max-w-3xl">
+                  本解説は当サイトのオリジナルです。問題の設定は原典の著作権に配慮し、当サイト独自の表現で再構成しています。
+                  {uni?.name}の入試問題の著作権は{uni?.name}に帰属します。正確な問題文は
+                  <a
+                    href={uni?.officialUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-[5px] decoration-1 hover:decoration-2 mx-0.5"
+                  >
+                    公式PDF
+                  </a>
+                  をご参照ください。権利者の方からの削除依頼は
+                  <Link
+                    href="/takedown"
+                    className="underline underline-offset-[5px] decoration-1 hover:decoration-2 mx-0.5"
+                  >
+                    こちら
                   </Link>
-                ))}
+                  。
+                </p>
               </div>
             </div>
           </FadeIn>
-        );
-      })()}
 
-      {/* Related books */}
-      {BOOKS_ENABLED && (() => {
-        const bks = getRelatedBooks(problem.id, problem.field);
-        if (bks.length === 0) return null;
-        return (
-          <FadeIn delay={0.23}>
-            <div className="mb-8">
-              <RelatedBooks books={bks} />
+          <FadeIn delay={0.1}>
+            <div className="mt-16 pt-6 border-t border-foreground/15 flex flex-col sm:flex-row items-start sm:items-baseline justify-between gap-4">
+              <EditorialButton
+                href={`/universities/${problem.universitySlug}/${problem.year}`}
+                variant="hairline"
+                direction="left"
+                kicker="Back"
+              >
+                {uni?.shortName} {problem.year}年度
+              </EditorialButton>
+              <EditorialButton
+                href={`/fields/${problem.field}`}
+                variant="hairline"
+                direction="right"
+                kicker={fieldEn}
+              >
+                同じ分野の問題
+              </EditorialButton>
             </div>
           </FadeIn>
-        );
-      })()}
+        </div>
+      </section>
+    </div>
+  );
+}
 
-      {/* Copyright notice */}
-      <FadeIn delay={0.25}>
-        <div className="mb-8 rounded-xl border bg-muted/20 p-5">
-          <div className="flex items-start gap-3">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary shrink-0 mt-0.5">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M14.83 14.83a4 4 0 1 1 0-5.66" />
-              </svg>
+/* ---------- helpers ---------- */
+
+function Meta({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col">
+      <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground/80">
+        {label}
+      </span>
+      <span className="font-serif-jp mt-1.5 text-[14px] font-medium tracking-tight leading-snug max-w-[12rem]">
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function Article({
+  roman,
+  title,
+  kicker,
+  id,
+  children,
+}: {
+  roman: string;
+  title: string;
+  kicker: string;
+  id?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="border-b border-foreground/15 scroll-mt-20">
+      <div className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+        <div className="grid grid-cols-12 gap-x-6 sm:gap-x-10">
+          <FadeIn direction="none" className="col-span-12 md:col-span-3 lg:col-span-2">
+            <div className="md:sticky md:top-24">
+              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground/80">
+                §{roman}
+              </div>
+              <div className="font-serif-jp text-7xl sm:text-8xl font-bold mt-2 tracking-[-0.04em] leading-none text-foreground/85">
+                {roman}
+              </div>
+              <div className="font-serif-jp italic text-sm text-muted-foreground mt-4 tracking-wide">
+                {kicker}
+              </div>
             </div>
-            <div className="flex-1 space-y-2 text-xs text-muted-foreground leading-relaxed">
-              <p>
-                <strong className="text-foreground">本解説は当サイトのオリジナルです。</strong>
-                問題の設定は原典の著作権に配慮し、当サイト独自の表現で再構成しています。
-              </p>
-              <p>
-                {uni?.name}の入試問題の著作権は{uni?.name}に帰属します。
-                正確な問題文は
-                <a
-                  href={uni?.officialUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:underline mx-0.5"
-                >
-                  公式PDF
-                </a>
-                をご参照ください。権利者の方からの削除依頼は
-                <Link href="/takedown" className="text-primary hover:underline mx-0.5">
-                  こちら
-                </Link>
-                。
-              </p>
-            </div>
+          </FadeIn>
+          <div className="col-span-12 md:col-span-9 lg:col-span-10 mt-10 md:mt-0">
+            <FadeIn direction="none">
+              <h2 className="font-serif-jp text-3xl sm:text-4xl font-bold tracking-tight pb-5 border-b border-foreground/30">
+                {title}
+              </h2>
+            </FadeIn>
+            <FadeIn delay={0.05}>
+              <div className="mt-10">{children}</div>
+            </FadeIn>
           </div>
         </div>
-      </FadeIn>
-
-      {/* Navigation */}
-      <FadeIn delay={0.3}>
-        <div className="flex justify-between pt-4 border-t">
-          <Link href={`/universities/${problem.universitySlug}/${problem.year}`} className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-xs")}>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="mr-1.5"><path d="m15 18-6-6 6-6"/></svg>
-            {uni?.shortName} {problem.year}年度
-          </Link>
-          <Link href={`/fields/${problem.field}`} className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-xs")}>
-            同じ分野の問題
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="ml-1.5"><path d="m9 18 6-6-6-6"/></svg>
-          </Link>
-        </div>
-      </FadeIn>
-    </div>
+      </div>
+    </section>
   );
 }
