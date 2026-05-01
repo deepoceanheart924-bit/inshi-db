@@ -61,6 +61,7 @@ export function Header() {
         <nav className="flex items-center gap-0.5 sm:gap-1">
           <NavLink href="/">大学</NavLink>
           <NavLink href="/fields/all">分野</NavLink>
+          <NavLink href="/courses">コース</NavLink>
           <NavLink href="/topics">解説</NavLink>
           {BOOKS_ENABLED && <NavLink href="/books">参考書</NavLink>}
           <span aria-hidden className="hidden sm:inline-block w-px h-4 bg-foreground/15 mx-2" />

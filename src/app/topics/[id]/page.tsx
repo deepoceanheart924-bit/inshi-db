@@ -6,6 +6,7 @@ import {
   CATEGORY_LABELS,
   CATEGORY_COLORS,
 } from "@/data/topics";
+import { getTopicLocation, getTopicNav } from "@/data/courses";
 import { FIELD_LABELS, Field } from "@/data/types";
 import { getProblem } from "@/data/problems";
 import { getUniversity } from "@/data/universities";
@@ -62,6 +63,9 @@ export default async function TopicPage({
   const topic = getTopic(id);
   if (!topic) notFound();
 
+  const courseLoc = getTopicLocation(topic.id);
+  const courseNav = courseLoc ? getTopicNav(topic.id) : null;
+
   return (
     <div className="creative min-h-[80vh] relative" data-toc-root>
       <JsonLd
@@ -93,7 +97,7 @@ export default async function TopicPage({
         {/* Breadcrumb */}
         <FadeIn>
           <nav
-            className="mb-14 flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase flex-wrap"
+            className="mb-6 flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase flex-wrap"
             style={{ color: "var(--cr-ink-muted)" }}
           >
             <Link href="/" className="hover:opacity-60 transition-opacity">Home</Link>
@@ -103,6 +107,44 @@ export default async function TopicPage({
             <span className="truncate">{topic.title}</span>
           </nav>
         </FadeIn>
+
+        {/* Course context strip */}
+        {courseLoc && (
+          <FadeIn delay={0.04}>
+            <div
+              className="mb-12 flex items-baseline gap-3 sm:gap-5 flex-wrap pb-4"
+              style={{ borderBottom: "1px solid var(--cr-rule)" }}
+            >
+              <span
+                className="text-[10px] tracking-[0.32em] uppercase font-bold"
+                style={{ color: "var(--cr-ink-muted)" }}
+              >
+                Course
+              </span>
+              <Link
+                href={`/courses/${courseLoc.course.slug}`}
+                className="text-[15px] font-bold tracking-tight hover:underline underline-offset-[5px] decoration-1"
+                style={{ color: "var(--cr-ink)" }}
+              >
+                {courseLoc.course.title}
+              </Link>
+              <span aria-hidden style={{ color: "var(--cr-ink-muted)", opacity: 0.4 }}>/</span>
+              <span
+                className="text-[12px] tracking-[0.18em] uppercase"
+                style={{ color: "var(--cr-ink-muted)" }}
+              >
+                {courseLoc.course.chapters[courseLoc.chapterIndex].title}
+              </span>
+              <span aria-hidden className="flex-1 h-px self-center" style={{ background: "var(--cr-rule)", opacity: 0.6 }} />
+              <span
+                className="text-[12px] tracking-[0.2em] uppercase tabular-nums font-bold"
+                style={{ color: "var(--cr-accent)" }}
+              >
+                {courseLoc.sectionLabel}
+              </span>
+            </div>
+          </FadeIn>
+        )}
 
         {/* Header */}
         <FadeIn delay={0.05}>
@@ -306,10 +348,72 @@ export default async function TopicPage({
           );
         })()}
 
+        {/* Course prev/next */}
+        {courseLoc && courseNav && (
+          <FadeIn delay={0.32}>
+            <div
+              className="mt-16 pt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"
+              style={{ borderTop: "1px solid var(--cr-rule)" }}
+            >
+              {courseNav.prev ? (
+                <Link
+                  href={`/topics/${courseNav.prev.topicId}`}
+                  className="group flex flex-col gap-1 p-5 hover:-translate-y-0.5 transition-all"
+                  style={{
+                    background: "var(--cr-bg-alt)",
+                    border: "1px solid var(--cr-rule)",
+                  }}
+                >
+                  <span
+                    className="text-[10px] tracking-[0.28em] uppercase font-bold"
+                    style={{ color: "var(--cr-ink-muted)" }}
+                  >
+                    ← {courseNav.prev.sectionLabel} · 前の話
+                  </span>
+                  <span
+                    className="font-bold transition-opacity group-hover:opacity-70"
+                    style={{ color: "var(--cr-ink)" }}
+                  >
+                    {courseNav.prev.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
+
+              {courseNav.next ? (
+                <Link
+                  href={`/topics/${courseNav.next.topicId}`}
+                  className="group flex flex-col gap-1 p-5 hover:-translate-y-0.5 transition-all sm:text-right"
+                  style={{
+                    background: "var(--cr-bg-alt)",
+                    border: "1px solid var(--cr-rule)",
+                  }}
+                >
+                  <span
+                    className="text-[10px] tracking-[0.28em] uppercase font-bold"
+                    style={{ color: "var(--cr-ink-muted)" }}
+                  >
+                    次の話 · {courseNav.next.sectionLabel} →
+                  </span>
+                  <span
+                    className="font-bold transition-opacity group-hover:opacity-70"
+                    style={{ color: "var(--cr-ink)" }}
+                  >
+                    {courseNav.next.title}
+                  </span>
+                </Link>
+              ) : (
+                <div />
+              )}
+            </div>
+          </FadeIn>
+        )}
+
         {/* Footer nav */}
         <FadeIn delay={0.35}>
           <div
-            className="mt-16 pt-8 flex items-center justify-between"
+            className="mt-12 pt-6 flex flex-wrap items-center justify-between gap-3"
             style={{ borderTop: "1px solid var(--cr-rule)" }}
           >
             <Link
@@ -322,6 +426,18 @@ export default async function TopicPage({
               </svg>
               All Topics
             </Link>
+            {courseLoc && (
+              <Link
+                href={`/courses/${courseLoc.course.slug}`}
+                className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] uppercase hover:opacity-60 transition-opacity"
+                style={{ color: "var(--cr-ink)" }}
+              >
+                {courseLoc.course.title} 目次
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </Link>
+            )}
           </div>
         </FadeIn>
       </div>

@@ -119,6 +119,7 @@ export default function RootLayout({
               <FooterColumn label="Browse">
                 <FooterLink href="/">大学一覧</FooterLink>
                 <FooterLink href="/fields/all">分野別</FooterLink>
+                <FooterLink href="/courses">コース</FooterLink>
                 <FooterLink href="/topics">物理解説</FooterLink>
                 {BOOKS_ENABLED && <FooterLink href="/books">おすすめ参考書</FooterLink>}
               </FooterColumn>
