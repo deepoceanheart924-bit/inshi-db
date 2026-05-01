@@ -2,137 +2,197 @@ import { ImageResponse } from "next/og";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
-export const alt = "院試DB — 大学院入試 過去問データベース";
+export const alt = "院試DB — 物理系大学院 過去問データベース";
 
+/* Editorial OG: cream paper, hairline frame, serif masthead, square seal. */
 export default async function OGImage() {
+  const ink = "#0d0d0d";
+  const paper = "#f6f3ec";
+  const muted = "#5a5852";
+  const rule = "#bcb6a8";
+
   return new ImageResponse(
     (
       <div
         style={{
           width: "100%",
           height: "100%",
-          background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e1b4b 100%)",
+          background: paper,
+          color: ink,
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "white",
-          fontFamily: "system-ui, sans-serif",
+          padding: 64,
+          fontFamily: "'Noto Serif JP', 'Yu Mincho', serif",
           position: "relative",
-          padding: 80,
         }}
       >
-        {/* Decorative orbs */}
+        {/* Hairline page frame */}
         <div
           style={{
             position: "absolute",
-            top: -100,
-            left: -100,
-            width: 400,
-            height: 400,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(139,92,246,0.4) 0%, transparent 70%)",
+            inset: 32,
+            border: `1px solid ${rule}`,
             display: "flex",
           }}
         />
         <div
           style={{
             position: "absolute",
-            bottom: -100,
-            right: -100,
-            width: 400,
-            height: 400,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(59,130,246,0.3) 0%, transparent 70%)",
+            inset: 38,
+            border: `1px solid ${rule}`,
+            opacity: 0.45,
             display: "flex",
           }}
         />
 
-        {/* Logo badge */}
+        {/* Top rule with edition micro-caps */}
         <div
           style={{
+            position: "relative",
             display: "flex",
             alignItems: "center",
-            gap: 16,
-            marginBottom: 48,
-            padding: "10px 28px",
-            background: "rgba(255,255,255,0.08)",
-            borderRadius: 999,
-            border: "1px solid rgba(255,255,255,0.2)",
+            gap: 24,
+            paddingBottom: 16,
+            borderBottom: `1.5px solid ${ink}`,
+            color: muted,
+            fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+            fontSize: 14,
+            letterSpacing: "0.32em",
+            textTransform: "uppercase",
+          }}
+        >
+          <span>VOL. III</span>
+          <span style={{ opacity: 0.4 }}>·</span>
+          <span>No. 04 · April 2026</span>
+          <span style={{ opacity: 0.4, flex: 1, textAlign: "center" }}>
+            Physics · Graduate · Archive
+          </span>
+          <span>JPY 0</span>
+        </div>
+
+        {/* Main body — asymmetric grid */}
+        <div
+          style={{
+            position: "relative",
+            flex: 1,
+            display: "flex",
+            paddingTop: 56,
+            gap: 48,
+          }}
+        >
+          {/* Square seal */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              gap: 16,
+              width: 180,
+            }}
+          >
+            <div
+              style={{
+                width: 130,
+                height: 130,
+                border: `1.5px solid ${ink}`,
+                position: "relative",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 6,
+                  border: `0.5px solid ${ink}`,
+                  opacity: 0.45,
+                  display: "flex",
+                }}
+              />
+              <span style={{ fontSize: 92, fontWeight: 700, lineHeight: 1, letterSpacing: "-0.02em", display: "flex" }}>
+                院
+              </span>
+            </div>
+            <div
+              style={{
+                fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                fontSize: 11,
+                color: muted,
+                textTransform: "uppercase",
+                letterSpacing: "0.28em",
+                display: "flex",
+              }}
+            >
+              EST. 2026
+            </div>
+          </div>
+
+          {/* Hero text */}
+          <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+            <span
+              style={{
+                fontStyle: "italic",
+                color: muted,
+                fontSize: 22,
+                marginBottom: 24,
+                display: "flex",
+              }}
+            >
+              An open archive of past examinations <br />
+              for Japanese physics graduate programs.
+            </span>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                fontWeight: 700,
+                fontSize: 128,
+                lineHeight: 0.95,
+                letterSpacing: "-0.04em",
+              }}
+            >
+              <span style={{ display: "flex" }}>院試を、</span>
+              <span style={{ display: "flex", marginTop: -8 }}>オープンに。</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom strip */}
+        <div
+          style={{
+            position: "relative",
+            paddingTop: 18,
+            borderTop: `1px solid ${ink}`,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+            color: muted,
           }}
         >
           <div
             style={{
-              width: 40,
-              height: 40,
+              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+              fontSize: 14,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background: "white",
-              color: "#1e1b4b",
-              borderRadius: 10,
-              fontSize: 22,
-              fontWeight: 700,
             }}
           >
-            院
+            inshi-db.vercel.app
           </div>
-          <div style={{ fontSize: 24, fontWeight: 600, letterSpacing: "0.05em", display: "flex" }}>
-            院試DB
-          </div>
-        </div>
-
-        {/* Main title */}
-        <div
-          style={{
-            fontSize: 100,
-            fontWeight: 800,
-            textAlign: "center",
-            lineHeight: 1.1,
-            letterSpacing: "-0.03em",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <div style={{ display: "flex", justifyContent: "center" }}>院試過去問</div>
           <div
             style={{
+              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+              fontSize: 14,
+              letterSpacing: "0.28em",
+              textTransform: "uppercase",
+              color: ink,
               display: "flex",
-              justifyContent: "center",
-              background: "linear-gradient(90deg, #a78bfa, #60a5fa)",
-              backgroundClip: "text",
-              color: "transparent",
             }}
           >
-            データベース
+            INSHI · DB
           </div>
-        </div>
-
-        {/* Subtitle */}
-        <div
-          style={{
-            fontSize: 28,
-            marginTop: 40,
-            color: "rgba(255,255,255,0.7)",
-            letterSpacing: "0.02em",
-            display: "flex",
-          }}
-        >
-          物理学・数学の院試対策を、もっとオープンに
-        </div>
-
-        {/* URL */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 40,
-            fontSize: 18,
-            color: "rgba(255,255,255,0.5)",
-            letterSpacing: "0.1em",
-            display: "flex",
-          }}
-        >
-          inshi-db.vercel.app
         </div>
       </div>
     ),

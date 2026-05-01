@@ -81,7 +81,7 @@ export default function AboutPage() {
           もっとオープンに。
         </h1>
         <p className="text-muted-foreground text-base leading-relaxed max-w-2xl mb-16">
-          院試DBは、大学院入試の過去問解答・解説を無料で公開するデータベースです。
+          院試DBは、物理系大学院（物理・応用物理・物性・地球惑星・天文ほか）の入試過去問の解答・解説を無料で公開するデータベースです。
           学部生が院試に向けて効率的に学習できる環境づくりを目指しています。
         </p>
       </FadeIn>
@@ -98,7 +98,7 @@ export default function AboutPage() {
               過去問は公開されていても、解答・解説は限られた学生しかアクセスできないのが現状です。
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed mt-3">
-              当サイトは、物理学・数学の院試過去問について、誰もがアクセスできる解説データベースを構築することで、
+              当サイトは、物理系大学院の入試過去問について、誰もがアクセスできる解説データベースを構築することで、
               この情報格差の解消を目指しています。
             </p>
           </CardContent>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { ThemeSelector } from "@/components/ThemeSelector";
+import { Wordmark } from "@/components/brand/Wordmark";
 import { cn } from "@/lib/utils";
 import { BOOKS_ENABLED } from "@/lib/features";
 import { useEffect, useState } from "react";
@@ -49,55 +50,39 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b shadow-sm"
+          ? "bg-background/85 backdrop-blur-xl border-b border-foreground/15"
           : "bg-transparent"
       )}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm transition-transform duration-200 group-hover:scale-105">
-            院
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold leading-none tracking-tight">院試DB</span>
-            <span className="text-[10px] text-muted-foreground leading-none mt-0.5 hidden sm:block">
-              Graduate Exam Database
-            </span>
-          </div>
-        </Link>
+      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
+        <Wordmark size="sm" />
 
-        <nav className="flex items-center gap-1">
-          <Link
-            href="/"
-            className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-xs")}
-          >
-            大学一覧
-          </Link>
-          <Link
-            href="/fields/all"
-            className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-xs")}
-          >
-            分野別
-          </Link>
-          <Link
-            href="/topics"
-            className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-xs")}
-          >
-            解説
-          </Link>
-          {BOOKS_ENABLED && (
-            <Link
-              href="/books"
-              className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-xs")}
-            >
-              参考書
-            </Link>
-          )}
+
+        <nav className="flex items-center gap-0.5 sm:gap-1">
+          <NavLink href="/">大学</NavLink>
+          <NavLink href="/fields/all">分野</NavLink>
+          <NavLink href="/topics">解説</NavLink>
+          {BOOKS_ENABLED && <NavLink href="/books">参考書</NavLink>}
+          <span aria-hidden className="hidden sm:inline-block w-px h-4 bg-foreground/15 mx-2" />
           <SearchHint />
           <ThemeSelector />
           <ThemeToggle />
         </nav>
       </div>
     </header>
+  );
+}
+
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        buttonVariants({ variant: "ghost", size: "sm" }),
+        "font-serif-jp text-[13px] font-medium tracking-tight rounded-none hover:bg-transparent hover:underline underline-offset-[7px] decoration-1"
+      )}
+    >
+      {children}
+    </Link>
   );
 }

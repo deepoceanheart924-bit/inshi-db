@@ -24,7 +24,7 @@ export function organizationSchema() {
     url: SITE_URL,
     logo: `${SITE_URL}/icon.png`,
     description:
-      "大学院入試（院試）の過去問を、丁寧な解答解説とともに整理する物理学・数学中心のオープンデータベース。",
+      "物理系大学院（物理・応用物理・物性・地球惑星・天文ほか）の入試過去問を、丁寧な解答解説とともに整理するオープンデータベース。物理学・数学の解答解説を網羅。",
     inLanguage: "ja",
   };
 }
